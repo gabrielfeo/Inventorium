@@ -1,11 +1,24 @@
-<resources>
+<resources xmlns:tools = "http://schemas.android.com/tools">
 
 	<!-- Base application theme. -->
-	<style name = "AppTheme" parent = "Theme.AppCompat.Light.DarkActionBar">
+	<style name = "AppTheme" parent = "Theme.AppCompat.Light.NoActionBar">
 		<!-- Customize your theme here. -->
 		<item name = "colorPrimary">@color/colorPrimary</item>
 		<item name = "colorPrimaryDark">@color/colorPrimaryDark</item>
 		<item name = "colorAccent">@color/colorAccent</item>
+	</style>
+
+	<!--Theme for Toolbars across the whole app-->
+	<style name = "ToolbarTheme" parent = "ThemeOverlay.AppCompat.Dark">
+		<item name = "android:layout_height">wrap_content</item>
+		<item name = "android:layout_width">match_parent</item>
+		<item name = "android:elevation" tools:targetApi = "21">
+			@dimen/toolbar_elevation
+		</item>
+		<item name = "theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+		<item name = "android:background">@color/colorPrimary</item>
+		<item name = "titleTextColor">@color/colorToolbarTitle</item>
+		<item name = "colorControlNormal">@color/colorToolbarTitle</item>
 	</style>
 
 </resources>
