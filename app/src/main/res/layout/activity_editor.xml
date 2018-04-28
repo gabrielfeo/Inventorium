@@ -74,16 +74,20 @@
 		app:layout_constraintStart_toEndOf="@id/editor_textview_in_stock"
 		app:layout_constraintTop_toTopOf = "@id/editor_textview_quantity" />
 
-	<TextView
+	<EditText
 		android:id = "@+id/editor_textview_quantity"
-		android:layout_width = "80dp"
+		android:layout_width = "wrap_content"
+		android:minWidth="80dp"
 		android:gravity="center"
 		android:layout_height = "wrap_content"
 		android:layout_marginTop = "@dimen/editor_quantity_margin_vertical"
 		android:paddingStart = "@dimen/editor_quantity_margin_horizontal"
 		android:paddingEnd="@dimen/editor_quantity_margin_horizontal"
-		android:text = "0"
+		android:background="@android:color/transparent"
+		android:selectAllOnFocus="true"
+		tools:text = "0"
 		android:maxLines="1"
+		android:inputType="number"
 		android:textAppearance = "@style/TextAppearance.AppCompat.Medium"
 		app:layout_constraintEnd_toStartOf = "@id/editor_button_plus"
 		app:layout_constraintStart_toEndOf = "@id/editor_button_minus"
