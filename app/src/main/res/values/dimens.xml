@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+	<dimen name = "toolbar_elevation">4dp</dimen>
 	<dimen name = "activity_margin">16dp</dimen>
 	<dimen name = "fab_margin">16dp</dimen>
-	<dimen name = "toolbar_elevation">4dp</dimen>
+	<dimen name = "editor_quantity_margin">16dp</dimen>
+	<dimen name = "editor_button_size">48dp</dimen>
 
 </resources>
