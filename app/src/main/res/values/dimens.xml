@@ -4,7 +4,10 @@
 	<dimen name = "toolbar_elevation">4dp</dimen>
 	<dimen name = "activity_margin">16dp</dimen>
 	<dimen name = "fab_margin">16dp</dimen>
-	<dimen name = "editor_quantity_margin">16dp</dimen>
-	<dimen name = "editor_button_size">48dp</dimen>
+	<dimen name = "editor_quantity_margin_vertical">32dp</dimen>
+	<dimen name = "editor_quantity_margin_horizontal">16dp</dimen>
+	<dimen name = "editor_button_width">44dp</dimen>
+	<dimen name = "editor_button_height">56dp</dimen>
+	<dimen name = "editor_button_elevation">2dp</dimen>
 
 </resources>
