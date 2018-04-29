@@ -3,6 +3,8 @@ package com.gfeo.inventorium;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -21,6 +23,7 @@ public class EditorActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_editor);
 		setSupportActionBar(findViewById(R.id.editor_toolbar));
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		setupQuantityCounter();
 	}
 
@@ -63,4 +66,27 @@ public class EditorActivity extends AppCompatActivity {
 		}
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_editor, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()){
+			case R.id.menu_editor_save:
+				//TODO Save menu button action
+				break;
+			case R.id.menu_editor_buy:
+				//TODO Buy menu button action
+				break;
+			case R.id.menu_editor_delete:
+				//TODO Delete menu button action
+				break;
+			default:
+				return false;
+		}
+		return true;
+	}
 }

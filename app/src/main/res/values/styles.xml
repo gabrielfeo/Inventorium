@@ -10,16 +10,15 @@
 	</style>
 
 	<!--Theme for Toolbars across the whole app-->
-	<style name = "ToolbarTheme" parent = "ThemeOverlay.AppCompat.Dark">
+	<style name = "ToolbarTheme" parent = "ThemeOverlay.AppCompat.Light">
 		<item name = "android:layout_height">wrap_content</item>
 		<item name = "android:layout_width">match_parent</item>
 		<item name = "android:elevation" tools:targetApi = "21">
 			@dimen/toolbar_elevation
 		</item>
-		<item name = "theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+		<item name = "theme">@style/ThemeOverlay.AppCompat.ActionBar</item>
 		<item name = "android:background">@color/colorPrimary</item>
 		<item name = "titleTextColor">@color/colorToolbarTitle</item>
-		<item name = "colorControlNormal">@color/colorToolbarTitle</item>
 	</style>
 
 </resources>
