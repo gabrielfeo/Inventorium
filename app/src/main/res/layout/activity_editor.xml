@@ -25,6 +25,7 @@
 		<android.support.design.widget.TextInputEditText
 			android:layout_width = "match_parent"
 			android:layout_height = "wrap_content"
+			android:inputType="textCapWords|textAutoComplete"
 			android:ellipsize = "end"
 			android:hint = "Name"
 			android:maxLines = "1" />
@@ -37,14 +38,34 @@
 		android:layout_height = "wrap_content"
 		android:layout_marginEnd = "@dimen/activity_margin"
 		android:layout_marginStart = "@dimen/activity_margin"
-		app:layout_constraintBottom_toTopOf = "@id/editor_textview_quantity"
+		app:layout_constraintBottom_toTopOf = "@id/editor_inputlayout_cost"
 		app:layout_constraintTop_toBottomOf = "@id/editor_inputlayout_name">
 
 		<android.support.design.widget.TextInputEditText
 			android:layout_width = "match_parent"
 			android:layout_height = "wrap_content"
 			android:ellipsize = "end"
+			android:inputType="textCapSentences|textAutoComplete"
 			android:hint = "Description"
+			android:maxLines = "1" />
+
+	</android.support.design.widget.TextInputLayout>
+
+	<android.support.design.widget.TextInputLayout
+		android:id = "@+id/editor_inputlayout_cost"
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content"
+		android:layout_marginEnd = "@dimen/activity_margin"
+		android:layout_marginStart = "@dimen/activity_margin"
+		app:layout_constraintBottom_toTopOf = "@id/editor_textview_quantity"
+		app:layout_constraintTop_toBottomOf = "@id/editor_inputlayout_description">
+
+		<android.support.design.widget.TextInputEditText
+			android:layout_width = "match_parent"
+			android:layout_height = "wrap_content"
+			android:ellipsize = "end"
+			android:inputType="numberDecimal"
+			android:hint = "Cost price"
 			android:maxLines = "1" />
 
 	</android.support.design.widget.TextInputLayout>
@@ -91,7 +112,7 @@
 		android:textAppearance = "@style/TextAppearance.AppCompat.Medium"
 		app:layout_constraintEnd_toStartOf = "@id/editor_button_plus"
 		app:layout_constraintStart_toEndOf = "@id/editor_button_minus"
-		app:layout_constraintTop_toBottomOf = "@id/editor_inputlayout_description" />
+		app:layout_constraintTop_toBottomOf = "@id/editor_inputlayout_cost" />
 
 	<android.support.design.button.MaterialButton
 		android:id = "@+id/editor_button_plus"
