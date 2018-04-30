@@ -1,7 +1,10 @@
 package com.gfeo.inventorium;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,10 +12,16 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.gfeo.inventorium.data.InventoryDbContract.ItemEntry;
 
 public class EditorActivity extends AppCompatActivity {
 
 	private static int quantityCount;
+	private EditText nameEditText;
+	private EditText descriptionEditText;
+	private EditText costEditText;
 	private EditText quantityEditText;
 	private static final int DECREASE_QUANTITY = 0;
 	private static final int INCREASE_QUANTITY = 1;
@@ -24,13 +33,20 @@ public class EditorActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_editor);
 		setSupportActionBar(findViewById(R.id.editor_toolbar));
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		findEditTextViews();
 		setupQuantityCounter();
+	}
+
+	private void findEditTextViews() {
+		nameEditText = findViewById(R.id.editor_edittext_name);
+		descriptionEditText = findViewById(R.id.editor_edittext_description);
+		costEditText = findViewById(R.id.editor_edittext_cost);
+		quantityEditText = findViewById(R.id.editor_edittext_quantity);
 	}
 
 	private void setupQuantityCounter() {
 		//TODO Change for "update" functionality
 		quantityCount = 0;
-		quantityEditText = findViewById(R.id.editor_textview_quantity);
 		quantityEditText.setText(String.valueOf(quantityCount));
 		findViewById(R.id.editor_button_minus)
 				.setOnClickListener(view -> updateQuantityCount(DECREASE_QUANTITY));
@@ -74,9 +90,10 @@ public class EditorActivity extends AppCompatActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()){
+		switch (item.getItemId()) {
 			case R.id.menu_editor_save:
-				//TODO Save menu button action
+				ContentValues values = getInputtedValues();
+				if (hasNoEmptyStrings(values)) { insertInDb(values); }
 				break;
 			case R.id.menu_editor_buy:
 				//TODO Buy menu button action
@@ -89,4 +106,37 @@ public class EditorActivity extends AppCompatActivity {
 		}
 		return true;
 	}
+
+	private ContentValues getInputtedValues() {
+		ContentValues values = new ContentValues();
+		values.put(ItemEntry.COLUMN_NAME_NAME,
+		           nameEditText.getText().toString().trim());
+		values.put(ItemEntry.COLUMN_NAME_DESCRIPTION,
+		           descriptionEditText.getText().toString().trim());
+		values.put(ItemEntry.COLUMN_NAME_COST,
+		           costEditText.getText().toString().trim());
+		values.put(ItemEntry.COLUMN_NAME_STOCK,
+		           quantityEditText.getText().toString());
+		return values;
+	}
+
+	private boolean hasNoEmptyStrings(ContentValues values) {
+		boolean hasEmptyStrings = values.getAsString(ItemEntry.COLUMN_NAME_NAME).isEmpty()
+				|| values.getAsString(ItemEntry.COLUMN_NAME_DESCRIPTION).isEmpty()
+				|| values.getAsString(ItemEntry.COLUMN_NAME_COST).isEmpty();
+		if (hasEmptyStrings) {
+			Toast.makeText(this, getString(R.string.toast_empty_fields), Toast.LENGTH_SHORT)
+			     .show();
+			return false;
+		} else { return true; }
+	}
+
+	private void insertInDb(ContentValues values) {
+		Uri newRowUri = getContentResolver().insert(ItemEntry.CONTENT_URI, values);
+		if (newRowUri == null) {
+			Toast.makeText(this, getString(R.string.toast_error_insert), Toast.LENGTH_SHORT)
+			     .show();
+		} else { NavUtils.navigateUpFromSameTask(this); }
+	}
+
 }

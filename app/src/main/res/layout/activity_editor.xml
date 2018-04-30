@@ -23,11 +23,12 @@
 		app:layout_constraintTop_toBottomOf = "@id/editor_toolbar">
 
 		<android.support.design.widget.TextInputEditText
+			android:id = "@+id/editor_edittext_name"
 			android:layout_width = "match_parent"
 			android:layout_height = "wrap_content"
-			android:inputType="textCapWords|textAutoComplete"
 			android:ellipsize = "end"
 			android:hint = "Name"
+			android:inputType = "textCapWords|textAutoComplete"
 			android:maxLines = "1" />
 
 	</android.support.design.widget.TextInputLayout>
@@ -42,11 +43,12 @@
 		app:layout_constraintTop_toBottomOf = "@id/editor_inputlayout_name">
 
 		<android.support.design.widget.TextInputEditText
+			android:id = "@+id/editor_edittext_description"
 			android:layout_width = "match_parent"
 			android:layout_height = "wrap_content"
 			android:ellipsize = "end"
-			android:inputType="textCapSentences|textAutoComplete"
 			android:hint = "Description"
+			android:inputType = "textCapSentences|textAutoComplete"
 			android:maxLines = "1" />
 
 	</android.support.design.widget.TextInputLayout>
@@ -57,73 +59,74 @@
 		android:layout_height = "wrap_content"
 		android:layout_marginEnd = "@dimen/activity_margin"
 		android:layout_marginStart = "@dimen/activity_margin"
-		app:layout_constraintBottom_toTopOf = "@id/editor_textview_quantity"
+		app:layout_constraintBottom_toTopOf = "@id/editor_edittext_quantity"
 		app:layout_constraintTop_toBottomOf = "@id/editor_inputlayout_description">
 
 		<android.support.design.widget.TextInputEditText
+			android:id = "@+id/editor_edittext_cost"
 			android:layout_width = "match_parent"
 			android:layout_height = "wrap_content"
 			android:ellipsize = "end"
-			android:inputType="numberDecimal"
 			android:hint = "Cost price"
+			android:inputType = "numberDecimal"
 			android:maxLines = "1" />
 
 	</android.support.design.widget.TextInputLayout>
 
 	<TextView
+		android:id = "@+id/editor_textview_in_stock"
 		android:layout_width = "wrap_content"
 		android:layout_height = "wrap_content"
+		android:layout_marginEnd = "24dp"
 		android:layout_marginStart = "24dp"
-		android:layout_marginEnd="24dp"
-		android:text="In stock: "
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintEnd_toStartOf="@id/editor_button_minus"
-		app:layout_constraintTop_toTopOf="@id/editor_button_minus"
-		android:id="@+id/editor_textview_in_stock"
-		app:layout_constraintBottom_toBottomOf="@id/editor_button_minus"/>
+		android:text = "In stock: "
+		app:layout_constraintBottom_toBottomOf = "@id/editor_button_minus"
+		app:layout_constraintEnd_toStartOf = "@id/editor_button_minus"
+		app:layout_constraintStart_toStartOf = "parent"
+		app:layout_constraintTop_toTopOf = "@id/editor_button_minus" />
 
 	<android.support.design.button.MaterialButton
 		android:id = "@+id/editor_button_minus"
 		android:layout_width = "@dimen/editor_button_width"
 		android:layout_height = "@dimen/editor_button_height"
+		android:elevation = "@dimen/editor_button_elevation"
 		android:gravity = "center"
-		android:elevation="@dimen/editor_button_elevation"
 		android:text = "-"
 		app:backgroundTint = "@color/colorPrimary"
-		app:layout_constraintBottom_toBottomOf = "@id/editor_textview_quantity"
-		app:layout_constraintEnd_toStartOf = "@id/editor_textview_quantity"
-		app:layout_constraintStart_toEndOf="@id/editor_textview_in_stock"
-		app:layout_constraintTop_toTopOf = "@id/editor_textview_quantity" />
+		app:layout_constraintBottom_toBottomOf = "@id/editor_edittext_quantity"
+		app:layout_constraintEnd_toStartOf = "@id/editor_edittext_quantity"
+		app:layout_constraintStart_toEndOf = "@id/editor_textview_in_stock"
+		app:layout_constraintTop_toTopOf = "@id/editor_edittext_quantity" />
 
 	<EditText
-		android:id = "@+id/editor_textview_quantity"
+		android:id = "@+id/editor_edittext_quantity"
 		android:layout_width = "wrap_content"
-		android:minWidth="80dp"
-		android:gravity="center"
 		android:layout_height = "wrap_content"
 		android:layout_marginTop = "@dimen/editor_quantity_margin_vertical"
+		android:background = "@android:color/transparent"
+		android:gravity = "center"
+		android:inputType = "number"
+		android:maxLines = "1"
+		android:minWidth = "80dp"
+		android:paddingEnd = "@dimen/editor_quantity_margin_horizontal"
 		android:paddingStart = "@dimen/editor_quantity_margin_horizontal"
-		android:paddingEnd="@dimen/editor_quantity_margin_horizontal"
-		android:background="@android:color/transparent"
-		android:selectAllOnFocus="true"
-		tools:text = "0"
-		android:maxLines="1"
-		android:inputType="number"
+		android:selectAllOnFocus = "true"
 		android:textAppearance = "@style/TextAppearance.AppCompat.Medium"
 		app:layout_constraintEnd_toStartOf = "@id/editor_button_plus"
 		app:layout_constraintStart_toEndOf = "@id/editor_button_minus"
-		app:layout_constraintTop_toBottomOf = "@id/editor_inputlayout_cost" />
+		app:layout_constraintTop_toBottomOf = "@id/editor_inputlayout_cost"
+		tools:text = "0" />
 
 	<android.support.design.button.MaterialButton
 		android:id = "@+id/editor_button_plus"
 		android:layout_width = "@dimen/editor_button_width"
 		android:layout_height = "@dimen/editor_button_height"
+		android:elevation = "@dimen/editor_button_elevation"
 		android:gravity = "center"
-		android:elevation="@dimen/editor_button_elevation"
-		app:backgroundTint = "@color/colorPrimary"
 		android:text = "+"
-		app:layout_constraintBottom_toBottomOf = "@id/editor_textview_quantity"
-		app:layout_constraintStart_toEndOf = "@id/editor_textview_quantity"
-		app:layout_constraintTop_toTopOf = "@id/editor_textview_quantity" />
+		app:backgroundTint = "@color/colorPrimary"
+		app:layout_constraintBottom_toBottomOf = "@id/editor_edittext_quantity"
+		app:layout_constraintStart_toEndOf = "@id/editor_edittext_quantity"
+		app:layout_constraintTop_toTopOf = "@id/editor_edittext_quantity" />
 
 </android.support.constraint.ConstraintLayout>
