@@ -13,7 +13,7 @@ import com.gfeo.inventorium.data.InventoryDbContract.ItemEntry;
 class InventoryDbHelper extends SQLiteOpenHelper {
 
 	private static final String COMMAND_CREATE_TABLE =
-			"CREATE TABLE IF NOT EXISTS ("
+			"CREATE TABLE IF NOT EXISTS " + ItemEntry.TABLE_NAME + " ("
 					+ ItemEntry.COLUMN_NAME_ID + " INTEGER PRIMARY KEY, "
 					+ ItemEntry.COLUMN_NAME_NAME + " TEXT NOT NULL, "
 					+ ItemEntry.COLUMN_NAME_DESCRIPTION + " TEXT, "
