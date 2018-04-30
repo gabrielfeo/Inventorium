@@ -16,8 +16,14 @@
 				<category android:name = "android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name = ".EditorActivity"
-			android:parentActivityName=".InventoryActivity"/>
+		<activity
+			android:name = ".EditorActivity"
+			android:parentActivityName = ".InventoryActivity" />
+
+		<provider
+			android:name = ".data.InventoryProvider"
+			android:authorities = "com.gfeo.inventorium"
+			android:exported = "false" />
 	</application>
 
 </manifest>
