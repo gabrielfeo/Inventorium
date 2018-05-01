@@ -3,7 +3,7 @@
 	xmlns:app = "http://schemas.android.com/apk/res-auto"
 	xmlns:tools = "http://schemas.android.com/tools"
 	android:layout_width = "match_parent"
-	android:layout_height = "@dimen/inventory_item_height"
+	android:layout_height = "@dimen/item_height"
 	android:paddingEnd = "@dimen/activity_margin"
 	android:paddingStart = "@dimen/activity_margin">
 
@@ -13,7 +13,9 @@
 		android:layout_height = "0dp"
 		android:ellipsize = "end"
 		android:gravity = "bottom"
+		android:layout_marginBottom="1dp"
 		android:textAppearance = "@style/TextAppearance.AppCompat.Medium"
+		android:textColor = "@color/colorTextPrimary"
 		android:textStyle = "bold"
 		app:layout_constraintBottom_toTopOf = "@id/item_textview_selling_price"
 		app:layout_constraintEnd_toStartOf = "@id/item_button_sell"
@@ -23,28 +25,43 @@
 
 	<TextView
 		android:id = "@+id/item_textview_selling_price"
-		android:layout_width = "0dp"
+		android:layout_width = "wrap_content"
 		android:layout_height = "0dp"
 		android:gravity = "top"
 		app:layout_constraintBottom_toBottomOf = "parent"
-		app:layout_constraintEnd_toEndOf = "@id/item_textview_name"
 		app:layout_constraintStart_toStartOf = "@id/item_textview_name"
 		app:layout_constraintTop_toBottomOf = "@id/item_textview_name"
 		tools:text = "R$ 00,00" />
 
-	<!--TODO For bold "SELL", try concatenating the quantity string with a <b> tagged res string-->
+	<TextView
+		android:id = "@+id/item_textview_quantity"
+		android:layout_width = "0dp"
+		android:layout_height = "0dp"
+		android:gravity = "top"
+		app:layout_constraintBottom_toBottomOf = "parent"
+		app:layout_constraintEnd_toStartOf = "@id/item_button_sell"
+		app:layout_constraintStart_toEndOf = "@id/item_textview_selling_price"
+		app:layout_constraintTop_toTopOf="@id/item_textview_selling_price"
+		tools:text = " — 120 left" />
+
 	<android.support.design.button.MaterialButton
 		android:id = "@+id/item_button_sell"
-		android:layout_width = "@dimen/item_button_width"
-		android:layout_height = "0dp"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:paddingStart="14dp"
+		android:paddingEnd="14dp"
+		android:paddingTop="8dp"
+		android:paddingBottom="8dp"
 		android:gravity = "center"
-		android:lineSpacingExtra = "2dp"
+		android:textStyle="bold"
 		android:textAllCaps = "true"
 		android:textAppearance = "@style/TextAppearance.AppCompat.Small"
+		android:textColor = "@color/colorSellButton"
+		app:backgroundTint = "@android:color/transparent"
 		app:layout_constraintBottom_toBottomOf = "parent"
-		app:layout_constraintDimensionRatio = "H, 4:3"
 		app:layout_constraintEnd_toEndOf = "parent"
+		android:text="@string/item_button_sell"
 		app:layout_constraintTop_toTopOf = "parent"
-		tools:text = "120\nSell" />
+		tools:text = "Sell" />
 
 </android.support.constraint.ConstraintLayout>

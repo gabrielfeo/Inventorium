@@ -1,8 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name = "app_name">Inventorium</string>
 	<string name = "menu_editor_save">Save</string>
 	<string name = "menu_editor_buy">Buy more</string>
 	<string name = "menu_editor_delete">Delete entry</string>
+
+	<string name = "item_button_sell">Sell</string>
 
 	<string name = "toast_empty_fields">Please fill out all fields</string>
 	<string name = "toast_error_insert">Error creating new entry in database, please try
