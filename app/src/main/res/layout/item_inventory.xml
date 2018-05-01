@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+	xmlns:app = "http://schemas.android.com/apk/res-auto"
+	xmlns:tools = "http://schemas.android.com/tools"
+	android:layout_width = "match_parent"
+	android:layout_height = "@dimen/inventory_item_height"
+	android:paddingEnd = "@dimen/activity_margin"
+	android:paddingStart = "@dimen/activity_margin">
+
+	<TextView
+		android:id = "@+id/item_textview_name"
+		android:layout_width = "0dp"
+		android:layout_height = "0dp"
+		android:ellipsize = "end"
+		android:gravity = "bottom"
+		android:textAppearance = "@style/TextAppearance.AppCompat.Medium"
+		android:textStyle = "bold"
+		app:layout_constraintBottom_toTopOf = "@id/item_textview_selling_price"
+		app:layout_constraintEnd_toStartOf = "@id/item_button_sell"
+		app:layout_constraintStart_toStartOf = "parent"
+		app:layout_constraintTop_toTopOf = "parent"
+		tools:text = "Name" />
+
+	<TextView
+		android:id = "@+id/item_textview_selling_price"
+		android:layout_width = "0dp"
+		android:layout_height = "0dp"
+		android:gravity = "top"
+		app:layout_constraintBottom_toBottomOf = "parent"
+		app:layout_constraintEnd_toEndOf = "@id/item_textview_name"
+		app:layout_constraintStart_toStartOf = "@id/item_textview_name"
+		app:layout_constraintTop_toBottomOf = "@id/item_textview_name"
+		tools:text = "R$ 00,00" />
+
+	<!--TODO For bold "SELL", try concatenating the quantity string with a <b> tagged res string-->
+	<android.support.design.button.MaterialButton
+		android:id = "@+id/item_button_sell"
+		android:layout_width = "@dimen/item_button_width"
+		android:layout_height = "0dp"
+		android:gravity = "center"
+		android:lineSpacingExtra = "2dp"
+		android:textAllCaps = "true"
+		android:textAppearance = "@style/TextAppearance.AppCompat.Small"
+		app:layout_constraintBottom_toBottomOf = "parent"
+		app:layout_constraintDimensionRatio = "H, 4:3"
+		app:layout_constraintEnd_toEndOf = "parent"
+		app:layout_constraintTop_toTopOf = "parent"
+		tools:text = "120\nSell" />
+
+</android.support.constraint.ConstraintLayout>
