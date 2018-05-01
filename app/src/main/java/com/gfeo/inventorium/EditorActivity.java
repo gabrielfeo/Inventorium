@@ -14,7 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.gfeo.inventorium.data.InventoryDbContract.ItemEntry;
+import com.gfeo.inventorium.data.InventoryDbContract.ItemTable;
 
 public class EditorActivity extends AppCompatActivity {
 
@@ -109,21 +109,21 @@ public class EditorActivity extends AppCompatActivity {
 
 	private ContentValues getInputtedValues() {
 		ContentValues values = new ContentValues();
-		values.put(ItemEntry.COLUMN_NAME_NAME,
+		values.put(ItemTable.COLUMN_NAME_NAME,
 		           nameEditText.getText().toString().trim());
-		values.put(ItemEntry.COLUMN_NAME_DESCRIPTION,
+		values.put(ItemTable.COLUMN_NAME_DESCRIPTION,
 		           descriptionEditText.getText().toString().trim());
-		values.put(ItemEntry.COLUMN_NAME_COST,
+		values.put(ItemTable.COLUMN_NAME_COST_PRICE,
 		           costEditText.getText().toString().trim());
-		values.put(ItemEntry.COLUMN_NAME_STOCK,
+		values.put(ItemTable.COLUMN_NAME_STOCK,
 		           quantityEditText.getText().toString());
 		return values;
 	}
 
 	private boolean hasNoEmptyStrings(ContentValues values) {
-		boolean hasEmptyStrings = values.getAsString(ItemEntry.COLUMN_NAME_NAME).isEmpty()
-				|| values.getAsString(ItemEntry.COLUMN_NAME_DESCRIPTION).isEmpty()
-				|| values.getAsString(ItemEntry.COLUMN_NAME_COST).isEmpty();
+		boolean hasEmptyStrings = values.getAsString(ItemTable.COLUMN_NAME_NAME).isEmpty()
+				|| values.getAsString(ItemTable.COLUMN_NAME_DESCRIPTION).isEmpty()
+				|| values.getAsString(ItemTable.COLUMN_NAME_COST_PRICE).isEmpty();
 		if (hasEmptyStrings) {
 			Toast.makeText(this, getString(R.string.toast_empty_fields), Toast.LENGTH_SHORT)
 			     .show();
@@ -132,7 +132,7 @@ public class EditorActivity extends AppCompatActivity {
 	}
 
 	private void insertInDb(ContentValues values) {
-		Uri newRowUri = getContentResolver().insert(ItemEntry.CONTENT_URI, values);
+		Uri newRowUri = getContentResolver().insert(ItemTable.CONTENT_URI, values);
 		if (newRowUri == null) {
 			Toast.makeText(this, getString(R.string.toast_error_insert), Toast.LENGTH_SHORT)
 			     .show();
