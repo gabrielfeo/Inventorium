@@ -2,8 +2,6 @@ package com.gfeo.inventorium;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.support.design.button.MaterialButton;
-import android.text.style.TtsSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +9,6 @@ import android.widget.CursorAdapter;
 import android.widget.TextView;
 
 import com.gfeo.inventorium.data.InventoryDbContract.ItemTable;
-
-import java.util.Currency;
-import java.util.Locale;
 
 /**
  * Created by gabrielfeo on 2018/05/01.
