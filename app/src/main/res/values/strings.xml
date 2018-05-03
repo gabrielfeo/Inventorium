@@ -2,7 +2,6 @@
 <resources>
 	<string name = "app_name">Inventorium</string>
 	<string name = "menu_editor_save">Save</string>
-	<string name = "menu_editor_buy">Buy more</string>
 	<string name = "menu_editor_delete">Delete entry</string>
 
 	<string name = "item_button_sell">Sell</string>

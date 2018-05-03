@@ -95,9 +95,6 @@ public class EditorActivity extends AppCompatActivity {
 				ContentValues values = getInputtedValues();
 				if (hasNoEmptyStrings(values)) { insertInDb(values); }
 				break;
-			case R.id.menu_editor_buy:
-				//TODO Buy menu button action
-				break;
 			case R.id.menu_editor_delete:
 				//TODO Delete menu button action
 				break;
