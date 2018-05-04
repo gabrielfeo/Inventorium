@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.annimon.stream.Stream;
 import com.gfeo.inventorium.data.InventoryDbContract.ItemTable;
 
 public class EditorActivity extends AppCompatActivity {
@@ -23,6 +24,8 @@ public class EditorActivity extends AppCompatActivity {
 	private EditText descriptionEditText;
 	private EditText costEditText;
 	private EditText quantityEditText;
+	private EditText supplierEmailEditText;
+	private EditText supplierPhoneEditText;
 	private static final int DECREASE_QUANTITY = 0;
 	private static final int INCREASE_QUANTITY = 1;
 	private static final int SET_TO_INPUTTED_QUANTITY = 2;
@@ -42,6 +45,8 @@ public class EditorActivity extends AppCompatActivity {
 		descriptionEditText = findViewById(R.id.editor_edittext_description);
 		costEditText = findViewById(R.id.editor_edittext_cost);
 		quantityEditText = findViewById(R.id.editor_edittext_quantity);
+		supplierEmailEditText = findViewById(R.id.editor_edittext_supplier_email);
+		supplierPhoneEditText = findViewById(R.id.editor_edittext_supplier_phone);
 	}
 
 	private void setupQuantityCounter() {
@@ -111,16 +116,21 @@ public class EditorActivity extends AppCompatActivity {
 		values.put(ItemTable.COLUMN_NAME_DESCRIPTION,
 		           descriptionEditText.getText().toString().trim());
 		values.put(ItemTable.COLUMN_NAME_COST_PRICE,
-		           costEditText.getText().toString().trim());
+		           costEditText.getText().toString());
+		values.put(ItemTable.COLUMN_NAME_SELL_PRICE,
+		           costEditText.getText().toString());
 		values.put(ItemTable.COLUMN_NAME_QUANTITY,
 		           quantityEditText.getText().toString());
+		values.put(ItemTable.COLUMN_NAME_SUPPLIER_EMAIL,
+		           supplierEmailEditText.getText().toString().trim());
+		values.put(ItemTable.COLUMN_NAME_SUPPLIER_PHONE,
+		           supplierPhoneEditText.getText().toString().trim());
 		return values;
 	}
 
 	private boolean hasNoEmptyStrings(ContentValues values) {
-		boolean hasEmptyStrings = values.getAsString(ItemTable.COLUMN_NAME_NAME).isEmpty()
-				|| values.getAsString(ItemTable.COLUMN_NAME_DESCRIPTION).isEmpty()
-				|| values.getAsString(ItemTable.COLUMN_NAME_COST_PRICE).isEmpty();
+		boolean hasEmptyStrings = Stream.of(values.valueSet().iterator()).anyMatch(
+				mapEntry -> ((String) mapEntry.getValue()).isEmpty());
 		if (hasEmptyStrings) {
 			Toast.makeText(this, getString(R.string.toast_empty_fields), Toast.LENGTH_SHORT)
 			     .show();

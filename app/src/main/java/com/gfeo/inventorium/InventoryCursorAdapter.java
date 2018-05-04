@@ -23,8 +23,7 @@ class InventoryCursorAdapter extends CursorAdapter {
 	public InventoryCursorAdapter(Context context, Cursor cursor) {
 		super(context, cursor, false);
 		nameColumnIndex = cursor.getColumnIndex(ItemTable.COLUMN_NAME_NAME);
-		//TODO Differentiate selling from cost price field
-		sellingPriceColumnIndex = cursor.getColumnIndex(ItemTable.COLUMN_NAME_COST_PRICE);
+		sellingPriceColumnIndex = cursor.getColumnIndex(ItemTable.COLUMN_NAME_SELL_PRICE);
 		quantityColumnIndex = cursor.getColumnIndex(ItemTable.COLUMN_NAME_QUANTITY);
 	}
 
