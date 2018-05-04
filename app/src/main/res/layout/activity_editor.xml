@@ -55,11 +55,13 @@
 
 	<android.support.design.widget.TextInputLayout
 		android:id = "@+id/editor_inputlayout_cost"
-		android:layout_width = "match_parent"
+		android:layout_width = "0dp"
 		android:layout_height = "wrap_content"
 		android:layout_marginEnd = "@dimen/activity_margin"
 		android:layout_marginStart = "@dimen/activity_margin"
 		app:layout_constraintBottom_toTopOf = "@id/editor_edittext_quantity"
+		app:layout_constraintEnd_toStartOf = "@id/editor_inputlayout_selling"
+		app:layout_constraintStart_toStartOf = "parent"
 		app:layout_constraintTop_toBottomOf = "@id/editor_inputlayout_description">
 
 		<android.support.design.widget.TextInputEditText
@@ -68,6 +70,27 @@
 			android:layout_height = "wrap_content"
 			android:ellipsize = "end"
 			android:hint = "Cost price"
+			android:inputType = "numberDecimal"
+			android:maxLines = "1" />
+
+	</android.support.design.widget.TextInputLayout>
+
+	<android.support.design.widget.TextInputLayout
+		android:id = "@+id/editor_inputlayout_selling"
+		android:layout_width = "0dp"
+		android:layout_height = "wrap_content"
+		android:layout_marginEnd = "@dimen/activity_margin"
+		android:layout_marginStart = "@dimen/activity_margin"
+		app:layout_constraintEnd_toEndOf = "parent"
+		app:layout_constraintStart_toEndOf = "@id/editor_inputlayout_cost"
+		app:layout_constraintTop_toTopOf = "@id/editor_inputlayout_cost">
+
+		<android.support.design.widget.TextInputEditText
+			android:id = "@+id/editor_edittext_selling"
+			android:layout_width = "match_parent"
+			android:layout_height = "wrap_content"
+			android:ellipsize = "end"
+			android:hint = "Selling price"
 			android:inputType = "numberDecimal"
 			android:maxLines = "1" />
 
@@ -128,5 +151,56 @@
 		app:layout_constraintBottom_toBottomOf = "@id/editor_edittext_quantity"
 		app:layout_constraintStart_toEndOf = "@id/editor_edittext_quantity"
 		app:layout_constraintTop_toTopOf = "@id/editor_edittext_quantity" />
+
+	<TextView
+		android:id = "@+id/editor_textview_supplier"
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content"
+		android:layout_marginStart = "@dimen/activity_margin"
+		android:layout_marginTop="@dimen/editor_quantity_margin_vertical"
+		android:paddingBottom="4dp"
+		android:text = "Supplier information"
+		android:textStyle = "bold"
+		app:layout_constraintStart_toStartOf = "parent"
+		app:layout_constraintTop_toBottomOf = "@id/editor_edittext_quantity" />
+
+	<android.support.design.widget.TextInputLayout
+		android:id = "@+id/editor_inputlayout_supplier_email"
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content"
+		android:layout_marginEnd = "@dimen/activity_margin"
+		android:layout_marginStart = "@dimen/activity_margin"
+		app:layout_constraintBottom_toTopOf = "@id/editor_inputlayout_supplier_phone"
+		app:layout_constraintTop_toBottomOf = "@id/editor_textview_supplier">
+
+		<android.support.design.widget.TextInputEditText
+			android:id = "@+id/editor_edittext_supplier_email"
+			android:layout_width = "match_parent"
+			android:layout_height = "wrap_content"
+			android:ellipsize = "end"
+			android:hint = "Email"
+			android:inputType = "textEmailAddress"
+			android:maxLines = "1" />
+
+	</android.support.design.widget.TextInputLayout>
+
+	<android.support.design.widget.TextInputLayout
+		android:id = "@+id/editor_inputlayout_supplier_phone"
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content"
+		android:layout_marginEnd = "@dimen/activity_margin"
+		android:layout_marginStart = "@dimen/activity_margin"
+		app:layout_constraintTop_toBottomOf = "@id/editor_inputlayout_supplier_email">
+
+		<android.support.design.widget.TextInputEditText
+			android:id = "@+id/editor_edittext_supplier_phone"
+			android:layout_width = "match_parent"
+			android:layout_height = "wrap_content"
+			android:ellipsize = "end"
+			android:hint = "Phone"
+			android:inputType = "phone"
+			android:maxLines = "1" />
+
+	</android.support.design.widget.TextInputLayout>
 
 </android.support.constraint.ConstraintLayout>
