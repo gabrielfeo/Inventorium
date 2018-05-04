@@ -112,7 +112,7 @@ public class EditorActivity extends AppCompatActivity {
 		           descriptionEditText.getText().toString().trim());
 		values.put(ItemTable.COLUMN_NAME_COST_PRICE,
 		           costEditText.getText().toString().trim());
-		values.put(ItemTable.COLUMN_NAME_STOCK,
+		values.put(ItemTable.COLUMN_NAME_QUANTITY,
 		           quantityEditText.getText().toString());
 		return values;
 	}
