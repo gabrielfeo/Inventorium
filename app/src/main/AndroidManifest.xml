@@ -17,6 +17,10 @@
 			</intent-filter>
 		</activity>
 		<activity
+			android:name = ".DetailActivity"
+			android:parentActivityName = ".InventoryActivity" />
+		<!--TODO Change parent to DetailActivity-->
+		<activity
 			android:name = ".EditorActivity"
 			android:parentActivityName = ".InventoryActivity" />
 
