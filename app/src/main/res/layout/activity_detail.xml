@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+	xmlns:app = "http://schemas.android.com/apk/res-auto"
+	xmlns:tools = "http://schemas.android.com/tools"
+	android:layout_width = "match_parent"
+	android:layout_height = "match_parent"
+	android:orientation = "vertical"
+	tools:context = "com.gfeo.inventorium.DetailActivity">
+
+	<android.support.v7.widget.Toolbar
+		android:id = "@+id/editor_toolbar"
+		style = "@style/ToolbarTheme" />
+
+	<ScrollView
+		android:id = "@+id/editor_scrollview"
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content"
+		android:orientation = "vertical">
+
+		<android.support.constraint.ConstraintLayout
+			android:layout_width = "match_parent"
+			android:layout_height = "wrap_content">
+
+			<TextView
+				android:id = "@+id/detail_textview_name"
+				android:layout_width = "match_parent"
+				android:layout_height = "wrap_content"
+				app:layout_constraintBottom_toTopOf = "@id/detail_textview_description"
+				app:layout_constraintTop_toTopOf = "parent"
+				tools:text = "Item name" />
+
+			<TextView
+				android:id = "@+id/detail_textview_description"
+				android:layout_width = "match_parent"
+				android:layout_height = "wrap_content"
+				app:layout_constraintBottom_toTopOf = "@id/detail_textview_cost"
+				app:layout_constraintTop_toBottomOf = "@id/detail_textview_name"
+				tools:text = "Description" />
+
+			<TextView
+				android:id = "@+id/detail_textview_quantity"
+				android:layout_width = "0dp"
+				android:layout_height = "0dp"
+				android:gravity = "center"
+				app:layout_constraintBottom_toBottomOf = "@id/detail_textview_profit"
+				app:layout_constraintEnd_toStartOf = "@id/detail_textview_cost"
+				app:layout_constraintStart_toStartOf = "parent"
+				app:layout_constraintTop_toTopOf = "@id/detail_textview_cost"
+				tools:text = "In stock:\n140" />
+
+			<TextView
+				android:id = "@+id/detail_textview_cost"
+				android:layout_width = "0dp"
+				android:layout_height = "wrap_content"
+				app:layout_constraintBottom_toTopOf = "@id/detail_textview_selling"
+				app:layout_constraintEnd_toEndOf = "parent"
+				app:layout_constraintStart_toEndOf = "@id/detail_textview_quantity"
+				app:layout_constraintTop_toBottomOf = "@id/detail_textview_description"
+				tools:text = "Cost price: R$ 10,00" />
+
+			<TextView
+				android:id = "@+id/detail_textview_selling"
+				android:layout_width = "0dp"
+				android:layout_height = "wrap_content"
+				app:layout_constraintBottom_toTopOf = "@id/detail_textview_profit"
+				app:layout_constraintEnd_toEndOf = "@id/detail_textview_cost"
+				app:layout_constraintStart_toStartOf = "@id/detail_textview_cost"
+				app:layout_constraintTop_toBottomOf = "@id/detail_textview_cost"
+				tools:text = "Selling price: R$ 17,00" />
+
+			<TextView
+				android:id = "@+id/detail_textview_profit"
+				android:layout_width = "0dp"
+				android:layout_height = "wrap_content"
+				app:layout_constraintBottom_toTopOf = "@id/detail_textview_supplier_header"
+				app:layout_constraintEnd_toEndOf = "@id/detail_textview_cost"
+				app:layout_constraintStart_toStartOf = "@id/detail_textview_cost"
+				app:layout_constraintTop_toBottomOf = "@id/detail_textview_selling"
+				tools:text = "Profit: R$ 14,00/100un" />
+
+			<TextView
+				android:id = "@+id/detail_textview_supplier_header"
+				android:layout_width = "match_parent"
+				android:layout_height = "wrap_content"
+				app:layout_constraintBottom_toTopOf = "@id/detail_textview_supplier_email"
+				app:layout_constraintTop_toBottomOf = "@id/detail_textview_profit"
+				tools:text = "Supplier information" />
+
+			<TextView
+				android:id = "@+id/detail_textview_supplier_email"
+				android:layout_width = "match_parent"
+				android:layout_height = "wrap_content"
+				app:layout_constraintBottom_toTopOf = "@id/detail_textview_supplier_phone"
+				app:layout_constraintTop_toBottomOf = "@id/detail_textview_supplier_header"
+				tools:text = "supplies@website.com" />
+
+			<TextView
+				android:id = "@+id/detail_textview_supplier_phone"
+				android:layout_width = "match_parent"
+				android:layout_height = "wrap_content"
+				app:layout_constraintTop_toBottomOf = "@id/detail_textview_supplier_email"
+				tools:text = "(21) 99876-5432" />
+
+		</android.support.constraint.ConstraintLayout>
+
+	</ScrollView>
+
+</LinearLayout>
