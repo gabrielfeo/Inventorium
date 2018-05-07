@@ -37,8 +37,8 @@
 				android:id = "@+id/detail_textview_description"
 				android:layout_width = "match_parent"
 				android:layout_height = "wrap_content"
-				android:layout_marginBottom = "24dp"
-				app:layout_constraintBottom_toTopOf = "@id/detail_textview_cost"
+				android:layout_marginBottom = "32dp"
+				app:layout_constraintBottom_toTopOf = "@id/detail_textview_quantity"
 				app:layout_constraintTop_toBottomOf = "@id/detail_textview_name"
 				tools:text = "Black, 5in" />
 
@@ -56,13 +56,26 @@
 				android:id = "@+id/detail_textview_quantity"
 				android:layout_width = "wrap_content"
 				android:layout_height = "wrap_content"
+				android:layout_marginBottom = "16dp"
 				android:gravity = "center_vertical"
 				android:textAppearance = "@style/TextAppearance.AppCompat.Medium"
-				app:layout_constraintBottom_toBottomOf = "@id/detail_textview_profit"
-				app:layout_constraintTop_toTopOf = "@id/detail_textview_cost"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toEndOf = "@id/detail_textview_cost"
+				android:textSize = "20sp"
+				app:layout_constraintBottom_toTopOf = "@id/detail_textview_header_stock_prices"
+				app:layout_constraintStart_toStartOf = "parent"
+				app:layout_constraintTop_toBottomOf = "@id/detail_textview_description"
 				tools:text = "140un" />
+
+			<TextView
+				android:id = "@+id/detail_textview_header_stock_prices"
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:layout_marginBottom = "4dp"
+				android:textColor = "@color/colorTextPrimary"
+				android:textSize = "16sp"
+				app:layout_constraintBottom_toTopOf = "@id/detail_textview_cost"
+				app:layout_constraintStart_toStartOf = "@id/detail_textview_quantity"
+				app:layout_constraintTop_toBottomOf = "@id/detail_textview_quantity"
+				tools:text = "Per 140 units" />
 
 			<TextView
 				android:id = "@+id/detail_textview_cost"
@@ -71,8 +84,8 @@
 				android:layout_marginBottom = "4dp"
 				android:textColor = "#d84315"
 				app:layout_constraintBottom_toTopOf = "@id/detail_textview_selling"
-				app:layout_constraintStart_toStartOf = "parent"
-				app:layout_constraintTop_toBottomOf = "@id/detail_textview_description"
+				app:layout_constraintStart_toStartOf = "@id/detail_textview_header_stock_prices"
+				app:layout_constraintTop_toBottomOf = "@id/detail_textview_header_stock_prices"
 				tools:text = "Cost price: R$ 10,00" />
 
 			<TextView
@@ -82,7 +95,7 @@
 				android:layout_marginBottom = "4dp"
 				android:textColor = "#ff8a65"
 				app:layout_constraintBottom_toTopOf = "@id/detail_textview_profit"
-				app:layout_constraintStart_toStartOf = "@id/detail_textview_cost"
+				app:layout_constraintStart_toStartOf = "@id/detail_textview_header_stock_prices"
 				app:layout_constraintTop_toBottomOf = "@id/detail_textview_cost"
 				tools:text = "Selling price: R$ 17,00" />
 
@@ -92,13 +105,13 @@
 				android:layout_height = "wrap_content"
 				android:layout_marginBottom = "24dp"
 				android:textColor = "#558b2f"
-				app:layout_constraintBottom_toTopOf = "@id/detail_textview_supplier_header"
-				app:layout_constraintStart_toStartOf = "@id/detail_textview_cost"
+				app:layout_constraintBottom_toTopOf = "@id/detail_textview_header_supplier"
+				app:layout_constraintStart_toStartOf = "@id/detail_textview_header_stock_prices"
 				app:layout_constraintTop_toBottomOf = "@id/detail_textview_selling"
 				tools:text = "Profit: R$ 14,00/100un" />
 
 			<TextView
-				android:id = "@+id/detail_textview_supplier_header"
+				android:id = "@+id/detail_textview_header_supplier"
 				android:layout_width = "match_parent"
 				android:layout_height = "wrap_content"
 				android:layout_marginBottom = "4dp"
@@ -114,7 +127,7 @@
 				android:layout_height = "wrap_content"
 				android:layout_marginBottom = "4dp"
 				app:layout_constraintBottom_toTopOf = "@id/detail_textview_supplier_phone"
-				app:layout_constraintTop_toBottomOf = "@id/detail_textview_supplier_header"
+				app:layout_constraintTop_toBottomOf = "@id/detail_textview_header_supplier"
 				tools:text = "supplies@website.com" />
 
 			<TextView
@@ -124,6 +137,56 @@
 				app:layout_constraintBottom_toBottomOf = "parent"
 				app:layout_constraintTop_toBottomOf = "@id/detail_textview_supplier_email"
 				tools:text = "(21) 99876-5432" />
+
+
+			<!--Right column-->
+
+			<TextView
+				android:id = "@+id/detail_textview_header_unit_prices"
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:layout_marginBottom = "4dp"
+				android:textColor = "@color/colorTextPrimary"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toEndOf="@id/detail_textview_header_stock_prices"
+				app:layout_constraintTop_toTopOf="@id/detail_textview_header_stock_prices"
+
+				android:textSize = "14sp"
+				tools:text = "Per unit" />
+
+			<TextView
+				android:id = "@+id/detail_textview_cost_unit"
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:layout_marginBottom = "4dp"
+				android:textColor = "#d84315"
+				android:textSize = "12sp"
+				app:layout_constraintTop_toBottomOf="@id/detail_textview_header_unit_prices"
+				app:layout_constraintStart_toStartOf="@id/detail_textview_header_unit_prices"
+				app:layout_constraintBottom_toTopOf = "@id/detail_textview_selling_unit"
+				tools:text = "Cost price: R$ 00,07" />
+
+			<TextView
+				android:id = "@+id/detail_textview_selling_unit"
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:paddingBottom = "4dp"
+				android:textColor = "#ff8a65"
+				android:textSize = "12sp"
+				app:layout_constraintBottom_toTopOf = "@id/detail_textview_profit_unit"
+				app:layout_constraintStart_toStartOf = "@id/detail_textview_header_unit_prices"
+				app:layout_constraintTop_toBottomOf = "@id/detail_textview_header_unit_prices"
+				tools:text = "Selling price: R$ 00,12" />
+
+			<TextView
+				android:id = "@+id/detail_textview_profit_unit"
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:textColor = "#558b2f"
+				android:textSize = "12sp"
+				app:layout_constraintStart_toStartOf = "@id/detail_textview_header_unit_prices"
+				app:layout_constraintTop_toBottomOf = "@id/detail_textview_selling_unit"
+				tools:text = "Profit: R$ 00,10/1un" />
 
 		</android.support.constraint.ConstraintLayout>
 
