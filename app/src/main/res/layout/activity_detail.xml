@@ -44,7 +44,7 @@
 
 			<TextView
 				android:id = "@+id/detail_textview_quantity_header"
-				android:layout_width = "wrap_content"
+				android:layout_width = "match_parent"
 				android:layout_height = "wrap_content"
 				android:gravity = "center_vertical"
 				android:textSize = "10sp"
@@ -54,7 +54,7 @@
 
 			<TextView
 				android:id = "@+id/detail_textview_quantity"
-				android:layout_width = "wrap_content"
+				android:layout_width = "match_parent"
 				android:layout_height = "wrap_content"
 				android:layout_marginBottom = "16dp"
 				android:gravity = "center_vertical"
@@ -70,12 +70,14 @@
 				android:layout_width = "wrap_content"
 				android:layout_height = "wrap_content"
 				android:layout_marginBottom = "4dp"
+				android:maxLength = "14"
 				android:textColor = "@color/colorTextPrimary"
 				android:textSize = "16sp"
 				app:layout_constraintBottom_toTopOf = "@id/detail_textview_cost"
 				app:layout_constraintStart_toStartOf = "@id/detail_textview_quantity"
 				app:layout_constraintTop_toBottomOf = "@id/detail_textview_quantity"
 				tools:text = "Per 140 units" />
+			<!--TODO add check for strings longer than 14 and change to "Whole stock"-->
 
 			<TextView
 				android:id = "@+id/detail_textview_cost"
@@ -86,7 +88,7 @@
 				app:layout_constraintBottom_toTopOf = "@id/detail_textview_selling"
 				app:layout_constraintStart_toStartOf = "@id/detail_textview_header_stock_prices"
 				app:layout_constraintTop_toBottomOf = "@id/detail_textview_header_stock_prices"
-				tools:text = "Cost price: R$ 10,00" />
+				tools:text = "Cost: R$ 10,00" />
 
 			<TextView
 				android:id = "@+id/detail_textview_selling"
@@ -97,7 +99,7 @@
 				app:layout_constraintBottom_toTopOf = "@id/detail_textview_profit"
 				app:layout_constraintStart_toStartOf = "@id/detail_textview_header_stock_prices"
 				app:layout_constraintTop_toBottomOf = "@id/detail_textview_cost"
-				tools:text = "Selling price: R$ 17,00" />
+				tools:text = "Revenue: R$ 17,00" />
 
 			<TextView
 				android:id = "@+id/detail_textview_profit"
@@ -109,6 +111,13 @@
 				app:layout_constraintStart_toStartOf = "@id/detail_textview_header_stock_prices"
 				app:layout_constraintTop_toBottomOf = "@id/detail_textview_selling"
 				tools:text = "Profit: R$ 14,00/100un" />
+
+			<android.support.constraint.Barrier
+				android:id = "@+id/detail_barrier_stock_prices"
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				app:barrierDirection = "end"
+				app:constraint_referenced_ids = "detail_textview_header_stock_prices,detail_textview_cost,detail_textview_selling,detail_textview_profit" />
 
 			<TextView
 				android:id = "@+id/detail_textview_header_supplier"
@@ -134,9 +143,32 @@
 				android:id = "@+id/detail_textview_supplier_phone"
 				android:layout_width = "match_parent"
 				android:layout_height = "wrap_content"
-				app:layout_constraintBottom_toBottomOf = "parent"
+				android:layout_marginBottom = "16dp"
+				app:layout_constraintBottom_toTopOf = "@id/detail_textview_header_notes"
 				app:layout_constraintTop_toBottomOf = "@id/detail_textview_supplier_email"
 				tools:text = "(21) 99876-5432" />
+
+			<!--TODO Hide if empty-->
+			<TextView
+				android:id = "@+id/detail_textview_header_notes"
+				android:layout_width = "match_parent"
+				android:layout_height = "wrap_content"
+				android:layout_marginBottom = "4dp"
+				android:textColor = "@color/colorTextPrimary"
+				android:textSize = "16sp"
+				app:layout_constraintBottom_toTopOf = "@id/detail_textview_notes"
+				app:layout_constraintTop_toBottomOf = "@id/detail_textview_supplier_phone"
+				tools:text = "Notes" />
+
+			<TextView
+				android:id = "@+id/detail_textview_notes"
+				android:layout_width = "0dp"
+				android:layout_height = "wrap_content"
+				app:layout_constraintBottom_toBottomOf = "parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="@id/detail_barrier_unit_prices"
+				app:layout_constraintTop_toBottomOf = "@id/detail_textview_header_notes"
+				tools:text = "@tools:sample/lorem/random" />
 
 
 			<!--Right column-->
@@ -147,11 +179,11 @@
 				android:layout_height = "wrap_content"
 				android:layout_marginBottom = "4dp"
 				android:textColor = "@color/colorTextPrimary"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toEndOf="@id/detail_textview_header_stock_prices"
-				app:layout_constraintTop_toTopOf="@id/detail_textview_header_stock_prices"
-
 				android:textSize = "14sp"
+				app:layout_constraintEnd_toEndOf = "parent"
+				app:layout_constraintHorizontal_bias = "0.35"
+				app:layout_constraintStart_toEndOf = "@id/detail_barrier_stock_prices"
+				app:layout_constraintTop_toTopOf = "@id/detail_textview_header_stock_prices"
 				tools:text = "Per unit" />
 
 			<TextView
@@ -161,9 +193,9 @@
 				android:layout_marginBottom = "4dp"
 				android:textColor = "#d84315"
 				android:textSize = "12sp"
-				app:layout_constraintTop_toBottomOf="@id/detail_textview_header_unit_prices"
-				app:layout_constraintStart_toStartOf="@id/detail_textview_header_unit_prices"
 				app:layout_constraintBottom_toTopOf = "@id/detail_textview_selling_unit"
+				app:layout_constraintStart_toStartOf = "@id/detail_textview_header_unit_prices"
+				app:layout_constraintTop_toBottomOf = "@id/detail_textview_header_unit_prices"
 				tools:text = "Cost price: R$ 00,07" />
 
 			<TextView
@@ -187,6 +219,13 @@
 				app:layout_constraintStart_toStartOf = "@id/detail_textview_header_unit_prices"
 				app:layout_constraintTop_toBottomOf = "@id/detail_textview_selling_unit"
 				tools:text = "Profit: R$ 00,10/1un" />
+
+			<android.support.constraint.Barrier
+				android:id = "@+id/detail_barrier_unit_prices"
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				app:barrierDirection = "end"
+				app:constraint_referenced_ids = "detail_textview_header_unit_prices,detail_textview_cost_unit,detail_textview_selling_unit,detail_textview_profit_unit" />
 
 		</android.support.constraint.ConstraintLayout>
 
