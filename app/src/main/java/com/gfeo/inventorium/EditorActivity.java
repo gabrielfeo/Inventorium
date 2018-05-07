@@ -26,6 +26,7 @@ public class EditorActivity extends AppCompatActivity {
 	private EditText quantityEditText;
 	private EditText supplierEmailEditText;
 	private EditText supplierPhoneEditText;
+	private EditText notesEditText;
 	private static final int DECREASE_QUANTITY = 0;
 	private static final int INCREASE_QUANTITY = 1;
 	private static final int SET_TO_INPUTTED_QUANTITY = 2;
@@ -47,6 +48,7 @@ public class EditorActivity extends AppCompatActivity {
 		quantityEditText = findViewById(R.id.editor_edittext_quantity);
 		supplierEmailEditText = findViewById(R.id.editor_edittext_supplier_email);
 		supplierPhoneEditText = findViewById(R.id.editor_edittext_supplier_phone);
+		notesEditText = findViewById(R.id.editor_edittext_notes);
 	}
 
 	private void setupQuantityCounter() {
@@ -125,12 +127,17 @@ public class EditorActivity extends AppCompatActivity {
 		           supplierEmailEditText.getText().toString().trim());
 		values.put(ItemTable.COLUMN_NAME_SUPPLIER_PHONE,
 		           supplierPhoneEditText.getText().toString().trim());
+		values.put(ItemTable.COLUMN_NAME_NOTES,
+		           notesEditText.getText().toString());
 		return values;
 	}
 
 	private boolean hasNoEmptyStrings(ContentValues values) {
-		boolean hasEmptyStrings = Stream.of(values.valueSet().iterator()).anyMatch(
-				mapEntry -> ((String) mapEntry.getValue()).isEmpty());
+		boolean hasEmptyStrings =
+				Stream.of(values.valueSet().iterator())
+				      .filterNot(mapEntry -> mapEntry.getKey().equals(ItemTable.COLUMN_NAME_NOTES))
+				      .anyMatch(
+						      mapEntry -> ((String) mapEntry.getValue()).isEmpty());
 		if (hasEmptyStrings) {
 			Toast.makeText(this, getString(R.string.toast_empty_fields), Toast.LENGTH_SHORT)
 			     .show();
