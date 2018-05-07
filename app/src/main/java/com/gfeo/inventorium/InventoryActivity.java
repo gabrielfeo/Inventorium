@@ -29,6 +29,7 @@ public class InventoryActivity extends AppCompatActivity {
 			cursorAdapter = new InventoryCursorAdapter(this, getNewCursor());
 		}
 		listView.setAdapter(cursorAdapter);
+		//TODO update functionality
 		listView.setOnItemClickListener((parent, view, position, id) ->
 				                                startActivity(new Intent(this,
 				                                                         EditorActivity.class)));
@@ -40,10 +41,8 @@ public class InventoryActivity extends AppCompatActivity {
 	}
 
 	private void setupFab() {
-		findViewById(R.id.inventory_fab).setOnClickListener(view -> {
-			Intent intent = new Intent(this, EditorActivity.class);
-			startActivity(intent);
-		});
+		findViewById(R.id.inventory_fab).setOnClickListener(view ->
+			startActivity(new Intent(this, DetailActivity.class)));
 	}
 
 	@Override

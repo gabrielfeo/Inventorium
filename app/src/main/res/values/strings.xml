@@ -3,8 +3,12 @@
 	<string name = "app_name">Inventorium</string>
 
 	<string name = "menu_inventory_delete_all">Delete all</string>
-	<string name = "menu_editor_save">Save</string>
-	<string name = "menu_editor_delete">Delete entry</string>
+	<string name = "menu_detail_edit">Edit entry</string>
+	<string name = "menu_detail_delete">Delete entry</string>
+	<string name = "menu_detail_order_email">Order by email</string>
+	<string name = "menu_detail_order_phone">Order by phone</string>
+	<string name = "menu_editor_save">Save entry</string>
+	<string name = "menu_editor_delete">@string/menu_editor_delete</string>
 
 	<string name = "item_button_sell">Sell</string>
 
