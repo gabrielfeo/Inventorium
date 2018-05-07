@@ -137,7 +137,7 @@
 				android:layout_marginBottom = "4dp"
 				app:layout_constraintBottom_toTopOf = "@id/detail_textview_supplier_phone"
 				app:layout_constraintTop_toBottomOf = "@id/detail_textview_header_supplier"
-				tools:text = "supplies@website.com" />
+				tools:text = "E-mail: supplies@website.com" />
 
 			<TextView
 				android:id = "@+id/detail_textview_supplier_phone"
@@ -146,7 +146,7 @@
 				android:layout_marginBottom = "16dp"
 				app:layout_constraintBottom_toTopOf = "@id/detail_textview_header_notes"
 				app:layout_constraintTop_toBottomOf = "@id/detail_textview_supplier_email"
-				tools:text = "(21) 99876-5432" />
+				tools:text = "Phone: (21) 99876-5432" />
 
 			<!--TODO Hide if empty-->
 			<TextView
@@ -191,7 +191,6 @@
 				android:layout_width = "wrap_content"
 				android:layout_height = "wrap_content"
 				android:layout_marginBottom = "4dp"
-				android:textColor = "#d84315"
 				android:textSize = "12sp"
 				app:layout_constraintBottom_toTopOf = "@id/detail_textview_selling_unit"
 				app:layout_constraintStart_toStartOf = "@id/detail_textview_header_unit_prices"
@@ -203,7 +202,6 @@
 				android:layout_width = "wrap_content"
 				android:layout_height = "wrap_content"
 				android:paddingBottom = "4dp"
-				android:textColor = "#ff8a65"
 				android:textSize = "12sp"
 				app:layout_constraintBottom_toTopOf = "@id/detail_textview_profit_unit"
 				app:layout_constraintStart_toStartOf = "@id/detail_textview_header_unit_prices"
@@ -214,7 +212,6 @@
 				android:id = "@+id/detail_textview_profit_unit"
 				android:layout_width = "wrap_content"
 				android:layout_height = "wrap_content"
-				android:textColor = "#558b2f"
 				android:textSize = "12sp"
 				app:layout_constraintStart_toStartOf = "@id/detail_textview_header_unit_prices"
 				app:layout_constraintTop_toBottomOf = "@id/detail_textview_selling_unit"
