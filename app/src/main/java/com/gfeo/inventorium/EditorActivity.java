@@ -117,9 +117,9 @@ public class EditorActivity extends AppCompatActivity {
 		           nameEditText.getText().toString().trim());
 		values.put(ItemTable.COLUMN_NAME_DESCRIPTION,
 		           descriptionEditText.getText().toString().trim());
-		values.put(ItemTable.COLUMN_NAME_COST_PRICE,
+		values.put(ItemTable.COLUMN_NAME_UNIT_COST_PRICE,
 		           costEditText.getText().toString());
-		values.put(ItemTable.COLUMN_NAME_SELL_PRICE,
+		values.put(ItemTable.COLUMN_NAME_UNIT_SELL_PRICE,
 		           costEditText.getText().toString());
 		values.put(ItemTable.COLUMN_NAME_QUANTITY,
 		           quantityEditText.getText().toString());
