@@ -11,7 +11,7 @@ import android.provider.BaseColumns;
 public class InventoryDbContract {
 
 	public static final String DATABASE_NAME = "inventory.db";
-	public static final int DATABASE_VERSION = 3;
+	public static final int DATABASE_VERSION = 4;
 	public static final String CONTENT_AUTHORITY = "com.gfeo.inventorium";
 	public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 	public static final String PATH_INVENTORY = "inventory";
@@ -37,6 +37,7 @@ public class InventoryDbContract {
 		public static final String COLUMN_NAME_QUANTITY = "stock";
 		public static final String COLUMN_NAME_SUPPLIER_PHONE = "supplierPhone";
 		public static final String COLUMN_NAME_SUPPLIER_EMAIL = "supplierEmail";
+		public static final String COLUMN_NAME_NOTES = "notes";
 
 		static final String COMMAND_CREATE_TABLE =
 				"CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
@@ -47,7 +48,8 @@ public class InventoryDbContract {
 						+ COLUMN_NAME_SELL_PRICE + " REAL, "
 						+ COLUMN_NAME_QUANTITY + " INTEGER DEFAULT 0, "
 						+ COLUMN_NAME_SUPPLIER_PHONE + " TEXT, "
-						+ COLUMN_NAME_SUPPLIER_EMAIL + " TEXT" + ");";
+						+ COLUMN_NAME_SUPPLIER_EMAIL + " TEXT, "
+						+ COLUMN_NAME_NOTES + " TEXT" + ");";
 		static final String COMMAND_DELETE_TABLE =
 				"DROP TABLE IF EXISTS " + TABLE_NAME;
 	}
