@@ -52,6 +52,16 @@ public class InventoryDbContract {
 						+ COLUMN_NAME_NOTES + " TEXT" + ");";
 		static final String COMMAND_DELETE_TABLE =
 				"DROP TABLE IF EXISTS " + TABLE_NAME;
+
+		public static final int COLUMN_INDEX_ID = 0;
+		public static final int COLUMN_INDEX_NAME = 1;
+		public static final int COLUMN_INDEX_DESCRIPTION = 2;
+		public static final int COLUMN_INDEX_UNIT_COST_PRICE = 3;
+		public static final int COLUMN_INDEX_UNIT_SELL_PRICE = 4;
+		public static final int COLUMN_INDEX_QUANTITY = 5;
+		public static final int COLUMN_INDEX_SUPPLIER_PHONE = 6;
+		public static final int COLUMN_INDEX_SUPPLIER_EMAIL = 7;
+		public static final int COLUMN_INDEX_NOTES = 8;
 	}
 
 
