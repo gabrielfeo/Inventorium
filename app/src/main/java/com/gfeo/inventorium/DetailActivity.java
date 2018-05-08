@@ -24,9 +24,9 @@ import java.util.Locale;
 public class DetailActivity extends AppCompatActivity {
 
 	private static final String LOG_TAG = DetailActivity.class.getSimpleName();
-	String itemName;
-	String supplierEmail;
-	String supplierPhone;
+	private String itemName;
+	private String supplierEmail;
+	private String supplierPhone;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
