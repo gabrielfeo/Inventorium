@@ -1,14 +1,16 @@
 package com.gfeo.inventorium;
 
+import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import com.gfeo.inventorium.data.InventoryDbContract;
+import com.gfeo.inventorium.data.InventoryDbContract.ItemTable;
 
 public class InventoryActivity extends AppCompatActivity {
 
@@ -30,19 +32,20 @@ public class InventoryActivity extends AppCompatActivity {
 		}
 		listView.setAdapter(cursorAdapter);
 		//TODO update functionality
-		listView.setOnItemClickListener((parent, view, position, id) ->
-				                                startActivity(new Intent(this,
-				                                                         EditorActivity.class)));
+		listView.setOnItemClickListener((parent, view, position, id) -> {
+			Uri itemUri = ContentUris.withAppendedId(ItemTable.CONTENT_URI, id);
+			startActivity(new Intent(Intent.ACTION_VIEW, itemUri, this, DetailActivity.class));
+		});
 	}
 
 	private Cursor getNewCursor() {
-		return getContentResolver().query(InventoryDbContract.ItemTable.CONTENT_URI,
+		return getContentResolver().query(ItemTable.CONTENT_URI,
 		                                  null, null, null, null);
 	}
 
 	private void setupFab() {
-		findViewById(R.id.inventory_fab).setOnClickListener(view ->
-			startActivity(new Intent(this, DetailActivity.class)));
+		findViewById(R.id.inventory_fab).setOnClickListener(
+				view -> startActivity(new Intent(this, EditorActivity.class)));
 	}
 
 	@Override
@@ -55,7 +58,7 @@ public class InventoryActivity extends AppCompatActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.menu_inventory_delete_all:
-				getContentResolver().delete(InventoryDbContract.ItemTable.CONTENT_URI,
+				getContentResolver().delete(ItemTable.CONTENT_URI,
 				                            null, null);
 				//				cursorAdapter.notifyDataSetChanged();
 				cursorAdapter.changeCursor(getNewCursor());
