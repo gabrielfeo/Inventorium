@@ -1,246 +1,255 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android = "http://schemas.android.com/apk/res/android"
 	xmlns:app = "http://schemas.android.com/apk/res-auto"
 	xmlns:tools = "http://schemas.android.com/tools"
-	android:layout_width = "match_parent"
-	android:layout_height = "match_parent"
-	android:orientation = "vertical"
 	tools:context = "com.gfeo.inventorium.DetailActivity">
 
-	<android.support.v7.widget.Toolbar
-		android:id = "@+id/detail_toolbar"
-		style = "@style/ToolbarTheme" />
+	<data class = "DetailActivityBinding" />
 
-	<ScrollView
-		android:id = "@+id/detail_scrollview"
+	<LinearLayout
 		android:layout_width = "match_parent"
-		android:layout_height = "wrap_content"
+		android:layout_height = "match_parent"
 		android:orientation = "vertical">
 
-		<android.support.constraint.ConstraintLayout
+		<android.support.v7.widget.Toolbar
+			android:id = "@+id/detail_toolbar"
+			style = "@style/ToolbarTheme" />
+
+		<ScrollView
+			android:id = "@+id/detail_scrollview"
 			android:layout_width = "match_parent"
 			android:layout_height = "wrap_content"
-			android:padding = "@dimen/activity_margin">
+			android:orientation = "vertical">
 
-			<TextView
-				android:id = "@+id/detail_textview_name"
+			<android.support.constraint.ConstraintLayout
 				android:layout_width = "match_parent"
 				android:layout_height = "wrap_content"
-				android:layout_marginBottom = "1dp"
-				android:ellipsize = "end"
-				android:textAppearance = "@style/TextAppearance.AppCompat.Large"
-				android:textStyle = "bold"
-				app:layout_constraintBottom_toTopOf = "@id/detail_textview_description"
-				app:layout_constraintTop_toTopOf = "parent"
-				tools:text = "Chinese scissors" />
+				android:padding = "@dimen/activity_margin">
 
-			<TextView
-				android:id = "@+id/detail_textview_description"
-				android:layout_width = "match_parent"
-				android:layout_height = "wrap_content"
-				android:layout_marginBottom = "32dp"
-				android:ellipsize = "end"
-				app:layout_constraintBottom_toTopOf = "@id/detail_textview_quantity"
-				app:layout_constraintTop_toBottomOf = "@id/detail_textview_name"
-				tools:text = "Black, 5in" />
+				<TextView
+					android:id = "@+id/detail_textview_name"
+					android:layout_width = "match_parent"
+					android:layout_height = "wrap_content"
+					android:ellipsize = "end"
+					android:textAppearance = "@style/TextAppearance.AppCompat.Large"
+					android:textStyle = "bold"
+					app:layout_constraintBottom_toTopOf = "@id/detail_textview_description"
+					app:layout_constraintTop_toTopOf = "parent"
+					tools:text = "Chinese scissors" />
 
-			<TextView
-				android:id = "@+id/detail_textview_header_quantity"
-				android:layout_width = "match_parent"
-				android:layout_height = "wrap_content"
-				android:gravity = "center_vertical"
-				android:textSize = "10sp"
-				app:layout_constraintBottom_toTopOf = "@id/detail_textview_quantity"
-				app:layout_constraintStart_toStartOf = "@id/detail_textview_quantity"
-				tools:text = "In stock:" />
+				<TextView
+					android:id = "@+id/detail_textview_description"
+					android:layout_width = "match_parent"
+					android:layout_height = "wrap_content"
+					android:layout_marginBottom = "40dp"
+					android:ellipsize = "end"
+					app:layout_constraintBottom_toTopOf = "@id/detail_textview_quantity"
+					app:layout_constraintTop_toBottomOf = "@id/detail_textview_name"
+					tools:text = "Black, 5in" />
 
-			<TextView
-				android:id = "@+id/detail_textview_quantity"
-				android:layout_width = "match_parent"
-				android:layout_height = "wrap_content"
-				android:layout_marginBottom = "24dp"
-				android:ellipsize = "end"
-				android:gravity = "center_vertical"
-				android:textAppearance = "@style/TextAppearance.AppCompat.Medium"
-				android:textSize = "20sp"
-				app:layout_constraintBottom_toTopOf = "@id/detail_textview_header_total_values"
-				app:layout_constraintStart_toStartOf = "parent"
-				app:layout_constraintTop_toBottomOf = "@id/detail_textview_description"
-				tools:text = "140un" />
+				<TextView
+					android:id = "@+id/detail_textview_header_quantity"
+					android:layout_width = "match_parent"
+					android:layout_height = "wrap_content"
+					android:gravity = "center_vertical"
+					android:textSize = "10sp"
+					android:text = "@string/detail_header_quantity"
+					app:layout_constraintBottom_toTopOf = "@id/detail_textview_quantity"
+					app:layout_constraintStart_toStartOf = "@id/detail_textview_quantity" />
 
-			<TextView
-				android:id = "@+id/detail_textview_header_total_values_disclaimer"
-				android:layout_width = "match_parent"
-				android:layout_height = "wrap_content"
-				android:gravity = "center_vertical"
-				android:textSize = "8sp"
-				app:layout_constraintBottom_toTopOf= "@id/detail_textview_header_total_values"
-				app:layout_constraintStart_toStartOf = "@id/detail_textview_header_total_values"
-				tools:text = "(Gross values)" />
+				<TextView
+					android:id = "@+id/detail_textview_quantity"
+					android:layout_width = "match_parent"
+					android:layout_height = "wrap_content"
+					android:layout_marginBottom = "32dp"
+					android:textColor = "@color/colorTextPrimary"
+					android:ellipsize = "end"
+					android:gravity = "center_vertical"
+					android:textAppearance = "@style/TextAppearance.AppCompat.Medium"
+					android:textSize = "20sp"
+					app:layout_constraintBottom_toTopOf = "@id/detail_textview_header_total_values"
+					app:layout_constraintStart_toStartOf = "parent"
+					app:layout_constraintTop_toBottomOf = "@id/detail_textview_description"
+					tools:text = "140un" />
 
-			<TextView
-				android:id = "@+id/detail_textview_header_total_values"
-				android:layout_width = "wrap_content"
-				android:layout_height = "wrap_content"
-				android:layout_marginBottom = "4dp"
-				android:maxLength = "14"
-				android:textColor = "@color/colorTextPrimary"
-				android:textSize = "16sp"
-				app:layout_constraintBottom_toTopOf = "@id/detail_textview_total_cost"
-				app:layout_constraintStart_toStartOf = "@id/detail_textview_quantity"
-				app:layout_constraintTop_toBottomOf = "@id/detail_textview_quantity"
-				tools:text = "Per 140 units" />
-			<!--TODO add check for strings longer than 14 and change to "Whole stock"-->
+				<TextView
+					android:id = "@+id/detail_textview_header_total_values_disclaimer"
+					android:layout_width = "match_parent"
+					android:layout_height = "wrap_content"
+					android:gravity = "center_vertical"
+					android:textSize = "8sp"
+					android:text = "@string/detail_header_total_values_disclaimer"
+					app:layout_constraintBottom_toTopOf = "@id/detail_textview_header_total_values"
+					app:layout_constraintStart_toStartOf = "@id/detail_textview_header_total_values" />
 
-			<TextView
-				android:id = "@+id/detail_textview_total_cost"
-				android:layout_width = "wrap_content"
-				android:layout_height = "wrap_content"
-				android:layout_marginBottom = "4dp"
-				android:textColor = "#d84315"
-				app:layout_constraintBottom_toTopOf = "@id/detail_textview_total_revenue"
-				app:layout_constraintStart_toStartOf = "@id/detail_textview_header_total_values"
-				app:layout_constraintTop_toBottomOf = "@id/detail_textview_header_total_values"
-				tools:text = "Cost: R$ 10,00" />
+				<TextView
+					android:id = "@+id/detail_textview_header_total_values"
+					android:layout_width = "wrap_content"
+					android:layout_height = "wrap_content"
+					android:layout_marginBottom = "4dp"
+					android:maxLength = "14"
+					android:textColor = "@color/colorTextPrimary"
+					android:textSize = "16sp"
+					android:text = "@string/detail_header_total_values"
+					app:layout_constraintBottom_toTopOf = "@id/detail_textview_total_cost"
+					app:layout_constraintStart_toStartOf = "@id/detail_textview_quantity"
+					app:layout_constraintTop_toBottomOf = "@id/detail_textview_quantity" />
+				<!--TODO add check for strings longer than 14 and change to "Whole stock"-->
 
-			<TextView
-				android:id = "@+id/detail_textview_total_revenue"
-				android:layout_width = "wrap_content"
-				android:layout_height = "wrap_content"
-				android:layout_marginBottom = "4dp"
-				android:textColor = "#ff8a65"
-				app:layout_constraintBottom_toTopOf = "@id/detail_textview_total_profit"
-				app:layout_constraintStart_toStartOf = "@id/detail_textview_header_total_values"
-				app:layout_constraintTop_toBottomOf = "@id/detail_textview_total_cost"
-				tools:text = "Revenue: R$ 17,00" />
+				<TextView
+					android:id = "@+id/detail_textview_total_cost"
+					android:layout_width = "wrap_content"
+					android:layout_height = "wrap_content"
+					android:layout_marginBottom = "4dp"
+					android:textColor = "#d84315"
+					app:layout_constraintBottom_toTopOf = "@id/detail_textview_total_revenue"
+					app:layout_constraintStart_toStartOf = "@id/detail_textview_header_total_values"
+					app:layout_constraintTop_toBottomOf = "@id/detail_textview_header_total_values"
+					tools:text = "Cost: R$ 10,00" />
 
-			<TextView
-				android:id = "@+id/detail_textview_total_profit"
-				android:layout_width = "wrap_content"
-				android:layout_height = "wrap_content"
-				android:layout_marginBottom = "24dp"
-				android:textColor = "#558b2f"
-				app:layout_constraintBottom_toTopOf = "@id/detail_textview_header_supplier"
-				app:layout_constraintStart_toStartOf = "@id/detail_textview_header_total_values"
-				app:layout_constraintTop_toBottomOf = "@id/detail_textview_total_revenue"
-				tools:text = "Profit: R$ 14,00" />
+				<TextView
+					android:id = "@+id/detail_textview_total_revenue"
+					android:layout_width = "wrap_content"
+					android:layout_height = "wrap_content"
+					android:layout_marginBottom = "4dp"
+					android:textColor = "#ff8a65"
+					app:layout_constraintBottom_toTopOf = "@id/detail_textview_total_profit"
+					app:layout_constraintStart_toStartOf = "@id/detail_textview_header_total_values"
+					app:layout_constraintTop_toBottomOf = "@id/detail_textview_total_cost"
+					tools:text = "Revenue: R$ 17,00" />
 
-			<android.support.constraint.Barrier
-				android:id = "@+id/detail_barrier_total_values"
-				android:layout_width = "wrap_content"
-				android:layout_height = "wrap_content"
-				app:barrierDirection = "end"
-				app:constraint_referenced_ids = "detail_textview_header_total_prices,detail_textview_total_cost,detail_textview_total_revenue,detail_textview_total_profit" />
+				<TextView
+					android:id = "@+id/detail_textview_total_profit"
+					android:layout_width = "wrap_content"
+					android:layout_height = "wrap_content"
+					android:layout_marginBottom = "32dp"
+					android:textColor = "#558b2f"
+					app:layout_constraintBottom_toTopOf = "@id/detail_textview_header_supplier"
+					app:layout_constraintStart_toStartOf = "@id/detail_textview_header_total_values"
+					app:layout_constraintTop_toBottomOf = "@id/detail_textview_total_revenue"
+					tools:text = "Profit: R$ 14,00" />
 
-			<TextView
-				android:id = "@+id/detail_textview_header_supplier"
-				android:layout_width = "match_parent"
-				android:layout_height = "wrap_content"
-				android:layout_marginBottom = "4dp"
-				android:textColor = "@color/colorTextPrimary"
-				android:textSize = "16sp"
-				app:layout_constraintBottom_toTopOf = "@id/detail_textview_supplier_email"
-				app:layout_constraintTop_toBottomOf = "@id/detail_textview_total_profit"
-				tools:text = "Supplier information" />
+				<android.support.constraint.Barrier
+					android:id = "@+id/detail_barrier_total_values"
+					android:layout_width = "wrap_content"
+					android:layout_height = "wrap_content"
+					app:barrierDirection = "end"
+					app:constraint_referenced_ids = "detail_textview_header_total_values,detail_textview_total_cost,detail_textview_total_revenue,detail_textview_total_profit" />
 
-			<TextView
-				android:id = "@+id/detail_textview_supplier_email"
-				android:layout_width = "match_parent"
-				android:layout_height = "wrap_content"
-				android:layout_marginBottom = "4dp"
-				android:ellipsize = "end"
-				app:layout_constraintBottom_toTopOf = "@id/detail_textview_supplier_phone"
-				app:layout_constraintTop_toBottomOf = "@id/detail_textview_header_supplier"
-				tools:text = "E-mail: supplies@website.com" />
+				<TextView
+					android:id = "@+id/detail_textview_header_supplier"
+					android:layout_width = "match_parent"
+					android:layout_height = "wrap_content"
+					android:layout_marginBottom = "4dp"
+					android:textColor = "@color/colorTextPrimary"
+					android:textSize = "16sp"
+					android:text = "@string/detail_header_supplier_info"
+					app:layout_constraintBottom_toTopOf = "@id/detail_textview_supplier_email"
+					app:layout_constraintTop_toBottomOf = "@id/detail_textview_total_profit" />
 
-			<TextView
-				android:id = "@+id/detail_textview_supplier_phone"
-				android:layout_width = "match_parent"
-				android:layout_height = "wrap_content"
-				android:layout_marginBottom = "16dp"
-				app:layout_constraintBottom_toTopOf = "@id/detail_textview_header_notes"
-				app:layout_constraintTop_toBottomOf = "@id/detail_textview_supplier_email"
-				tools:text = "Phone: (21) 99876-5432" />
+				<TextView
+					android:id = "@+id/detail_textview_supplier_email"
+					android:layout_width = "match_parent"
+					android:layout_height = "wrap_content"
+					android:layout_marginBottom = "4dp"
+					android:autoLink = "none"
+					android:ellipsize = "end"
+					app:layout_constraintBottom_toTopOf = "@id/detail_textview_supplier_phone"
+					app:layout_constraintTop_toBottomOf = "@id/detail_textview_header_supplier"
+					tools:text = "E-mail: supplies@website.com" />
 
-			<!--TODO Hide if empty-->
-			<TextView
-				android:id = "@+id/detail_textview_header_notes"
-				android:layout_width = "match_parent"
-				android:layout_height = "wrap_content"
-				android:layout_marginBottom = "4dp"
-				android:textColor = "@color/colorTextPrimary"
-				android:textSize = "16sp"
-				app:layout_constraintBottom_toTopOf = "@id/detail_textview_notes"
-				app:layout_constraintTop_toBottomOf = "@id/detail_textview_supplier_phone"
-				tools:text = "Notes" />
+				<TextView
+					android:id = "@+id/detail_textview_supplier_phone"
+					android:layout_width = "match_parent"
+					android:layout_height = "wrap_content"
+					android:autoLink = "none"
+					android:layout_marginBottom = "24dp"
+					app:layout_constraintBottom_toTopOf = "@id/detail_textview_header_notes"
+					app:layout_constraintTop_toBottomOf = "@id/detail_textview_supplier_email"
+					tools:text = "Phone: (21) 99876-5432" />
 
-			<TextView
-				android:id = "@+id/detail_textview_notes"
-				android:layout_width = "0dp"
-				android:layout_height = "wrap_content"
-				app:layout_constraintBottom_toBottomOf = "parent"
-				app:layout_constraintEnd_toEndOf = "@id/detail_barrier_unit_prices"
-				app:layout_constraintStart_toStartOf = "parent"
-				app:layout_constraintTop_toBottomOf = "@id/detail_textview_header_notes"
-				tools:text = "@tools:sample/lorem/random" />
+				<!--TODO Hide if empty-->
+				<TextView
+					android:id = "@+id/detail_textview_header_notes"
+					android:layout_width = "match_parent"
+					android:layout_height = "wrap_content"
+					android:layout_marginBottom = "4dp"
+					android:text = "@string/detail_header_notes"
+					android:textColor = "@color/colorTextPrimary"
+					android:textSize = "16sp"
+					app:layout_constraintBottom_toTopOf = "@id/detail_textview_notes"
+					app:layout_constraintTop_toBottomOf = "@id/detail_textview_supplier_phone" />
+
+				<TextView
+					android:id = "@+id/detail_textview_notes"
+					android:layout_width = "0dp"
+					android:layout_height = "wrap_content"
+					app:layout_constraintBottom_toBottomOf = "parent"
+					app:layout_constraintEnd_toEndOf = "@id/detail_barrier_unit_prices"
+					app:layout_constraintStart_toStartOf = "parent"
+					app:layout_constraintTop_toBottomOf = "@id/detail_textview_header_notes"
+					tools:text = "@tools:sample/lorem/random" />
 
 
-			<!--Right column-->
+				<!--Right column-->
 
-			<TextView
-				android:id = "@+id/detail_textview_header_unit_values"
-				android:layout_width = "wrap_content"
-				android:layout_height = "wrap_content"
-				android:layout_marginBottom = "4dp"
-				android:textColor = "@color/colorTextPrimary"
-				android:textSize = "14sp"
-				app:layout_constraintEnd_toEndOf = "parent"
-				app:layout_constraintHorizontal_bias = "0.35"
-				app:layout_constraintStart_toEndOf = "@id/detail_barrier_total_values"
-				app:layout_constraintTop_toTopOf = "@id/detail_textview_header_total_values"
-				tools:text = "Per unit" />
+				<TextView
+					android:id = "@+id/detail_textview_header_unit_values"
+					android:layout_width = "wrap_content"
+					android:layout_height = "wrap_content"
+					android:layout_marginBottom = "4dp"
+					android:textColor = "@color/colorTextPrimary"
+					app:layout_constraintVertical_chainStyle = "packed"
+					android:textSize = "14sp"
+					app:layout_constraintEnd_toEndOf = "parent"
+					app:layout_constraintHorizontal_bias = "0.30"
+					android:text = "@string/detail_header_unit_values"
+					app:layout_constraintStart_toEndOf = "@id/detail_barrier_total_values"
+					app:layout_constraintTop_toTopOf = "@id/detail_textview_header_total_values" />
 
-			<TextView
-				android:id = "@+id/detail_textview_unit_cost"
-				android:layout_width = "wrap_content"
-				android:layout_height = "wrap_content"
-				android:layout_marginBottom = "4dp"
-				android:textSize = "12sp"
-				app:layout_constraintBottom_toTopOf = "@id/detail_textview_unit_selling_price"
-				app:layout_constraintStart_toStartOf = "@id/detail_textview_header_unit_values"
-				app:layout_constraintTop_toBottomOf = "@id/detail_textview_header_unit_values"
-				tools:text = "Cost price: R$ 00,07" />
+				<TextView
+					android:id = "@+id/detail_textview_unit_cost"
+					android:layout_width = "wrap_content"
+					android:layout_height = "wrap_content"
+					android:layout_marginBottom = "4dp"
+					android:textSize = "12sp"
+					app:layout_constraintBottom_toTopOf = "@id/detail_textview_unit_selling_price"
+					app:layout_constraintStart_toStartOf = "@id/detail_textview_header_unit_values"
+					app:layout_constraintTop_toBottomOf = "@id/detail_textview_header_unit_values"
+					tools:text = "Cost price: R$ 00,07" />
 
-			<TextView
-				android:id = "@+id/detail_textview_unit_selling_price"
-				android:layout_width = "wrap_content"
-				android:layout_height = "wrap_content"
-				android:paddingBottom = "4dp"
-				android:textSize = "12sp"
-				app:layout_constraintBottom_toTopOf = "@id/detail_textview_unit_profit"
-				app:layout_constraintStart_toStartOf = "@id/detail_textview_header_unit_values"
-				app:layout_constraintTop_toBottomOf = "@id/detail_textview_header_unit_values"
-				tools:text = "Selling price: R$ 00,12" />
+				<TextView
+					android:id = "@+id/detail_textview_unit_selling_price"
+					android:layout_width = "wrap_content"
+					android:layout_height = "wrap_content"
+					android:paddingBottom = "4dp"
+					android:textSize = "12sp"
+					app:layout_constraintBottom_toTopOf = "@id/detail_textview_unit_profit"
+					app:layout_constraintStart_toStartOf = "@id/detail_textview_header_unit_values"
+					app:layout_constraintTop_toBottomOf = "@id/detail_textview_unit_cost"
+					tools:text = "Selling price: R$ 00,12" />
 
-			<TextView
-				android:id = "@+id/detail_textview_unit_profit"
-				android:layout_width = "wrap_content"
-				android:layout_height = "wrap_content"
-				android:textSize = "12sp"
-				app:layout_constraintStart_toStartOf = "@id/detail_textview_header_unit_values"
-				app:layout_constraintTop_toBottomOf = "@id/detail_textview_unit_selling_price"
-				tools:text = "Profit: R$ 00,10/1un" />
+				<TextView
+					android:id = "@+id/detail_textview_unit_profit"
+					android:layout_width = "wrap_content"
+					android:layout_height = "wrap_content"
+					android:textSize = "12sp"
+					app:layout_constraintStart_toStartOf = "@id/detail_textview_header_unit_values"
+					app:layout_constraintTop_toBottomOf = "@id/detail_textview_unit_selling_price"
+					tools:text = "Profit: R$ 00,10/1un" />
 
-			<android.support.constraint.Barrier
-				android:id = "@+id/detail_barrier_unit_prices"
-				android:layout_width = "wrap_content"
-				android:layout_height = "wrap_content"
-				app:barrierDirection = "end"
-				app:constraint_referenced_ids =
-					"detail_textview_header_unit_prices,detail_textview_unit_cost,detail_textview_unit_selling_price,detail_textview_unit_profit" />
+				<android.support.constraint.Barrier
+					android:id = "@+id/detail_barrier_unit_prices"
+					android:layout_width = "wrap_content"
+					android:layout_height = "wrap_content"
+					app:barrierDirection = "end"
+					app:constraint_referenced_ids = "detail_textview_header_unit_values,detail_textview_unit_cost,detail_textview_unit_selling_price,detail_textview_unit_profit" />
 
-		</android.support.constraint.ConstraintLayout>
+			</android.support.constraint.ConstraintLayout>
 
-	</ScrollView>
+		</ScrollView>
 
-</LinearLayout>
+	</LinearLayout>
+
+</layout>

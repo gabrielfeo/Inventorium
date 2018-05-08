@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name = "app_name">Inventorium</string>
+	<string name = "detail_activity_title">Item info</string>
 
 	<string name = "menu_inventory_delete_all">Delete all</string>
 	<string name = "menu_detail_edit">Edit entry</string>
@@ -10,10 +11,30 @@
 	<string name = "menu_editor_save">Save entry</string>
 	<string name = "menu_editor_delete">@string/menu_editor_delete</string>
 
-	<string name = "item_button_sell">Sell</string>
-
 	<string name = "toast_empty_fields">Please fill out all fields</string>
 	<string name = "toast_error_insert">Error creating new entry in database, please try
 		again</string>
+	<string name = "toast_error_intent_email">No e-mail app available</string>
+	<string name = "toast_error_intent_phone">No phone app available</string>
+
+	<string name = "detail_header_quantity">In stock:</string>
+	<string name = "detail_quantity">%1d un</string>
+	<string name = "detail_header_total_values_disclaimer">(Gross values)</string>
+	<string name = "detail_header_total_values">Whole stock</string>
+	<string name = "detail_total_cost">Cost: %1$s</string>
+	<string name = "detail_total_revenue">Revenue: %1$s</string>
+	<string name = "detail_total_profit">Profit: %1$s/%2$d un</string>
+	<string name = "detail_header_supplier_info">Supplier information</string>
+	<string name = "detail_supplier_email">E-mail: %1$s</string>
+	<string name = "detail_supplier_phone">Phone: %1$s</string>
+	<string name = "detail_header_notes">Notes</string>
+	<string name = "detail_header_unit_values">Per unit</string>
+	<string name = "detail_unit_cost_price">Cost price: %1$s</string>
+	<string name = "detail_unit_selling_price">Selling price: %1$s</string>
+	<string name = "detail_unit_profit">Profit: %1$s/un</string>
+
+	<string name = "item_button_sell">Sell</string>
+
+	<string name = "intent_email_subject">Order for %1$s</string>
 
 </resources>
