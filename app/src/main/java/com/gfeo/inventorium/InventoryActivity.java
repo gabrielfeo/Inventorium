@@ -9,18 +9,13 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.CursorAdapter;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 
+import com.gfeo.inventorium.InventoryLoaderCallbacks.CursorLoaderCallbacks;
 import com.gfeo.inventorium.data.InventoryDbContract.ItemTable;
-import com.gfeo.inventorium.data.InventoryLoaderCallbacks;
 
 public class InventoryActivity extends AppCompatActivity {
 
@@ -33,7 +28,7 @@ public class InventoryActivity extends AppCompatActivity {
 		setSupportActionBar(findViewById(R.id.inventory_toolbar));
 		setupListView();
 		setupFab();
-		newInventoryCursorLoader();
+		loadCursor();
 	}
 
 	private void setupListView() {
@@ -50,9 +45,9 @@ public class InventoryActivity extends AppCompatActivity {
 				view -> startActivity(new Intent(this, EditorActivity.class)));
 	}
 
-	private void newInventoryCursorLoader() {
+	private void loadCursor() {
 		Bundle args = new Bundle();
-		args.putString(InventoryLoaderCallbacks.URI_ARGS_KEY, ItemTable.CONTENT_URI.toString());
+		args.putString(CursorLoaderCallbacks.URI_ARGS_KEY, ItemTable.CONTENT_URI.toString());
 		getSupportLoaderManager().restartLoader(0, args, loaderCallbacks);
 	}
 
@@ -78,7 +73,7 @@ public class InventoryActivity extends AppCompatActivity {
 			case R.id.menu_inventory_delete_all:
 				getContentResolver().delete(ItemTable.CONTENT_URI,
 				                            null, null);
-				newInventoryCursorLoader();
+				loadCursor();
 				break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -90,7 +85,7 @@ public class InventoryActivity extends AppCompatActivity {
 		cursor.close();
 	}
 
-	private LoaderCallbacks loaderCallbacks = new InventoryLoaderCallbacks(this) {
+	private LoaderCallbacks loaderCallbacks = new CursorLoaderCallbacks(this) {
 		@Override
 		public void onLoadFinished(@NonNull Loader loader, Object data) {
 			cursor = (Cursor) data;
