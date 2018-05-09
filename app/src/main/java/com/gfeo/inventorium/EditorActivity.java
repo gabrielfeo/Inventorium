@@ -23,6 +23,7 @@ public class EditorActivity extends AppCompatActivity {
 	private EditText nameEditText;
 	private EditText descriptionEditText;
 	private EditText costEditText;
+	private EditText sellingPriceEditText;
 	private EditText quantityEditText;
 	private EditText supplierEmailEditText;
 	private EditText supplierPhoneEditText;
@@ -45,6 +46,7 @@ public class EditorActivity extends AppCompatActivity {
 		nameEditText = findViewById(R.id.editor_edittext_name);
 		descriptionEditText = findViewById(R.id.editor_edittext_description);
 		costEditText = findViewById(R.id.editor_edittext_cost);
+		sellingPriceEditText = findViewById(R.id.editor_edittext_selling);
 		quantityEditText = findViewById(R.id.editor_edittext_quantity);
 		supplierEmailEditText = findViewById(R.id.editor_edittext_supplier_email);
 		supplierPhoneEditText = findViewById(R.id.editor_edittext_supplier_phone);
@@ -121,7 +123,7 @@ public class EditorActivity extends AppCompatActivity {
 		values.put(ItemTable.COLUMN_NAME_UNIT_COST_PRICE,
 		           costEditText.getText().toString());
 		values.put(ItemTable.COLUMN_NAME_UNIT_SELL_PRICE,
-		           costEditText.getText().toString());
+		           sellingPriceEditText.getText().toString());
 		values.put(ItemTable.COLUMN_NAME_QUANTITY,
 		           quantityEditText.getText().toString());
 		values.put(ItemTable.COLUMN_NAME_SUPPLIER_EMAIL,
@@ -137,8 +139,7 @@ public class EditorActivity extends AppCompatActivity {
 		boolean hasEmptyStrings =
 				Stream.of(values.valueSet().iterator())
 				      .filterNot(mapEntry -> mapEntry.getKey().equals(ItemTable.COLUMN_NAME_NOTES))
-				      .anyMatch(
-						      mapEntry -> ((String) mapEntry.getValue()).isEmpty());
+				      .anyMatch(mapEntry -> ((String) mapEntry.getValue()).isEmpty());
 		if (hasEmptyStrings) {
 			Toast.makeText(this, getString(R.string.toast_empty_fields), Toast.LENGTH_SHORT)
 			     .show();
