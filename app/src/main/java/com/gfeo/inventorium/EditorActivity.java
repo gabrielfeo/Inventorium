@@ -2,6 +2,7 @@ package com.gfeo.inventorium;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -11,23 +12,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.annimon.stream.Stream;
 import com.gfeo.inventorium.data.InventoryDbContract.ItemTable;
+import com.gfeo.inventorium.databinding.EditorActivityBinding;
 
 public class EditorActivity extends AppCompatActivity {
 
+	private EditorActivityBinding binding;
 	private static int quantityCount;
-	private EditText nameEditText;
-	private EditText descriptionEditText;
-	private EditText costEditText;
-	private EditText sellingPriceEditText;
-	private EditText quantityEditText;
-	private EditText supplierEmailEditText;
-	private EditText supplierPhoneEditText;
-	private EditText notesEditText;
 	private static final int DECREASE_QUANTITY = 0;
 	private static final int INCREASE_QUANTITY = 1;
 	private static final int SET_TO_INPUTTED_QUANTITY = 2;
@@ -35,33 +29,30 @@ public class EditorActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_editor);
-		setSupportActionBar(findViewById(R.id.editor_toolbar));
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		findEditTextViews();
+		binding = DataBindingUtil.setContentView(this,
+		                                         R.layout.activity_editor);
+
+		setupToolbar(true);
 		setupQuantityCounter();
 	}
 
-	private void findEditTextViews() {
-		nameEditText = findViewById(R.id.editor_edittext_name);
-		descriptionEditText = findViewById(R.id.editor_edittext_description);
-		costEditText = findViewById(R.id.editor_edittext_cost);
-		sellingPriceEditText = findViewById(R.id.editor_edittext_selling);
-		quantityEditText = findViewById(R.id.editor_edittext_quantity);
-		supplierEmailEditText = findViewById(R.id.editor_edittext_supplier_email);
-		supplierPhoneEditText = findViewById(R.id.editor_edittext_supplier_phone);
-		notesEditText = findViewById(R.id.editor_edittext_notes);
+	private void setupToolbar(boolean isNewEntry) {
+		setSupportActionBar(binding.editorToolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		int titleResourceId = (isNewEntry) ? R.string.editor_activity_title_adding
+		                                   : R.string.editor_activity_title_editing;
+		getSupportActionBar().setTitle(titleResourceId);
 	}
 
 	private void setupQuantityCounter() {
 		//TODO Change for "update" functionality
 		quantityCount = 0;
-		quantityEditText.setText(String.valueOf(quantityCount));
-		findViewById(R.id.editor_button_minus)
-				.setOnClickListener(view -> updateQuantityCount(DECREASE_QUANTITY));
-		findViewById(R.id.editor_button_plus)
-				.setOnClickListener(view -> updateQuantityCount(INCREASE_QUANTITY));
-		quantityEditText.setOnEditorActionListener(
+		binding.editorEdittextQuantity.setText(String.valueOf(quantityCount));
+		binding.editorButtonMinus.setOnClickListener(
+				view -> updateQuantityCount(DECREASE_QUANTITY));
+		binding.editorButtonPlus.setOnClickListener(
+				view -> updateQuantityCount(INCREASE_QUANTITY));
+		binding.editorEdittextQuantity.setOnEditorActionListener(
 				(view, actionId, keyEvent) -> {
 					if (actionId == EditorInfo.IME_ACTION_DONE
 							|| actionId == EditorInfo.IME_ACTION_NEXT) {
@@ -79,9 +70,9 @@ public class EditorActivity extends AppCompatActivity {
 		} else if (operation == INCREASE_QUANTITY) {
 			quantityCount++;
 		} else if (operation == SET_TO_INPUTTED_QUANTITY) {
-			quantityCount = Integer.valueOf(quantityEditText.getText().toString());
+			quantityCount = Integer.valueOf(binding.editorEdittextQuantity.getText().toString());
 		} else { return; }
-		quantityEditText.setText(String.valueOf(quantityCount));
+		binding.editorEdittextQuantity.setText(String.valueOf(quantityCount));
 	}
 
 	private void hideSoftKeyboard(View requestingView) {
@@ -117,21 +108,21 @@ public class EditorActivity extends AppCompatActivity {
 	private ContentValues getInputtedValues() {
 		ContentValues values = new ContentValues();
 		values.put(ItemTable.COLUMN_NAME_NAME,
-		           nameEditText.getText().toString().trim());
+		           binding.editorEdittextName.getText().toString().trim());
 		values.put(ItemTable.COLUMN_NAME_DESCRIPTION,
-		           descriptionEditText.getText().toString().trim());
+		           binding.editorEdittextDescription.getText().toString().trim());
 		values.put(ItemTable.COLUMN_NAME_UNIT_COST_PRICE,
-		           costEditText.getText().toString());
+		           binding.editorEdittextCost.getText().toString());
 		values.put(ItemTable.COLUMN_NAME_UNIT_SELL_PRICE,
-		           sellingPriceEditText.getText().toString());
+		           binding.editorEdittextSelling.getText().toString());
 		values.put(ItemTable.COLUMN_NAME_QUANTITY,
-		           quantityEditText.getText().toString());
+		           binding.editorEdittextQuantity.getText().toString());
 		values.put(ItemTable.COLUMN_NAME_SUPPLIER_EMAIL,
-		           supplierEmailEditText.getText().toString().trim());
+		           binding.editorEdittextSupplierEmail.getText().toString().trim());
 		values.put(ItemTable.COLUMN_NAME_SUPPLIER_PHONE,
-		           supplierPhoneEditText.getText().toString().trim());
+		           binding.editorEdittextSupplierPhone.getText().toString().trim());
 		values.put(ItemTable.COLUMN_NAME_NOTES,
-		           notesEditText.getText().toString());
+		           binding.editorEdittextNotes.getText().toString());
 		return values;
 	}
 
