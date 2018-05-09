@@ -5,16 +5,26 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.CursorAdapter;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.gfeo.inventorium.data.InventoryDbContract.ItemTable;
+import com.gfeo.inventorium.data.InventoryLoaderCallbacks;
 
 public class InventoryActivity extends AppCompatActivity {
 
-	private InventoryCursorAdapter cursorAdapter;
+	private Cursor cursor;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,29 +33,37 @@ public class InventoryActivity extends AppCompatActivity {
 		setSupportActionBar(findViewById(R.id.inventory_toolbar));
 		setupListView();
 		setupFab();
+		newInventoryCursorLoader();
 	}
 
 	private void setupListView() {
 		ListView listView = findViewById(R.id.inventory_listview);
-		if (cursorAdapter == null) {
-			cursorAdapter = new InventoryCursorAdapter(this, getNewCursor());
-		}
-		listView.setAdapter(cursorAdapter);
-		//TODO update functionality
+		//onClick listener
 		listView.setOnItemClickListener((parent, view, position, id) -> {
 			Uri itemUri = ContentUris.withAppendedId(ItemTable.CONTENT_URI, id);
 			startActivity(new Intent(Intent.ACTION_VIEW, itemUri, this, DetailActivity.class));
 		});
 	}
 
-	private Cursor getNewCursor() {
-		return getContentResolver().query(ItemTable.CONTENT_URI,
-		                                  null, null, null, null);
-	}
-
 	private void setupFab() {
 		findViewById(R.id.inventory_fab).setOnClickListener(
 				view -> startActivity(new Intent(this, EditorActivity.class)));
+	}
+
+	private void newInventoryCursorLoader() {
+		Bundle args = new Bundle();
+		args.putString(InventoryLoaderCallbacks.URI_ARGS_KEY, ItemTable.CONTENT_URI.toString());
+		getSupportLoaderManager().restartLoader(0, args, loaderCallbacks);
+	}
+
+	private void setListViewAdapter() {
+		ListView listView = findViewById(R.id.inventory_listview);
+		CursorAdapter adapter = (CursorAdapter) listView.getAdapter();
+		if (adapter == null) {
+			listView.setAdapter(new InventoryCursorAdapter(this,
+			                                               cursor));
+		} else { adapter.swapCursor(cursor); }
+
 	}
 
 	@Override
@@ -60,8 +78,7 @@ public class InventoryActivity extends AppCompatActivity {
 			case R.id.menu_inventory_delete_all:
 				getContentResolver().delete(ItemTable.CONTENT_URI,
 				                            null, null);
-				//				cursorAdapter.notifyDataSetChanged();
-				cursorAdapter.changeCursor(getNewCursor());
+				newInventoryCursorLoader();
 				break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -70,6 +87,15 @@ public class InventoryActivity extends AppCompatActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		cursorAdapter.changeCursor(null);
+		cursor.close();
 	}
+
+	private LoaderCallbacks loaderCallbacks = new InventoryLoaderCallbacks(this) {
+		@Override
+		public void onLoadFinished(@NonNull Loader loader, Object data) {
+			cursor = (Cursor) data;
+			setListViewAdapter();
+		}
+	};
+
 }

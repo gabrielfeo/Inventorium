@@ -61,7 +61,8 @@ public class EditorActivity extends AppCompatActivity {
 				.setOnClickListener(view -> updateQuantityCount(INCREASE_QUANTITY));
 		quantityEditText.setOnEditorActionListener(
 				(view, actionId, keyEvent) -> {
-					if (actionId == EditorInfo.IME_ACTION_DONE) {
+					if (actionId == EditorInfo.IME_ACTION_DONE
+							|| actionId == EditorInfo.IME_ACTION_NEXT) {
 						updateQuantityCount(SET_TO_INPUTTED_QUANTITY);
 						view.clearFocus();
 						hideSoftKeyboard(view);

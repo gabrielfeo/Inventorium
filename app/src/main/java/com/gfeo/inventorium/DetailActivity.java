@@ -5,6 +5,9 @@ import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.gfeo.inventorium.data.InventoryDbContract.ItemTable;
+import com.gfeo.inventorium.data.InventoryLoaderCallbacks;
 import com.gfeo.inventorium.databinding.DetailActivityBinding;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
@@ -27,26 +31,31 @@ public class DetailActivity extends AppCompatActivity {
 	private String itemName;
 	private String supplierEmail;
 	private String supplierPhone;
+	DetailActivityBinding binding;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		DetailActivityBinding binding = DataBindingUtil.setContentView(this,
-		                                                               R.layout.activity_detail);
+		binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
 		setupToolbar(binding);
-		Cursor cursor = null;
-		try {
-			cursor = getNewCursor(getIntent().getData());
-			fillTextViewsWithCursorData(binding, cursor);
-		} finally {
-			if (cursor != null) { cursor.close(); }
-		}
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		newInventoryCursorLoader();
 	}
 
 	private void setupToolbar(DetailActivityBinding binding) {
 		setSupportActionBar(binding.detailToolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle(R.string.detail_activity_title);
+	}
+
+	private void newInventoryCursorLoader(){
+		Bundle args=new Bundle();
+		args.putString(InventoryLoaderCallbacks.URI_ARGS_KEY, getIntent().getDataString());
+		getSupportLoaderManager().restartLoader(1, args, loaderCallbacks);
 	}
 
 	private void fillTextViewsWithCursorData(DetailActivityBinding binding, Cursor cursor) {
@@ -125,10 +134,6 @@ public class DetailActivity extends AppCompatActivity {
 		}
 	}
 
-	private Cursor getNewCursor(Uri itemUri) {
-		return getContentResolver().query(itemUri, null, null, null, null);
-	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_detail, menu);
@@ -186,4 +191,17 @@ public class DetailActivity extends AppCompatActivity {
 		int rowsDeleted = getContentResolver().delete(getIntent().getData(), null, null);
 		if (rowsDeleted > 0) { startActivity(new Intent(this, InventoryActivity.class)); }
 	}
+
+	private LoaderCallbacks loaderCallbacks = new InventoryLoaderCallbacks(this) {
+		@Override
+		public void onLoadFinished(@NonNull Loader loader, Object data) {
+			Cursor cursor = (Cursor) data;
+			try {
+				fillTextViewsWithCursorData(binding, cursor);
+			} finally {
+				if (cursor != null) { cursor.close(); }
+			}
+		}
+	};
+
 }
