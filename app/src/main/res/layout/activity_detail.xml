@@ -78,7 +78,7 @@
 					android:layout_width = "match_parent"
 					android:layout_height = "wrap_content"
 					android:gravity = "center_vertical"
-					android:textSize = "8sp"
+					android:textSize = "10sp"
 					android:text = "@string/detail_header_total_values_disclaimer"
 					app:layout_constraintBottom_toTopOf = "@id/detail_textview_header_total_values"
 					app:layout_constraintStart_toStartOf = "@id/detail_textview_header_total_values" />
