@@ -5,19 +5,19 @@ import android.net.Uri;
 class ItemDetails {
 
 	private static final String LOG_TAG = ItemDetails.class.getSimpleName();
-	private final Uri uri;
-	private String name;
-	private String description;
-	private String quantity;
-	private String totalCost;
-	private String totalRevenue;
-	private String totalProfit;
-	private String supplierEmail;
-	private String supplierPhone;
-	private String notes;
-	private String unitCostPrice;
-	private String unitSellingPrice;
-	private String unitProfit;
+	protected final Uri uri;
+	protected String name;
+	protected String description;
+	protected String quantity;
+	protected String totalCost;
+	protected String totalRevenue;
+	protected String totalProfit;
+	protected String supplierEmail;
+	protected String supplierPhone;
+	protected String notes;
+	protected String unitCostPrice;
+	protected String unitSellingPrice;
+	protected String unitProfit;
 
 	ItemDetails(Uri uri) {
 		this.uri = uri;
@@ -47,32 +47,32 @@ class ItemDetails {
 		return quantity;
 	}
 
-	public void setQuantity(String quantity) {
-		this.quantity = quantity;
+	public void setQuantity(int quantity) {
+		this.quantity = String.valueOf(quantity);
 	}
 
 	public String getTotalCost() {
 		return totalCost;
 	}
 
-	public void setTotalCost(String totalCost) {
-		this.totalCost = totalCost;
+	public void setTotalCost(double totalCost) {
+		this.totalCost = String.valueOf(totalCost);
 	}
 
 	public String getTotalRevenue() {
 		return totalRevenue;
 	}
 
-	public void setTotalRevenue(String totalRevenue) {
-		this.totalRevenue = totalRevenue;
+	public void setTotalRevenue(double totalRevenue) {
+		this.totalRevenue = String.valueOf(totalRevenue);
 	}
 
 	public String getTotalProfit() {
 		return totalProfit;
 	}
 
-	public void setTotalProfit(String totalProfit) {
-		this.totalProfit = totalProfit;
+	public void setTotalProfit(double totalProfit) {
+		this.totalProfit = String.valueOf(totalProfit);
 	}
 
 	public String getSupplierEmail() {
@@ -103,24 +103,24 @@ class ItemDetails {
 		return unitCostPrice;
 	}
 
-	public void setUnitCostPrice(String unitCostPrice) {
-		this.unitCostPrice = unitCostPrice;
+	public void setUnitCostPrice(double unitCostPrice) {
+		this.unitCostPrice = String.valueOf(unitCostPrice);
 	}
 
 	public String getUnitSellingPrice() {
 		return unitSellingPrice;
 	}
 
-	public void setUnitSellingPrice(String unitSellingPrice) {
-		this.unitSellingPrice = unitSellingPrice;
+	public void setUnitSellingPrice(double unitSellingPrice) {
+		this.unitSellingPrice = String.valueOf(unitSellingPrice);
 	}
 
 	public String getUnitProfit() {
 		return unitProfit;
 	}
 
-	public void setUnitProfit(String unitProfit) {
-		this.unitProfit = unitProfit;
+	public void setUnitProfit(double unitProfit) {
+		this.unitProfit = String.valueOf(unitProfit);
 	}
 
 }

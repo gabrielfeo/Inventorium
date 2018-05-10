@@ -12,6 +12,8 @@ import android.support.v4.content.Loader;
 
 class InventoryLoaderCallbacks {
 
+	private InventoryLoaderCallbacks() {}
+
 	static abstract class CursorLoaderCallbacks implements LoaderManager.LoaderCallbacks {
 
 		public static final String URI_ARGS_KEY = "uri";
