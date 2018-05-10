@@ -72,8 +72,8 @@ public class EditorActivity extends AppCompatActivity {
 	private void setupToolbar() {
 		setSupportActionBar(binding.editorToolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		int titleResourceId = (itemDetails == null) ? R.string.editor_activity_title_adding
-		                                            : R.string.editor_activity_title_editing;
+		int titleResourceId = (itemDetails == null) ? R.string.activity_title_editor_adding
+		                                            : R.string.activity_title_editor_editing;
 		getSupportActionBar().setTitle(titleResourceId);
 	}
 

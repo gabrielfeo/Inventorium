@@ -44,7 +44,7 @@ public class DetailActivity extends AppCompatActivity {
 	private void setupToolbar(DetailActivityBinding binding) {
 		setSupportActionBar(binding.detailToolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setTitle(R.string.detail_activity_title);
+		getSupportActionBar().setTitle(R.string.activity_title_detail);
 	}
 
 	@Override

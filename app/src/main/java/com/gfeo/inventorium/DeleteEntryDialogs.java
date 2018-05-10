@@ -13,9 +13,11 @@ class DeleteEntryDialogs {
 	static void showDeleteOneDialog(Context context,
 	                                DialogInterface.OnClickListener dialogClickListener) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
-		builder.setMessage(R.string.all_dialog_delete_entry_message);
-		builder.setNegativeButton(R.string.all_dialog_delete_entry_negative, dialogClickListener);
-		builder.setPositiveButton(R.string.all_dialog_delete_entry_positive, dialogClickListener);
+		builder.setMessage(R.string.common_dialog_delete_entry_message);
+		builder.setNegativeButton(R.string.common_dialog_delete_entry_negative,
+		                          dialogClickListener);
+		builder.setPositiveButton(R.string.common_dialog_delete_entry_positive,
+		                          dialogClickListener);
 		builder.create().show();
 	}
 
@@ -26,9 +28,10 @@ class DeleteEntryDialogs {
 			}
 		};
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
-		builder.setMessage(R.string.all_dialog_delete_all_message);
-		builder.setNegativeButton(R.string.all_dialog_delete_entry_negative, dialogClickListener);
-		builder.setPositiveButton(R.string.all_dialog_delete_entry_positive, dialogClickListener);
+		builder.setMessage(R.string.common_dialog_delete_all_message);
+		builder.setNegativeButton(R.string.common_dialog_delete_entry_negative,
+		                          dialogClickListener);
+		builder.setPositiveButton(R.string.common_dialog_delete_entry_positive, dialogClickListener);
 		builder.create().show();
 	}
 
