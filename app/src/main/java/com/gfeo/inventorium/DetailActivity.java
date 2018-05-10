@@ -25,6 +25,12 @@ public class DetailActivity extends AppCompatActivity {
 	private static final int DETAILS_LOADER_ID = 2;
 	private DetailActivityBinding binding;
 	private FormattedItemDetails itemDetails;
+	private final LoaderCallbacks cursorLoaderCallbacks = new CursorLoaderCallbacks(this) {
+		@Override
+		public void onLoadFinished(@NonNull Loader loader, Object data) {
+			loadDetails((Cursor) data);
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,43 +40,22 @@ public class DetailActivity extends AppCompatActivity {
 		setupToolbar(binding);
 	}
 
-	@Override
-	protected void onStart() {
-		super.onStart();
-		loadCursor();
-	}
-
-	private void showDetailsViews() {
-		binding.detailProgressbar.setVisibility(View.GONE);
-		binding.detailScrollview.setVisibility(View.VISIBLE);
-	}
-
 	private void setupToolbar(DetailActivityBinding binding) {
 		setSupportActionBar(binding.detailToolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle(R.string.detail_activity_title);
 	}
 
-	private void fillTextViewsWithDetails() {
-		binding.detailTextviewName.setText(itemDetails.getName());
-		binding.detailTextviewDescription.setText(itemDetails.getDescription());
-		binding.detailTextviewQuantity.setText(itemDetails.getQuantity());
-		binding.detailTextviewTotalCost.setText(itemDetails.getTotalCost());
-		binding.detailTextviewTotalRevenue.setText(itemDetails.getTotalRevenue());
-		binding.detailTextviewTotalProfit.setText(itemDetails.getTotalProfit());
-		binding.detailTextviewSupplierEmail.setText(itemDetails.getSupplierEmail());
-		binding.detailTextviewSupplierPhone.setText(itemDetails.getSupplierPhone());
-		binding.detailTextviewNotes.setText(itemDetails.getNotes());
-		binding.detailTextviewUnitCost.setText(itemDetails.getUnitCostPrice());
-		binding.detailTextviewUnitSellingPrice.setText(itemDetails.getUnitSellingPrice());
-		binding.detailTextviewUnitProfit.setText(itemDetails.getUnitProfit());
+	@Override
+	protected void onStart() {
+		super.onStart();
+		loadCursor();
 	}
 
-	private void hideNotesViewIfEmpty() {
-		if (itemDetails.getNotes().isEmpty()) {
-			binding.detailTextviewHeaderNotes.setVisibility(View.GONE);
-			binding.detailTextviewNotes.setVisibility(View.GONE);
-		}
+	private void loadCursor() {
+		Bundle args = new Bundle();
+		args.putString(CursorLoaderCallbacks.URI_ARGS_KEY, itemDetails.getUri().toString());
+		getSupportLoaderManager().restartLoader(CURSOR_LOADER_ID, args, cursorLoaderCallbacks);
 	}
 
 	@Override
@@ -102,18 +87,6 @@ public class DetailActivity extends AppCompatActivity {
 		return true;
 	}
 
-	private void sendPhoneIntent() {
-		if (itemDetails.getSupplierPhone() == null) { return; }
-		Uri phoneUri = Uri.parse("tel:" + itemDetails.getPlainSupplierPhone());
-		Intent phoneIntent = new Intent(Intent.ACTION_DIAL, phoneUri);
-		if (phoneIntent.resolveActivity(getPackageManager()) != null) {
-			startActivity(phoneIntent);
-		} else {
-			Toast.makeText(this, getString(R.string.toast_error_intent_phone),
-			               Toast.LENGTH_SHORT).show();
-		}
-	}
-
 	private void sendEmailIntent() {
 		if (itemDetails.getSupplierEmail() == null) { return; }
 		Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
@@ -130,6 +103,18 @@ public class DetailActivity extends AppCompatActivity {
 		}
 	}
 
+	private void sendPhoneIntent() {
+		if (itemDetails.getSupplierPhone() == null) { return; }
+		Uri phoneUri = Uri.parse("tel:" + itemDetails.getPlainSupplierPhone());
+		Intent phoneIntent = new Intent(Intent.ACTION_DIAL, phoneUri);
+		if (phoneIntent.resolveActivity(getPackageManager()) != null) {
+			startActivity(phoneIntent);
+		} else {
+			Toast.makeText(this, getString(R.string.toast_error_intent_phone),
+			               Toast.LENGTH_SHORT).show();
+		}
+	}
+
 	private void deleteInDb() {
 		int rowsDeleted = getContentResolver().delete(itemDetails.getUri(), null, null);
 		if (rowsDeleted > 0) {
@@ -139,19 +124,6 @@ public class DetailActivity extends AppCompatActivity {
 			     .show();
 		}
 	}
-
-	private void loadCursor() {
-		Bundle args = new Bundle();
-		args.putString(CursorLoaderCallbacks.URI_ARGS_KEY, itemDetails.getUri().toString());
-		getSupportLoaderManager().restartLoader(CURSOR_LOADER_ID, args, cursorLoaderCallbacks);
-	}
-
-	private final LoaderCallbacks cursorLoaderCallbacks = new CursorLoaderCallbacks(this) {
-		@Override
-		public void onLoadFinished(@NonNull Loader loader, Object data) {
-			loadDetails((Cursor) data);
-		}
-	};
 
 	private void loadDetails(Cursor cursor) {
 		LoaderCallbacks detailsLoaderCallbacks = new DetailsLoaderCallbacks(this, cursor,
@@ -166,5 +138,32 @@ public class DetailActivity extends AppCompatActivity {
 		};
 		getSupportLoaderManager().restartLoader(DETAILS_LOADER_ID, null, detailsLoaderCallbacks)
 		                         .forceLoad();
+	}
+
+	private void fillTextViewsWithDetails() {
+		binding.detailTextviewName.setText(itemDetails.getName());
+		binding.detailTextviewDescription.setText(itemDetails.getDescription());
+		binding.detailTextviewQuantity.setText(itemDetails.getQuantity());
+		binding.detailTextviewTotalCost.setText(itemDetails.getTotalCost());
+		binding.detailTextviewTotalRevenue.setText(itemDetails.getTotalRevenue());
+		binding.detailTextviewTotalProfit.setText(itemDetails.getTotalProfit());
+		binding.detailTextviewSupplierEmail.setText(itemDetails.getSupplierEmail());
+		binding.detailTextviewSupplierPhone.setText(itemDetails.getSupplierPhone());
+		binding.detailTextviewNotes.setText(itemDetails.getNotes());
+		binding.detailTextviewUnitCost.setText(itemDetails.getUnitCostPrice());
+		binding.detailTextviewUnitSellingPrice.setText(itemDetails.getUnitSellingPrice());
+		binding.detailTextviewUnitProfit.setText(itemDetails.getUnitProfit());
+	}
+
+	private void hideNotesViewIfEmpty() {
+		if (itemDetails.getNotes().isEmpty()) {
+			binding.detailTextviewHeaderNotes.setVisibility(View.GONE);
+			binding.detailTextviewNotes.setVisibility(View.GONE);
+		}
+	}
+
+	private void showDetailsViews() {
+		binding.detailProgressbar.setVisibility(View.GONE);
+		binding.detailScrollview.setVisibility(View.VISIBLE);
 	}
 }

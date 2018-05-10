@@ -38,28 +38,6 @@ public class InventoryProvider extends ContentProvider {
 
 	@Nullable
 	@Override
-	public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String
-			selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
-		SQLiteDatabase db = new InventoryDbHelper(getContext()).getReadableDatabase();
-		switch (uriMatcher.match(uri)) {
-			case MATCH_INVENTORY_LIST:
-				Cursor cursor = db.query(ItemTable.TABLE_NAME, projection, selection,
-				                         selectionArgs,
-				                         null, null, sortOrder);
-				cursor.setNotificationUri(getContext().getContentResolver(), uri);
-				return cursor;
-			case MATCH_INVENTORY_ITEM:
-				selection = ItemTable.COLUMN_NAME_ID + "=?";
-				selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
-				return db.query(ItemTable.TABLE_NAME, projection, selection, selectionArgs,
-				                null, null, sortOrder);
-			default:
-				throw new IllegalArgumentException("Cannot query unknown URI: " + uri);
-		}
-	}
-
-	@Nullable
-	@Override
 	public String getType(@NonNull Uri uri) {
 		switch (uriMatcher.match(uri)) {
 			case MATCH_INVENTORY_LIST:
@@ -92,25 +70,26 @@ public class InventoryProvider extends ContentProvider {
 
 	}
 
+	@Nullable
 	@Override
-	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[]
-			selectionArgs) {
-		SQLiteDatabase db = new InventoryDbHelper(getContext()).getWritableDatabase();
-		int rowsAffected;
+	public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String
+			selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
+		SQLiteDatabase db = new InventoryDbHelper(getContext()).getReadableDatabase();
 		switch (uriMatcher.match(uri)) {
 			case MATCH_INVENTORY_LIST:
-				rowsAffected = db.delete(ItemTable.TABLE_NAME, selection, selectionArgs);
-				break;
+				Cursor cursor = db.query(ItemTable.TABLE_NAME, projection, selection,
+				                         selectionArgs,
+				                         null, null, sortOrder);
+				cursor.setNotificationUri(getContext().getContentResolver(), uri);
+				return cursor;
 			case MATCH_INVENTORY_ITEM:
 				selection = ItemTable.COLUMN_NAME_ID + "=?";
 				selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
-				rowsAffected = db.delete(ItemTable.TABLE_NAME, selection, selectionArgs);
-				break;
+				return db.query(ItemTable.TABLE_NAME, projection, selection, selectionArgs,
+				                null, null, sortOrder);
 			default:
-				throw new IllegalArgumentException("Delete operation failed. Unknown URI: " + uri);
+				throw new IllegalArgumentException("Cannot query unknown URI: " + uri);
 		}
-		if (rowsAffected > 0) { getContext().getContentResolver().notifyChange(uri, null); }
-		return rowsAffected;
 	}
 
 	@Override
@@ -129,6 +108,27 @@ public class InventoryProvider extends ContentProvider {
 				break;
 			default:
 				throw new IllegalArgumentException(" " + uri);
+		}
+		if (rowsAffected > 0) { getContext().getContentResolver().notifyChange(uri, null); }
+		return rowsAffected;
+	}
+
+	@Override
+	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[]
+			selectionArgs) {
+		SQLiteDatabase db = new InventoryDbHelper(getContext()).getWritableDatabase();
+		int rowsAffected;
+		switch (uriMatcher.match(uri)) {
+			case MATCH_INVENTORY_LIST:
+				rowsAffected = db.delete(ItemTable.TABLE_NAME, selection, selectionArgs);
+				break;
+			case MATCH_INVENTORY_ITEM:
+				selection = ItemTable.COLUMN_NAME_ID + "=?";
+				selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+				rowsAffected = db.delete(ItemTable.TABLE_NAME, selection, selectionArgs);
+				break;
+			default:
+				throw new IllegalArgumentException("Delete operation failed. Unknown URI: " + uri);
 		}
 		if (rowsAffected > 0) { getContext().getContentResolver().notifyChange(uri, null); }
 		return rowsAffected;
