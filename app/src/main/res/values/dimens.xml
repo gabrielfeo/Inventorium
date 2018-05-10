@@ -16,6 +16,6 @@
 	<dimen name = "editor_button_height">56dp</dimen>
 	<dimen name = "editor_button_elevation">2dp</dimen>
 
-	<dimen name = "detail_total_values_line_spacing">4dp</dimen>
+	<dimen name = "detail_values_line_spacing">4dp</dimen>
 
 </resources>

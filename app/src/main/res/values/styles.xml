@@ -67,7 +67,7 @@
 	<style name = "DetailValuesList">
 		<item name = "android:layout_width">wrap_content</item>
 		<item name = "android:layout_height">wrap_content</item>
-		<item name = "android:layout_marginBottom">@dimen/detail_total_values_line_spacing</item>
+		<item name = "android:layout_marginBottom">@dimen/detail_values_line_spacing</item>
 	</style>
 
 	<style name = "DetailValuesList.Unit">

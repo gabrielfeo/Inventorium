@@ -218,6 +218,7 @@
 				<TextView
 					android:id = "@+id/detail_textview_unit_selling_price"
 					style = "@style/DetailValuesList.Unit"
+					android:paddingBottom = "@dimen/detail_values_line_spacing"
 					app:layout_constraintBottom_toTopOf = "@id/detail_textview_unit_profit"
 					app:layout_constraintStart_toStartOf = "@id/detail_textview_header_unit_values"
 					app:layout_constraintTop_toBottomOf = "@id/detail_textview_unit_cost"
