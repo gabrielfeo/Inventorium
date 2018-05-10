@@ -41,21 +41,20 @@ public class EditorActivity extends AppCompatActivity {
 		                                         R.layout.activity_editor);
 		Uri itemUri = getIntent().getData();
 		if (itemUri == null) {
-			setupToolbar(true);
 			showEditorViews();
 		} else {
-			setupToolbar(false);
 			itemDetails = new ItemDetails(itemUri);
 			loadCursor();
 		}
+		setupToolbar();
 		setupQuantityCounterViews();
 	}
 
-	private void setupToolbar(boolean isNewEntry) {
+	private void setupToolbar() {
 		setSupportActionBar(binding.editorToolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		int titleResourceId = (isNewEntry) ? R.string.editor_activity_title_adding
-		                                   : R.string.editor_activity_title_editing;
+		int titleResourceId = (itemDetails == null) ? R.string.editor_activity_title_adding
+		                                            : R.string.editor_activity_title_editing;
 		getSupportActionBar().setTitle(titleResourceId);
 	}
 
@@ -76,12 +75,13 @@ public class EditorActivity extends AppCompatActivity {
 		getSupportLoaderManager().restartLoader(4, args, cursorLoaderCallbacks);
 	}
 
-	private LoaderManager.LoaderCallbacks cursorLoaderCallbacks = new CursorLoaderCallbacks(this) {
-		@Override
-		public void onLoadFinished(@NonNull Loader loader, Object data) {
-			loadDetails((Cursor) data);
-		}
-	};
+	private final LoaderManager.LoaderCallbacks cursorLoaderCallbacks =
+			new CursorLoaderCallbacks(this) {
+				@Override
+				public void onLoadFinished(@NonNull Loader loader, Object data) {
+					loadDetails((Cursor) data);
+				}
+			};
 
 	private void loadDetails(Cursor cursor) {
 		LoaderManager.LoaderCallbacks detailsLoaderCallbacks = new DetailsLoaderCallbacks(this,
@@ -105,7 +105,7 @@ public class EditorActivity extends AppCompatActivity {
 	}
 
 	private void setupQuantityCounterViews() {
-		//TODO is it necessary to use valueOf for setText?
+		if (itemDetails == null) { quantityCount = 0; }
 		binding.editorEdittextQuantity.setText(String.valueOf(quantityCount));
 		binding.editorButtonMinus.setOnClickListener(
 				view -> updateQuantityCount(DECREASE_QUANTITY));
@@ -145,6 +145,7 @@ public class EditorActivity extends AppCompatActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_editor, menu);
+		if (itemDetails == null) { menu.findItem(R.id.menu_editor_delete).setVisible(false); }
 		return true;
 	}
 

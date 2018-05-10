@@ -146,7 +146,7 @@ public class DetailActivity extends AppCompatActivity {
 		getSupportLoaderManager().restartLoader(CURSOR_LOADER_ID, args, cursorLoaderCallbacks);
 	}
 
-	private LoaderCallbacks cursorLoaderCallbacks = new CursorLoaderCallbacks(this) {
+	private final LoaderCallbacks cursorLoaderCallbacks = new CursorLoaderCallbacks(this) {
 		@Override
 		public void onLoadFinished(@NonNull Loader loader, Object data) {
 			loadDetails((Cursor) data);
@@ -160,6 +160,7 @@ public class DetailActivity extends AppCompatActivity {
 			public void onLoadFinished(@NonNull Loader loader, Object data) {
 				itemDetails = (FormattedItemDetails) data;
 				fillTextViewsWithDetails();
+				hideNotesViewIfEmpty();
 				showDetailsViews();
 			}
 		};
