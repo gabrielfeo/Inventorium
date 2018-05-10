@@ -20,15 +20,8 @@ import com.gfeo.inventorium.data.InventoryDbContract.ItemTable;
 
 class InventoryCursorAdapter extends CursorAdapter {
 
-	private final int nameColumnIndex;
-	private final int sellingPriceColumnIndex;
-	private final int quantityColumnIndex;
-
 	public InventoryCursorAdapter(Context context, Cursor cursor) {
 		super(context, cursor, false);
-		nameColumnIndex = cursor.getColumnIndex(ItemTable.COLUMN_NAME_NAME);
-		sellingPriceColumnIndex = cursor.getColumnIndex(ItemTable.COLUMN_NAME_UNIT_SELL_PRICE);
-		quantityColumnIndex = cursor.getColumnIndex(ItemTable.COLUMN_NAME_QUANTITY);
 	}
 
 	@Override
@@ -40,8 +33,7 @@ class InventoryCursorAdapter extends CursorAdapter {
 		//Find views for the ViewHolder
 		ViewHolder viewHolder = new ViewHolder();
 		viewHolder.nameTextView = view.findViewById(R.id.item_textview_name);
-		viewHolder.sellingPriceTextView = view.findViewById(R.id.item_textview_selling_price);
-		viewHolder.quantityTextView = view.findViewById(R.id.item_textview_quantity);
+		viewHolder.infoTextView = view.findViewById(R.id.item_textview_info);
 		viewHolder.sellButton = view.findViewById(R.id.item_button_sell);
 		view.setTag(viewHolder);
 		return view;
@@ -50,20 +42,23 @@ class InventoryCursorAdapter extends CursorAdapter {
 	@Override
 	public void bindView(View view, Context context, Cursor cursor) {
 		ViewHolder viewHolder = (ViewHolder) view.getTag();
+		int currentQuantity = cursor.getInt(ItemTable.COLUMN_INDEX_QUANTITY);
+		Uri itemUri = ContentUris.withAppendedId(ItemTable.CONTENT_URI,
+		                                         cursor.getInt(ItemTable.COLUMN_INDEX_ID));
+		FormattedItemDetails itemDetails = new FormattedItemDetails(context, itemUri);
+		itemDetails.setUnitSellingPrice(cursor.getInt(ItemTable.COLUMN_INDEX_UNIT_SELL_PRICE));
+		String info = context.getString(R.string.item_item_info,
+		                                itemDetails.getPlainUnitSellingPrice(),
+		                                currentQuantity);
 
-		viewHolder.nameTextView.setText(cursor.getString(nameColumnIndex));
-		String sellingPrice = "R$ " + cursor.getString(sellingPriceColumnIndex);
-		viewHolder.sellingPriceTextView.setText(sellingPrice);
-		String quantityText = "  -  " + cursor.getString(quantityColumnIndex) + " left";
-		viewHolder.quantityTextView.setText(quantityText);
-		viewHolder.sellButton.setOnClickListener(buttonView -> sellItem(context, cursor));
+		viewHolder.nameTextView.setText(cursor.getString(ItemTable.COLUMN_INDEX_NAME));
+		viewHolder.infoTextView.setText(info);
+		viewHolder.sellButton.setOnClickListener(buttonView -> sellItem(context, itemUri,
+		                                                                currentQuantity));
 	}
 
-	private void sellItem(Context context, Cursor cursor) {
-		int currentQuantity = cursor.getInt(ItemTable.COLUMN_INDEX_QUANTITY);
+	private void sellItem(Context context, Uri itemUri, int currentQuantity) {
 		if (currentQuantity <= 0) { return; }
-		int itemId = cursor.getInt(ItemTable.COLUMN_INDEX_ID);
-		Uri itemUri = ContentUris.withAppendedId(ItemTable.CONTENT_URI, itemId);
 		ContentValues newValues = new ContentValues();
 		newValues.put(ItemTable.COLUMN_NAME_QUANTITY, currentQuantity - 1);
 		context.getContentResolver().update(itemUri, newValues, null, null);
@@ -71,8 +66,7 @@ class InventoryCursorAdapter extends CursorAdapter {
 
 	private class ViewHolder {
 		TextView nameTextView;
-		TextView sellingPriceTextView;
-		TextView quantityTextView;
+		TextView infoTextView;
 		Button sellButton;
 	}
 }

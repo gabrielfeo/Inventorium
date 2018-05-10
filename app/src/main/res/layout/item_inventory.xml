@@ -17,47 +17,34 @@
 		android:textAppearance = "@style/TextAppearance.AppCompat.Medium"
 		android:textColor = "@color/colorTextPrimary"
 		android:textStyle = "bold"
-		app:layout_constraintBottom_toTopOf = "@id/item_textview_selling_price"
+		app:layout_constraintBottom_toTopOf = "@id/item_textview_info"
 		app:layout_constraintEnd_toStartOf = "@id/item_button_sell"
 		app:layout_constraintStart_toStartOf = "parent"
 		app:layout_constraintTop_toTopOf = "parent"
 		tools:text = "Name" />
 
 	<TextView
-		android:id = "@+id/item_textview_selling_price"
-		android:layout_width = "wrap_content"
+		android:id = "@+id/item_textview_info"
+		android:layout_width = "0dp"
 		android:layout_height = "0dp"
 		android:gravity = "top"
 		app:layout_constraintBottom_toBottomOf = "parent"
 		app:layout_constraintStart_toStartOf = "@id/item_textview_name"
 		app:layout_constraintTop_toBottomOf = "@id/item_textview_name"
-		tools:text = "R$ 00,00" />
-
-	<TextView
-		android:id = "@+id/item_textview_quantity"
-		android:layout_width = "0dp"
-		android:layout_height = "0dp"
-		android:gravity = "top"
-		app:layout_constraintBottom_toBottomOf = "parent"
 		app:layout_constraintEnd_toStartOf = "@id/item_button_sell"
-		app:layout_constraintStart_toEndOf = "@id/item_textview_selling_price"
-		app:layout_constraintTop_toTopOf = "@id/item_textview_selling_price"
-		tools:text = " — 120 left" />
+		tools:text = "R$ 00,00  -  120 left" />
 
 	<android.support.design.button.MaterialButton
 		android:id = "@+id/item_button_sell"
-		android:layout_width = "wrap_content"
-		android:layout_height = "wrap_content"
+		android:layout_width = "72dp"
+		android:layout_height = "64dp"
 		android:gravity = "center"
-		android:paddingBottom = "16dp"
-		android:paddingEnd = "14dp"
-		android:paddingStart = "14dp"
-		android:paddingTop = "16dp"
 		android:text = "@string/item_button_sell"
 		android:textAllCaps = "true"
 		android:textAppearance = "@style/TextAppearance.AppCompat.Small"
-		android:textColor = "@color/colorSellButton"
+		android:textColor = "@color/colorSellButtonText"
 		android:textStyle = "bold"
+		app:rippleColor = "@color/colorSellButtonText"
 		app:backgroundTint = "@android:color/transparent"
 		app:layout_constraintBottom_toBottomOf = "parent"
 		app:layout_constraintEnd_toEndOf = "parent"

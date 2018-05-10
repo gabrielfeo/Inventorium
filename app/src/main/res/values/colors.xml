@@ -6,5 +6,6 @@
 	<color name = "colorToolbarTitle">@android:color/black</color>
 	<color name = "colorProgressBar">@color/colorToolbarTitle</color>
 	<color name = "colorTextPrimary">@android:color/black</color>
-	<color name = "colorSellButton">#607d8b</color>
+	<color name = "colorSellButtonText">#607d8b</color>
+	<color name = "colorSellButtonRipple">#cfd8dc</color>
 </resources>

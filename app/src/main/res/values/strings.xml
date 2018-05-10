@@ -46,7 +46,7 @@
 	<string name = "detail_unit_profit">Profit: %1$s/un</string>
 
 	<string name = "item_button_sell">Sell</string>
-
+	<string name = "item_item_info">%1$s  &#8212;  %2$d left</string>
 
 	<string name = "editor_hint_name">Name</string>
 	<string name = "editor_hint_description">Description</string>

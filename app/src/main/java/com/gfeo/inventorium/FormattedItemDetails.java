@@ -95,6 +95,10 @@ class FormattedItemDetails extends ItemDetails {
 		                                          unitSellingPriceString);
 	}
 
+	public String getPlainUnitSellingPrice() {
+		return unitSellingPrice.substring(14);
+	}
+
 	@Override
 	public void setUnitProfit(double unitProfit) {
 		String unitProfitString = currencyFormat.format(unitProfit);
