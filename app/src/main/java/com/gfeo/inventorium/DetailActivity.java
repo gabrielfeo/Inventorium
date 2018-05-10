@@ -1,5 +1,6 @@
 package com.gfeo.inventorium;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
@@ -79,7 +80,7 @@ public class DetailActivity extends AppCompatActivity {
 				                         this, EditorActivity.class));
 				break;
 			case R.id.menu_detail_delete:
-				deleteInDb();
+				showDeleteEntryDialog();
 				break;
 			default:
 				return false;
@@ -113,6 +114,13 @@ public class DetailActivity extends AppCompatActivity {
 			Toast.makeText(this, getString(R.string.toast_error_intent_phone),
 			               Toast.LENGTH_SHORT).show();
 		}
+	}
+
+	private void showDeleteEntryDialog() {
+		DialogInterface.OnClickListener dialogClickListener = (dialog, button) -> {
+			if (button == DialogInterface.BUTTON_POSITIVE) { deleteInDb(); }
+		};
+		DeleteEntryDialogs.showDeleteOneDialog(this, dialogClickListener);
 	}
 
 	private void deleteInDb() {

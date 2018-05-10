@@ -34,7 +34,6 @@ public class EditorActivity extends AppCompatActivity {
 	private EditorActivityBinding binding;
 	private ItemDetails itemDetails;
 	private boolean changesMade;
-	private boolean shouldSuppressChangesDialog;
 	private final LoaderManager.LoaderCallbacks cursorLoaderCallbacks =
 			new CursorLoaderCallbacks(this) {
 				@Override
@@ -174,28 +173,23 @@ public class EditorActivity extends AppCompatActivity {
 		binding.editorEdittextNotes.setText(itemDetails.getNotes());
 	}
 
+	@Override
+	public void onBackPressed() {
+		if (changesMade) {
+			showUnsavedChangesDialog();
+		} else { super.onBackPressed(); }
+	}
+
 	private void showUnsavedChangesDialog() {
 		DialogInterface.OnClickListener dialogClickListener = (dialog, buttonClicked) -> {
-			if (buttonClicked == DialogInterface.BUTTON_POSITIVE) {
-				shouldSuppressChangesDialog = true;
-				finish();
-			} else if (buttonClicked == DialogInterface.BUTTON_NEGATIVE) {
-				shouldSuppressChangesDialog = false;
-				dialog.dismiss();
-			}
+			if (buttonClicked == DialogInterface.BUTTON_POSITIVE) { finish(); }
+			if (buttonClicked == DialogInterface.BUTTON_NEGATIVE) { dialog.dismiss(); }
 		};
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(R.string.editor_dialog_changes_message);
 		builder.setNegativeButton(R.string.editor_dialog_changes_negative, dialogClickListener);
 		builder.setPositiveButton(R.string.editor_dialog_changes_positive, dialogClickListener);
 		builder.create().show();
-	}
-
-	@Override
-	public void onBackPressed() {
-		if (changesMade && !shouldSuppressChangesDialog) {
-			showUnsavedChangesDialog();
-		} else { super.onBackPressed(); }
 	}
 
 	@Override
@@ -212,10 +206,10 @@ public class EditorActivity extends AppCompatActivity {
 				onSavePressed();
 				break;
 			case R.id.menu_editor_delete:
-				deleteInDb();
+				showDeleteEntryDialog();
 				break;
 			case android.R.id.home:
-				if (changesMade && !shouldSuppressChangesDialog) {
+				if (changesMade) {
 					showUnsavedChangesDialog();
 				} else { finish(); }
 				break;
@@ -230,7 +224,13 @@ public class EditorActivity extends AppCompatActivity {
 		if (hasNoEmptyStrings(values)) {
 			if (itemDetails == null) { insertInDb(values); } else { updateInDb(values); }
 		}
-		onBackPressed();
+	}
+
+	private void showDeleteEntryDialog() {
+		DialogInterface.OnClickListener dialogClickListener = (dialog, button) -> {
+			if (button == DialogInterface.BUTTON_POSITIVE) { deleteInDb(); }
+		};
+		DeleteEntryDialogs.showDeleteOneDialog(this, dialogClickListener);
 	}
 
 	private ContentValues getInputtedValues() {
@@ -277,8 +277,7 @@ public class EditorActivity extends AppCompatActivity {
 	private void updateInDb(ContentValues values) {
 		int rowsUpdated = getContentResolver().update(itemDetails.getUri(), values, null, null);
 		if (rowsUpdated > 0) {
-			shouldSuppressChangesDialog = true;
-			onBackPressed();
+			finish();
 		} else {
 			Toast.makeText(this, getString(R.string.toast_error_insert), Toast.LENGTH_SHORT)
 			     .show();

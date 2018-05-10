@@ -63,10 +63,8 @@ public class InventoryActivity extends AppCompatActivity {
 	private void setListViewAdapter() {
 		CursorAdapter adapter = (CursorAdapter) binding.inventoryListview.getAdapter();
 		if (adapter == null) {
-			binding.inventoryListview.setAdapter(new InventoryCursorAdapter(this,
-			                                                                cursor));
+			binding.inventoryListview.setAdapter(new InventoryCursorAdapter(this, cursor));
 		} else { adapter.swapCursor(cursor); }
-
 	}
 
 	private void showListView() {
@@ -84,9 +82,7 @@ public class InventoryActivity extends AppCompatActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.menu_inventory_delete_all:
-				getContentResolver().delete(ItemTable.CONTENT_URI,
-				                            null, null);
-				loadCursor();
+				DeleteEntryDialogs.showDeleteAllDialog(this);
 				break;
 		}
 		return super.onOptionsItemSelected(item);

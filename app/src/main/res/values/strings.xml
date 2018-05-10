@@ -4,6 +4,11 @@
 	<string name = "detail_activity_title">Item info</string>
 	<string name = "editor_activity_title_editing">Edit item</string>
 	<string name = "editor_activity_title_adding">New item</string>
+	<string name = "all_dialog_delete_all_message">Are you sure you\'d like to delete all
+		entries?</string>
+	<string name = "all_dialog_delete_entry_message">Are you sure you\'d like to delete this entry?</string>
+	<string name = "all_dialog_delete_entry_positive">Delete</string>
+	<string name = "all_dialog_delete_entry_negative">Cancel</string>
 
 	<string name = "menu_inventory_delete_all">Delete all</string>
 	<string name = "menu_detail_edit">Edit entry</string>
