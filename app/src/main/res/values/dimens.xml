@@ -3,11 +3,12 @@
 
 	<dimen name = "toolbar_elevation">4dp</dimen>
 	<dimen name = "activity_margin">16dp</dimen>
-	<dimen name = "fab_margin">16dp</dimen>
+	<dimen name = "progressbar_circle_diameter">48dp</dimen>
 
 	<dimen name = "item_height">80dp</dimen>
 
-	<dimen name = "item_button_height">48dp</dimen>
+	<dimen name = "inventory_item_button_height">48dp</dimen>
+	<dimen name = "inventory_fab_margin">16dp</dimen>
 
 	<dimen name = "editor_quantity_margin_vertical">32dp</dimen>
 	<dimen name = "editor_quantity_margin_horizontal">16dp</dimen>

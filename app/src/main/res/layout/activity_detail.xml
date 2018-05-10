@@ -16,11 +16,19 @@
 			android:id = "@+id/detail_toolbar"
 			style = "@style/ToolbarTheme" />
 
+		<ProgressBar
+			android:id = "@+id/detail_progressbar"
+			android:layout_width = "@dimen/progressbar_circle_diameter"
+			android:layout_height = "0dp"
+			android:layout_gravity = "center"
+			android:layout_weight = "1" />
+
 		<ScrollView
 			android:id = "@+id/detail_scrollview"
 			android:layout_width = "match_parent"
 			android:layout_height = "wrap_content"
-			android:orientation = "vertical">
+			android:orientation = "vertical"
+			android:visibility = "gone">
 
 			<android.support.constraint.ConstraintLayout
 				android:layout_width = "match_parent"
@@ -53,8 +61,8 @@
 					android:layout_width = "match_parent"
 					android:layout_height = "wrap_content"
 					android:gravity = "center_vertical"
-					android:textSize = "10sp"
 					android:text = "@string/detail_header_quantity"
+					android:textSize = "10sp"
 					app:layout_constraintBottom_toTopOf = "@id/detail_textview_quantity"
 					app:layout_constraintStart_toStartOf = "@id/detail_textview_quantity" />
 
@@ -63,10 +71,10 @@
 					android:layout_width = "match_parent"
 					android:layout_height = "wrap_content"
 					android:layout_marginBottom = "32dp"
-					android:textColor = "@color/colorTextPrimary"
 					android:ellipsize = "end"
 					android:gravity = "center_vertical"
 					android:textAppearance = "@style/TextAppearance.AppCompat.Medium"
+					android:textColor = "@color/colorTextPrimary"
 					android:textSize = "20sp"
 					app:layout_constraintBottom_toTopOf = "@id/detail_textview_header_total_values"
 					app:layout_constraintStart_toStartOf = "parent"
@@ -78,8 +86,8 @@
 					android:layout_width = "match_parent"
 					android:layout_height = "wrap_content"
 					android:gravity = "center_vertical"
-					android:textSize = "10sp"
 					android:text = "@string/detail_header_total_values_disclaimer"
+					android:textSize = "10sp"
 					app:layout_constraintBottom_toTopOf = "@id/detail_textview_header_total_values"
 					app:layout_constraintStart_toStartOf = "@id/detail_textview_header_total_values" />
 
@@ -89,9 +97,9 @@
 					android:layout_height = "wrap_content"
 					android:layout_marginBottom = "4dp"
 					android:maxLength = "14"
+					android:text = "@string/detail_header_total_values"
 					android:textColor = "@color/colorTextPrimary"
 					android:textSize = "16sp"
-					android:text = "@string/detail_header_total_values"
 					app:layout_constraintBottom_toTopOf = "@id/detail_textview_total_cost"
 					app:layout_constraintStart_toStartOf = "@id/detail_textview_quantity"
 					app:layout_constraintTop_toBottomOf = "@id/detail_textview_quantity" />
@@ -142,9 +150,9 @@
 					android:layout_width = "match_parent"
 					android:layout_height = "wrap_content"
 					android:layout_marginBottom = "4dp"
+					android:text = "@string/detail_header_supplier_info"
 					android:textColor = "@color/colorTextPrimary"
 					android:textSize = "16sp"
-					android:text = "@string/detail_header_supplier_info"
 					app:layout_constraintBottom_toTopOf = "@id/detail_textview_supplier_email"
 					app:layout_constraintTop_toBottomOf = "@id/detail_textview_total_profit" />
 
@@ -163,8 +171,8 @@
 					android:id = "@+id/detail_textview_supplier_phone"
 					android:layout_width = "match_parent"
 					android:layout_height = "wrap_content"
-					android:autoLink = "none"
 					android:layout_marginBottom = "24dp"
+					android:autoLink = "none"
 					app:layout_constraintBottom_toTopOf = "@id/detail_textview_header_notes"
 					app:layout_constraintTop_toBottomOf = "@id/detail_textview_supplier_email"
 					tools:text = "Phone: (21) 99876-5432" />
@@ -199,14 +207,14 @@
 					android:layout_width = "wrap_content"
 					android:layout_height = "wrap_content"
 					android:layout_marginBottom = "4dp"
+					android:text = "@string/detail_header_unit_values"
 					android:textColor = "@color/colorTextPrimary"
-					app:layout_constraintVertical_chainStyle = "packed"
 					android:textSize = "14sp"
 					app:layout_constraintEnd_toEndOf = "parent"
 					app:layout_constraintHorizontal_bias = "0.30"
-					android:text = "@string/detail_header_unit_values"
 					app:layout_constraintStart_toEndOf = "@id/detail_barrier_total_values"
-					app:layout_constraintTop_toTopOf = "@id/detail_textview_header_total_values" />
+					app:layout_constraintTop_toTopOf = "@id/detail_textview_header_total_values"
+					app:layout_constraintVertical_chainStyle = "packed" />
 
 				<TextView
 					android:id = "@+id/detail_textview_unit_cost"

@@ -40,6 +40,11 @@ public class DetailActivity extends AppCompatActivity {
 		loadCursor();
 	}
 
+	private void showDetailsViews() {
+		binding.detailProgressbar.setVisibility(View.GONE);
+		binding.detailScrollview.setVisibility(View.VISIBLE);
+	}
+
 	private void setupToolbar(DetailActivityBinding binding) {
 		setSupportActionBar(binding.detailToolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -154,6 +159,7 @@ public class DetailActivity extends AppCompatActivity {
 			public void onLoadFinished(@NonNull Loader loader, Object data) {
 				itemDetails = (ItemDetails) data;
 				fillTextViewsWithDetails();
+				showDetailsViews();
 			}
 		};
 		getSupportLoaderManager().restartLoader(DETAILS_LOADER_ID, null, detailsLoaderCallbacks)
