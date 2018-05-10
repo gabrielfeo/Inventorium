@@ -17,7 +17,7 @@ class InventoryLoaderCallbacks {
 	static abstract class CursorLoaderCallbacks implements LoaderManager.LoaderCallbacks {
 
 		public static final String URI_ARGS_KEY = "uri";
-		private Context context;
+		private final Context context;
 
 		CursorLoaderCallbacks(Context context) {
 			super();
@@ -37,9 +37,9 @@ class InventoryLoaderCallbacks {
 
 	static abstract class DetailsLoaderCallbacks implements LoaderManager.LoaderCallbacks {
 
-		private Context context;
-		private Cursor cursor;
-		private ItemDetails itemDetails;
+		private final Context context;
+		private final Cursor cursor;
+		private final ItemDetails itemDetails;
 
 		DetailsLoaderCallbacks(Context context, Cursor cursor, @NonNull ItemDetails itemDetails) {
 			super();

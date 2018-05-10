@@ -8,6 +8,7 @@ import android.provider.BaseColumns;
  * Created by gabrielfeo on 2018/04/28.
  */
 
+@SuppressWarnings("WeakerAccess")
 public class InventoryDbContract {
 
 	public static final String DATABASE_NAME = "inventory.db";
@@ -17,6 +18,7 @@ public class InventoryDbContract {
 	public static final String PATH_INVENTORY = "inventory";
 
 	private InventoryDbContract() {}
+
 
 	public static final class ItemTable implements BaseColumns {
 

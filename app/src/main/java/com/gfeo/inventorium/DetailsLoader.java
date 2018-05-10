@@ -10,8 +10,8 @@ import com.gfeo.inventorium.data.InventoryDbContract.ItemTable;
 class DetailsLoader extends AsyncTaskLoader<ItemDetails> {
 
 	private final static String LOG_TAG = DetailsLoader.class.getSimpleName();
-	private Cursor cursor;
-	private ItemDetails itemDetails;
+	private final Cursor cursor;
+	private final ItemDetails itemDetails;
 
 	DetailsLoader(Context context, Cursor cursor, ItemDetails itemDetails) {
 		super(context);

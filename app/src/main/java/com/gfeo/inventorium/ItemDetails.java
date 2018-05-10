@@ -2,6 +2,7 @@ package com.gfeo.inventorium;
 
 import android.net.Uri;
 
+@SuppressWarnings("WeakerAccess")
 class ItemDetails {
 
 	private static final String LOG_TAG = ItemDetails.class.getSimpleName();

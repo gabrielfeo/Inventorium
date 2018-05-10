@@ -90,7 +90,7 @@ public class InventoryActivity extends AppCompatActivity {
 		cursor.close();
 	}
 
-	private LoaderCallbacks loaderCallbacks = new CursorLoaderCallbacks(this) {
+	private final LoaderCallbacks loaderCallbacks = new CursorLoaderCallbacks(this) {
 		@Override
 		public void onLoadFinished(@NonNull Loader loader, Object data) {
 			cursor = (Cursor) data;

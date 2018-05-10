@@ -4,6 +4,7 @@
 	xmlns:tools = "http://schemas.android.com/tools"
 	tools:context = "com.gfeo.inventorium.EditorActivity">
 
+	<!--suppress AndroidUnknownAttribute -->
 	<data class = "EditorActivityBinding" />
 
 	<LinearLayout

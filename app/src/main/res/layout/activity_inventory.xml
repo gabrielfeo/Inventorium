@@ -5,6 +5,7 @@
 	xmlns:tools = "http://schemas.android.com/tools"
 	tools:context = "com.gfeo.inventorium.InventoryActivity">
 
+	<!--suppress AndroidUnknownAttribute -->
 	<data class = "InventoryActivityBinding" />
 
 	<android.support.constraint.ConstraintLayout
