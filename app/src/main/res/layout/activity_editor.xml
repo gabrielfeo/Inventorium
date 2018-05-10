@@ -18,10 +18,7 @@
 
 		<ProgressBar
 			android:id = "@+id/editor_progressbar"
-			android:layout_width = "@dimen/progressbar_circle_diameter"
-			android:layout_height = "0dp"
-			android:layout_gravity = "center"
-			android:layout_weight = "1" />
+			style = "@style/ProgressBarTheme.LinearLayout" />
 
 		<ScrollView
 			android:id = "@+id/editor_scrollview"
@@ -36,53 +33,38 @@
 
 				<android.support.design.widget.TextInputLayout
 					android:id = "@+id/editor_inputlayout_name"
-					android:layout_width = "match_parent"
-					android:layout_height = "wrap_content"
-					android:layout_marginEnd = "@dimen/activity_margin"
-					android:layout_marginStart = "@dimen/activity_margin"
+					style = "@style/EditorTextInputLayout"
 					android:layout_marginTop = "@dimen/activity_margin"
 					app:layout_constraintBottom_toTopOf = "@id/editor_inputlayout_description"
 					app:layout_constraintTop_toTopOf = "parent">
 
 					<android.support.design.widget.TextInputEditText
 						android:id = "@+id/editor_edittext_name"
-						android:layout_width = "match_parent"
-						android:layout_height = "wrap_content"
-						android:ellipsize = "end"
+						style = "@style/EditorTextInputEditText"
 						android:hint = "@string/editor_hint_name"
-						android:inputType = "textCapWords|textAutoComplete"
-						android:maxLines = "1" />
+						android:inputType = "textCapWords|textAutoComplete" />
 
 				</android.support.design.widget.TextInputLayout>
 
 				<android.support.design.widget.TextInputLayout
 					android:id = "@+id/editor_inputlayout_description"
-					android:layout_width = "match_parent"
-					android:layout_height = "wrap_content"
+					style = "@style/EditorTextInputLayout"
 					android:layout_marginBottom = "16dp"
-					android:layout_marginEnd = "@dimen/activity_margin"
-					android:layout_marginStart = "@dimen/activity_margin"
 					app:layout_constraintBottom_toTopOf = "@id/editor_inputlayout_cost"
 					app:layout_constraintTop_toBottomOf = "@id/editor_inputlayout_name">
 
 					<android.support.design.widget.TextInputEditText
 						android:id = "@+id/editor_edittext_description"
-						android:layout_width = "match_parent"
-						android:layout_height = "wrap_content"
-						android:ellipsize = "end"
+						style = "@style/EditorTextInputEditText"
 						android:hint = "@string/editor_hint_description"
-						android:inputType = "textMultiLine|textCapSentences|textAutoComplete"
-						android:lines = "1"
-						android:maxLines = "1" />
+						android:inputType = "textMultiLine|textCapSentences|textAutoComplete" />
 
 				</android.support.design.widget.TextInputLayout>
 
 				<android.support.design.widget.TextInputLayout
 					android:id = "@+id/editor_inputlayout_cost"
+					style = "@style/EditorTextInputLayout"
 					android:layout_width = "0dp"
-					android:layout_height = "wrap_content"
-					android:layout_marginEnd = "@dimen/activity_margin"
-					android:layout_marginStart = "@dimen/activity_margin"
 					app:layout_constraintBottom_toTopOf = "@id/editor_edittext_quantity"
 					app:layout_constraintEnd_toStartOf = "@id/editor_inputlayout_selling"
 					app:layout_constraintStart_toStartOf = "parent"
@@ -90,38 +72,30 @@
 
 					<android.support.design.widget.TextInputEditText
 						android:id = "@+id/editor_edittext_cost"
-						android:layout_width = "match_parent"
-						android:layout_height = "wrap_content"
-						android:ellipsize = "end"
+						style = "@style/EditorTextInputEditText"
 						android:hint = "@string/editor_hint_cost"
-						android:inputType = "numberDecimal"
-						android:maxLines = "1" />
+						android:inputType = "numberDecimal" />
 
 				</android.support.design.widget.TextInputLayout>
 
 				<android.support.design.widget.TextInputLayout
 					android:id = "@+id/editor_inputlayout_selling"
+					style = "@style/EditorTextInputLayout"
 					android:layout_width = "0dp"
-					android:layout_height = "wrap_content"
-					android:layout_marginEnd = "@dimen/activity_margin"
-					android:layout_marginStart = "@dimen/activity_margin"
 					app:layout_constraintEnd_toEndOf = "parent"
 					app:layout_constraintStart_toEndOf = "@id/editor_inputlayout_cost"
 					app:layout_constraintTop_toTopOf = "@id/editor_inputlayout_cost">
 
 					<android.support.design.widget.TextInputEditText
 						android:id = "@+id/editor_edittext_selling"
-						android:layout_width = "match_parent"
-						android:layout_height = "wrap_content"
-						android:ellipsize = "end"
+						style = "@style/EditorTextInputEditText"
 						android:hint = "@string/editor_hint_selling"
-						android:inputType = "numberDecimal"
-						android:maxLines = "1" />
+						android:inputType = "numberDecimal" />
 
 				</android.support.design.widget.TextInputLayout>
 
 				<TextView
-					android:id = "@+id/editor_textview_in_stock"
+					android:id = "@+id/editor_textview_header_in_stock"
 					android:layout_width = "wrap_content"
 					android:layout_height = "wrap_content"
 					android:layout_marginEnd = "24dp"
@@ -135,15 +109,11 @@
 
 				<android.support.design.button.MaterialButton
 					android:id = "@+id/editor_button_minus"
-					android:layout_width = "@dimen/editor_button_width"
-					android:layout_height = "@dimen/editor_button_height"
-					android:elevation = "@dimen/editor_button_elevation"
-					android:gravity = "center"
+					style = "@style/EditorCounterButton"
 					android:text = "@string/editor_button_minus"
-					app:backgroundTint = "@color/colorPrimary"
 					app:layout_constraintBottom_toBottomOf = "@id/editor_edittext_quantity"
 					app:layout_constraintEnd_toStartOf = "@id/editor_edittext_quantity"
-					app:layout_constraintStart_toEndOf = "@id/editor_textview_in_stock"
+					app:layout_constraintStart_toEndOf = "@id/editor_textview_header_in_stock"
 					app:layout_constraintTop_toTopOf = "@id/editor_edittext_quantity" />
 
 				<EditText
@@ -167,86 +137,61 @@
 
 				<android.support.design.button.MaterialButton
 					android:id = "@+id/editor_button_plus"
-					android:layout_width = "@dimen/editor_button_width"
-					android:layout_height = "@dimen/editor_button_height"
-					android:elevation = "@dimen/editor_button_elevation"
-					android:gravity = "center"
+					style = "@style/EditorCounterButton"
 					android:text = "@string/editor_button_plus"
-					app:backgroundTint = "@color/colorPrimary"
 					app:layout_constraintBottom_toBottomOf = "@id/editor_edittext_quantity"
 					app:layout_constraintStart_toEndOf = "@id/editor_edittext_quantity"
 					app:layout_constraintTop_toTopOf = "@id/editor_edittext_quantity" />
 
 				<TextView
 					android:id = "@+id/editor_textview_header_supplier"
-					android:layout_width = "match_parent"
-					android:layout_height = "wrap_content"
-					android:layout_marginStart = "@dimen/activity_margin"
+					style = "@style/EditorHeaderText"
 					android:layout_marginTop = "@dimen/editor_quantity_margin_vertical"
 					android:paddingBottom = "4dp"
 					android:text = "@string/editor_header_supplier_info"
-					android:textStyle = "bold"
 					app:layout_constraintStart_toStartOf = "parent"
 					app:layout_constraintTop_toBottomOf = "@id/editor_edittext_quantity" />
 
 				<android.support.design.widget.TextInputLayout
 					android:id = "@+id/editor_inputlayout_supplier_email"
-					android:layout_width = "match_parent"
-					android:layout_height = "wrap_content"
-					android:layout_marginEnd = "@dimen/activity_margin"
-					android:layout_marginStart = "@dimen/activity_margin"
+					style = "@style/EditorTextInputLayout"
 					app:layout_constraintBottom_toTopOf = "@id/editor_inputlayout_supplier_phone"
 					app:layout_constraintTop_toBottomOf = "@id/editor_textview_header_supplier">
 
 					<android.support.design.widget.TextInputEditText
 						android:id = "@+id/editor_edittext_supplier_email"
-						android:layout_width = "match_parent"
-						android:layout_height = "wrap_content"
-						android:ellipsize = "end"
+						style = "@style/EditorTextInputEditText"
 						android:hint = "@string/editor_hint_supplier_email"
-						android:inputType = "textEmailAddress"
-						android:maxLines = "1" />
+						android:inputType = "textEmailAddress" />
 
 				</android.support.design.widget.TextInputLayout>
 
 				<android.support.design.widget.TextInputLayout
 					android:id = "@+id/editor_inputlayout_supplier_phone"
-					android:layout_width = "match_parent"
-					android:layout_height = "wrap_content"
+					style = "@style/EditorTextInputLayout"
 					android:layout_marginBottom = "16dp"
-					android:layout_marginEnd = "@dimen/activity_margin"
-					android:layout_marginStart = "@dimen/activity_margin"
 					app:layout_constraintBottom_toTopOf = "@id/editor_textview_header_notes"
 					app:layout_constraintTop_toBottomOf = "@id/editor_inputlayout_supplier_email">
 
 					<android.support.design.widget.TextInputEditText
 						android:id = "@+id/editor_edittext_supplier_phone"
-						android:layout_width = "match_parent"
-						android:layout_height = "wrap_content"
-						android:ellipsize = "end"
+						style = "@style/EditorTextInputEditText"
 						android:hint = "@string/editor_hint_supplier_phone"
-						android:inputType = "phone"
-						android:maxLines = "1" />
+						android:inputType = "phone" />
 
 				</android.support.design.widget.TextInputLayout>
 
 				<TextView
 					android:id = "@+id/editor_textview_header_notes"
-					android:layout_width = "match_parent"
-					android:layout_height = "wrap_content"
-					android:layout_marginStart = "@dimen/activity_margin"
+					style = "@style/EditorHeaderText"
 					android:text = "@string/editor_header_notes"
-					android:textStyle = "bold"
 					app:layout_constraintBottom_toTopOf = "@id/editor_edittext_notes"
 					app:layout_constraintTop_toBottomOf = "@id/editor_inputlayout_supplier_phone" />
 
 				<android.support.design.widget.TextInputEditText
 					android:id = "@+id/editor_edittext_notes"
-					android:layout_width = "match_parent"
-					android:layout_height = "wrap_content"
+					style = "@style/EditorTextInputLayout"
 					android:layout_marginBottom = "@dimen/activity_margin"
-					android:layout_marginEnd = "@dimen/activity_margin"
-					android:layout_marginStart = "@dimen/activity_margin"
 					android:inputType = "textMultiLine|textCapSentences|textAutoComplete"
 					app:layout_constraintBottom_toBottomOf = "parent"
 					app:layout_constraintTop_toBottomOf = "@id/editor_textview_header_notes" />

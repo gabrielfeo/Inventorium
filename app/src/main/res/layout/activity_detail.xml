@@ -19,17 +19,16 @@
 
 		<ProgressBar
 			android:id = "@+id/detail_progressbar"
-			android:layout_width = "@dimen/progressbar_circle_diameter"
-			android:layout_height = "0dp"
-			android:layout_gravity = "center"
-			android:layout_weight = "1" />
+			style = "@style/ProgressBarTheme.LinearLayout"
+			tools:visibility = "gone" />
 
 		<ScrollView
 			android:id = "@+id/detail_scrollview"
 			android:layout_width = "match_parent"
 			android:layout_height = "wrap_content"
 			android:orientation = "vertical"
-			android:visibility = "gone">
+			android:visibility = "gone"
+			tools:visibility = "visible">
 
 			<android.support.constraint.ConstraintLayout
 				android:layout_width = "match_parent"
@@ -94,9 +93,7 @@
 
 				<TextView
 					android:id = "@+id/detail_textview_header_total_values"
-					android:layout_width = "wrap_content"
-					android:layout_height = "wrap_content"
-					android:layout_marginBottom = "4dp"
+					style = "@style/DetailValuesList"
 					android:maxLength = "14"
 					android:text = "@string/detail_header_total_values"
 					android:textColor = "@color/colorTextPrimary"
@@ -108,9 +105,7 @@
 
 				<TextView
 					android:id = "@+id/detail_textview_total_cost"
-					android:layout_width = "wrap_content"
-					android:layout_height = "wrap_content"
-					android:layout_marginBottom = "4dp"
+					style = "@style/DetailValuesList"
 					android:textColor = "#d84315"
 					app:layout_constraintBottom_toTopOf = "@id/detail_textview_total_revenue"
 					app:layout_constraintStart_toStartOf = "@id/detail_textview_header_total_values"
@@ -119,9 +114,7 @@
 
 				<TextView
 					android:id = "@+id/detail_textview_total_revenue"
-					android:layout_width = "wrap_content"
-					android:layout_height = "wrap_content"
-					android:layout_marginBottom = "4dp"
+					style = "@style/DetailValuesList"
 					android:textColor = "#ff8a65"
 					app:layout_constraintBottom_toTopOf = "@id/detail_textview_total_profit"
 					app:layout_constraintStart_toStartOf = "@id/detail_textview_header_total_values"
@@ -130,8 +123,7 @@
 
 				<TextView
 					android:id = "@+id/detail_textview_total_profit"
-					android:layout_width = "wrap_content"
-					android:layout_height = "wrap_content"
+					style = "@style/DetailValuesList"
 					android:layout_marginBottom = "32dp"
 					android:textColor = "#558b2f"
 					app:layout_constraintBottom_toTopOf = "@id/detail_textview_header_supplier"
@@ -205,9 +197,7 @@
 
 				<TextView
 					android:id = "@+id/detail_textview_header_unit_values"
-					android:layout_width = "wrap_content"
-					android:layout_height = "wrap_content"
-					android:layout_marginBottom = "4dp"
+					style = "@style/DetailValuesList"
 					android:text = "@string/detail_header_unit_values"
 					android:textColor = "@color/colorTextPrimary"
 					android:textSize = "14sp"
@@ -219,10 +209,7 @@
 
 				<TextView
 					android:id = "@+id/detail_textview_unit_cost"
-					android:layout_width = "wrap_content"
-					android:layout_height = "wrap_content"
-					android:layout_marginBottom = "4dp"
-					android:textSize = "12sp"
+					style = "@style/DetailValuesList.Unit"
 					app:layout_constraintBottom_toTopOf = "@id/detail_textview_unit_selling_price"
 					app:layout_constraintStart_toStartOf = "@id/detail_textview_header_unit_values"
 					app:layout_constraintTop_toBottomOf = "@id/detail_textview_header_unit_values"
@@ -230,10 +217,7 @@
 
 				<TextView
 					android:id = "@+id/detail_textview_unit_selling_price"
-					android:layout_width = "wrap_content"
-					android:layout_height = "wrap_content"
-					android:paddingBottom = "4dp"
-					android:textSize = "12sp"
+					style = "@style/DetailValuesList.Unit"
 					app:layout_constraintBottom_toTopOf = "@id/detail_textview_unit_profit"
 					app:layout_constraintStart_toStartOf = "@id/detail_textview_header_unit_values"
 					app:layout_constraintTop_toBottomOf = "@id/detail_textview_unit_cost"
@@ -241,9 +225,7 @@
 
 				<TextView
 					android:id = "@+id/detail_textview_unit_profit"
-					android:layout_width = "wrap_content"
-					android:layout_height = "wrap_content"
-					android:textSize = "12sp"
+					style = "@style/DetailValuesList.Unit"
 					app:layout_constraintStart_toStartOf = "@id/detail_textview_header_unit_values"
 					app:layout_constraintTop_toBottomOf = "@id/detail_textview_unit_selling_price"
 					tools:text = "Profit: R$ 00,10/1un" />
