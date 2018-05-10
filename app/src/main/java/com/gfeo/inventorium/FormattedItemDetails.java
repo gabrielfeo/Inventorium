@@ -58,7 +58,7 @@ class FormattedItemDetails extends ItemDetails {
 	}
 
 	public String getPlainSupplierEmail() {
-		return getSupplierEmail().substring(7);
+		return getSupplierEmail().substring(8);
 	}
 
 	@Override
@@ -75,6 +75,10 @@ class FormattedItemDetails extends ItemDetails {
 			}
 		} else { supplierPhone = "Invalid number"; }
 		this.supplierPhone = context.getString(R.string.detail_supplier_phone, supplierPhone);
+	}
+
+	public String getPlainSupplierPhone() {
+		return getSupplierPhone().substring(7);
 	}
 
 	@Override

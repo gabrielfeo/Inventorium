@@ -104,7 +104,7 @@ public class DetailActivity extends AppCompatActivity {
 
 	private void sendPhoneIntent() {
 		if (itemDetails.getSupplierPhone() == null) { return; }
-		Uri phoneUri = Uri.parse("tel:" + itemDetails.getSupplierPhone());
+		Uri phoneUri = Uri.parse("tel:" + itemDetails.getPlainSupplierPhone());
 		Intent phoneIntent = new Intent(Intent.ACTION_DIAL, phoneUri);
 		if (phoneIntent.resolveActivity(getPackageManager()) != null) {
 			startActivity(phoneIntent);
