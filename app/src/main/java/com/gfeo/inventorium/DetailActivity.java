@@ -29,7 +29,7 @@ public class DetailActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		itemDetails = new ItemDetails(getIntent().getData());
+		itemDetails = new FormattedItemDetails(this, getIntent().getData());
 		binding = DataBindingUtil.setContentView(this, R.layout.activity_detail);
 		setupToolbar(binding);
 	}
@@ -85,10 +85,11 @@ public class DetailActivity extends AppCompatActivity {
 				sendPhoneIntent();
 				break;
 			case R.id.menu_detail_edit:
-				startActivity(new Intent(this, EditorActivity.class));
+				startActivity(new Intent(Intent.ACTION_VIEW, itemDetails.getUri(),
+				                         this, EditorActivity.class));
 				break;
 			case R.id.menu_detail_delete:
-				deleteEntryAndExitActivity();
+				deleteInDb();
 				break;
 			default:
 				return false;
@@ -123,12 +124,17 @@ public class DetailActivity extends AppCompatActivity {
 		}
 	}
 
-	private void deleteEntryAndExitActivity() {
+	private void deleteInDb() {
 		int rowsDeleted = getContentResolver().delete(itemDetails.getUri(), null, null);
-		if (rowsDeleted > 0) { startActivity(new Intent(this, InventoryActivity.class)); }
+		if (rowsDeleted > 0) {
+			startActivity(new Intent(this, InventoryActivity.class));
+		} else {
+			Toast.makeText(this, getString(R.string.toast_error_delete), Toast.LENGTH_SHORT)
+			     .show();
+		}
 	}
 
-	private void loadCursor() { ////////////////// Call from DetailsLoader?
+	private void loadCursor() {
 		Bundle args = new Bundle();
 		args.putString(CursorLoaderCallbacks.URI_ARGS_KEY, itemDetails.getUri().toString());
 		getSupportLoaderManager().restartLoader(CURSOR_LOADER_ID, args, cursorLoaderCallbacks);

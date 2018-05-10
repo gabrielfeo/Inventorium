@@ -2,10 +2,15 @@ package com.gfeo.inventorium;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,12 +20,15 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.annimon.stream.Stream;
+import com.gfeo.inventorium.InventoryLoaderCallbacks.CursorLoaderCallbacks;
+import com.gfeo.inventorium.InventoryLoaderCallbacks.DetailsLoaderCallbacks;
 import com.gfeo.inventorium.data.InventoryDbContract.ItemTable;
 import com.gfeo.inventorium.databinding.EditorActivityBinding;
 
 public class EditorActivity extends AppCompatActivity {
 
 	private EditorActivityBinding binding;
+	private ItemDetails itemDetails;
 	private static int quantityCount;
 	private static final int DECREASE_QUANTITY = 0;
 	private static final int INCREASE_QUANTITY = 1;
@@ -31,9 +39,15 @@ public class EditorActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		binding = DataBindingUtil.setContentView(this,
 		                                         R.layout.activity_editor);
-
-		setupToolbar(true);
-		setupQuantityCounter();
+		Uri itemUri = getIntent().getData();
+		if (itemUri == null) {
+			setupToolbar(true);
+		} else {
+			setupToolbar(false);
+			itemDetails = new ItemDetails(itemUri);
+			loadCursor();
+		}
+		setupQuantityCounterViews();
 	}
 
 	private void setupToolbar(boolean isNewEntry) {
@@ -44,9 +58,47 @@ public class EditorActivity extends AppCompatActivity {
 		getSupportActionBar().setTitle(titleResourceId);
 	}
 
-	private void setupQuantityCounter() {
-		//TODO Change for "update" functionality
-		quantityCount = 0;
+	private void fillViewsWithPreviousDetails() {
+		binding.editorEdittextName.setText(itemDetails.getName());
+		binding.editorEdittextDescription.setText(itemDetails.getDescription());
+		binding.editorEdittextQuantity.setText(itemDetails.getQuantity());
+		binding.editorEdittextCost.setText(itemDetails.getUnitCostPrice());
+		binding.editorEdittextSelling.setText(itemDetails.getUnitSellingPrice());
+		binding.editorEdittextSupplierEmail.setText(itemDetails.getSupplierEmail());
+		binding.editorEdittextSupplierPhone.setText(itemDetails.getSupplierPhone());
+		binding.editorEdittextNotes.setText(itemDetails.getNotes());
+	}
+
+	private void loadCursor() {
+		Bundle args = new Bundle();
+		args.putString("uri", itemDetails.getUri().toString());
+		getSupportLoaderManager().restartLoader(4, args, cursorLoaderCallbacks);
+	}
+
+	private LoaderManager.LoaderCallbacks cursorLoaderCallbacks = new CursorLoaderCallbacks(this) {
+		@Override
+		public void onLoadFinished(@NonNull Loader loader, Object data) {
+			loadDetails((Cursor) data);
+		}
+	};
+
+	private void loadDetails(Cursor cursor) {
+		LoaderManager.LoaderCallbacks detailsLoaderCallbacks = new DetailsLoaderCallbacks(this,
+		                                                                                  cursor,
+		                                                                                  itemDetails) {
+			@Override
+			public void onLoadFinished(@NonNull Loader loader, Object data) {
+				itemDetails = (ItemDetails) data;
+				fillViewsWithPreviousDetails();
+				updateQuantityCount(SET_TO_INPUTTED_QUANTITY);
+			}
+		};
+		getSupportLoaderManager().restartLoader(3, null, detailsLoaderCallbacks)
+		                         .forceLoad();
+	}
+
+	private void setupQuantityCounterViews() {
+		//TODO is it necessary to use valueOf for setText?
 		binding.editorEdittextQuantity.setText(String.valueOf(quantityCount));
 		binding.editorButtonMinus.setOnClickListener(
 				view -> updateQuantityCount(DECREASE_QUANTITY));
@@ -93,16 +145,23 @@ public class EditorActivity extends AppCompatActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.menu_editor_save:
-				ContentValues values = getInputtedValues();
-				if (hasNoEmptyStrings(values)) { insertInDb(values); }
+				onSavePressed();
 				break;
 			case R.id.menu_editor_delete:
-				//TODO Delete menu button action
+				deleteInDb();
 				break;
 			default:
 				return false;
 		}
 		return true;
+	}
+
+	private void onSavePressed() {
+		ContentValues values = getInputtedValues();
+		if (hasNoEmptyStrings(values)) {
+			if (itemDetails == null) { insertInDb(values); } else { updateInDb(values); }
+		}
+		onBackPressed();
 	}
 
 	private ContentValues getInputtedValues() {
@@ -144,6 +203,26 @@ public class EditorActivity extends AppCompatActivity {
 			Toast.makeText(this, getString(R.string.toast_error_insert), Toast.LENGTH_SHORT)
 			     .show();
 		} else { NavUtils.navigateUpFromSameTask(this); }
+	}
+
+	private void updateInDb(ContentValues values) {
+		int rowsUpdated = getContentResolver().update(itemDetails.getUri(), values, null, null);
+		if (rowsUpdated > 0) {
+			onBackPressed();
+		} else {
+			Toast.makeText(this, getString(R.string.toast_error_insert), Toast.LENGTH_SHORT)
+			     .show();
+		}
+	}
+
+	private void deleteInDb() {
+		int rowsDeleted = getContentResolver().delete(itemDetails.getUri(), null, null);
+		if (rowsDeleted > 0) {
+			startActivity(new Intent(this, InventoryActivity.class));
+		} else {
+			Toast.makeText(this, getString(R.string.toast_error_delete), Toast.LENGTH_SHORT)
+			     .show();
+		}
 	}
 
 }
