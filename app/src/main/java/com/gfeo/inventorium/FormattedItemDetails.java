@@ -57,6 +57,10 @@ class FormattedItemDetails extends ItemDetails {
 		                                       supplierEmail.toLowerCase());
 	}
 
+	public String getPlainSupplierEmail() {
+		return getSupplierEmail().substring(7);
+	}
+
 	@Override
 	public void setSupplierPhone(String supplierPhone) {
 		String countryCode = Locale.getDefault().getCountry();

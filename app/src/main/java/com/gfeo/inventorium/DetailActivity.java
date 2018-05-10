@@ -24,7 +24,7 @@ public class DetailActivity extends AppCompatActivity {
 	private static final int CURSOR_LOADER_ID = 1;
 	private static final int DETAILS_LOADER_ID = 2;
 	private DetailActivityBinding binding;
-	private ItemDetails itemDetails;
+	private FormattedItemDetails itemDetails;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +118,8 @@ public class DetailActivity extends AppCompatActivity {
 		if (itemDetails.getSupplierEmail() == null) { return; }
 		Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
 		emailIntent.setData(Uri.parse("mailto:"));
-		emailIntent.putExtra(Intent.EXTRA_EMAIL, itemDetails.getSupplierEmail());
+		String[] recipients = {itemDetails.getPlainSupplierEmail()};
+		emailIntent.putExtra(Intent.EXTRA_EMAIL, recipients);
 		emailIntent.putExtra(Intent.EXTRA_SUBJECT,
 		                     getString(R.string.intent_email_subject, itemDetails.getName()));
 		if (emailIntent.resolveActivity(getPackageManager()) != null) {
@@ -157,7 +158,7 @@ public class DetailActivity extends AppCompatActivity {
 		                                                                    itemDetails) {
 			@Override
 			public void onLoadFinished(@NonNull Loader loader, Object data) {
-				itemDetails = (ItemDetails) data;
+				itemDetails = (FormattedItemDetails) data;
 				fillTextViewsWithDetails();
 				showDetailsViews();
 			}
