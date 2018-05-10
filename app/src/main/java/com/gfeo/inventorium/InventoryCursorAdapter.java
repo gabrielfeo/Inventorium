@@ -1,10 +1,14 @@
 package com.gfeo.inventorium;
 
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
@@ -38,6 +42,7 @@ class InventoryCursorAdapter extends CursorAdapter {
 		viewHolder.nameTextView = view.findViewById(R.id.item_textview_name);
 		viewHolder.sellingPriceTextView = view.findViewById(R.id.item_textview_selling_price);
 		viewHolder.quantityTextView = view.findViewById(R.id.item_textview_quantity);
+		viewHolder.sellButton = view.findViewById(R.id.item_button_sell);
 		view.setTag(viewHolder);
 		return view;
 	}
@@ -51,11 +56,23 @@ class InventoryCursorAdapter extends CursorAdapter {
 		viewHolder.sellingPriceTextView.setText(sellingPrice);
 		String quantityText = "  -  " + cursor.getString(quantityColumnIndex) + " left";
 		viewHolder.quantityTextView.setText(quantityText);
+		viewHolder.sellButton.setOnClickListener(buttonView -> sellItem(context, cursor));
+	}
+
+	private void sellItem(Context context, Cursor cursor) {
+		int currentQuantity = cursor.getInt(ItemTable.COLUMN_INDEX_QUANTITY);
+		if (currentQuantity <= 0) { return; }
+		int itemId = cursor.getInt(ItemTable.COLUMN_INDEX_ID);
+		Uri itemUri = ContentUris.withAppendedId(ItemTable.CONTENT_URI, itemId);
+		ContentValues newValues = new ContentValues();
+		newValues.put(ItemTable.COLUMN_NAME_QUANTITY, currentQuantity - 1);
+		context.getContentResolver().update(itemUri, newValues, null, null);
 	}
 
 	private class ViewHolder {
 		TextView nameTextView;
 		TextView sellingPriceTextView;
 		TextView quantityTextView;
+		Button sellButton;
 	}
 }

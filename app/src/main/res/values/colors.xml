@@ -4,6 +4,7 @@
 	<color name = "colorPrimaryDark">#bdb9b7</color>
 	<color name = "colorAccent">#4b2c20</color>
 	<color name = "colorToolbarTitle">@android:color/black</color>
+	<color name = "colorProgressBar">@color/colorToolbarTitle</color>
 	<color name = "colorTextPrimary">@android:color/black</color>
 	<color name = "colorSellButton">#607d8b</color>
 </resources>

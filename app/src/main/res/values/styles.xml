@@ -24,6 +24,7 @@
 	<style name = "ProgressBarTheme">
 		<item name = "android:layout_width">@dimen/progressbar_circle_diameter</item>
 		<item name = "android:layout_height">0dp</item>
+		<item name = "android:color">@color/colorProgressBar</item>
 	</style>
 
 	<style name = "ProgressBarTheme.LinearLayout">
