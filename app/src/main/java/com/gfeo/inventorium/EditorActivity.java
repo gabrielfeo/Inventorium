@@ -42,6 +42,7 @@ public class EditorActivity extends AppCompatActivity {
 		Uri itemUri = getIntent().getData();
 		if (itemUri == null) {
 			setupToolbar(true);
+			showEditorViews();
 		} else {
 			setupToolbar(false);
 			itemDetails = new ItemDetails(itemUri);
@@ -91,10 +92,16 @@ public class EditorActivity extends AppCompatActivity {
 				itemDetails = (ItemDetails) data;
 				fillViewsWithPreviousDetails();
 				updateQuantityCount(SET_TO_INPUTTED_QUANTITY);
+				showEditorViews();
 			}
 		};
 		getSupportLoaderManager().restartLoader(3, null, detailsLoaderCallbacks)
 		                         .forceLoad();
+	}
+
+	private void showEditorViews() {
+		binding.editorProgressbar.setVisibility(View.GONE);
+		binding.editorScrollview.setVisibility(View.VISIBLE);
 	}
 
 	private void setupQuantityCounterViews() {
