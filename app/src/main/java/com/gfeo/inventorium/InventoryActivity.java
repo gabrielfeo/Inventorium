@@ -12,6 +12,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CursorAdapter;
 
 import com.gfeo.inventorium.InventoryLoaderCallbacks.CursorLoaderCallbacks;
@@ -60,6 +61,11 @@ public class InventoryActivity extends AppCompatActivity {
 
 	}
 
+	private void showListView() {
+		binding.inventoryProgressbar.setVisibility(View.GONE);
+		binding.inventoryListview.setVisibility(View.VISIBLE);
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_inventory, menu);
@@ -89,6 +95,7 @@ public class InventoryActivity extends AppCompatActivity {
 		public void onLoadFinished(@NonNull Loader loader, Object data) {
 			cursor = (Cursor) data;
 			setListViewAdapter();
+			showListView();
 		}
 	};
 

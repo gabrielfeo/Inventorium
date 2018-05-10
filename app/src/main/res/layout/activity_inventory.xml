@@ -17,10 +17,20 @@
 			app:layout_constraintBottom_toTopOf = "@id/inventory_listview"
 			app:layout_constraintTop_toTopOf = "parent" />
 
+		<ProgressBar
+			android:id = "@+id/inventory_progressbar"
+			android:layout_width = "@dimen/progressbar_circle_diameter"
+			android:layout_height = "0dp"
+			app:layout_constraintBottom_toBottomOf = "parent"
+			app:layout_constraintEnd_toEndOf = "parent"
+			app:layout_constraintStart_toStartOf = "parent"
+			app:layout_constraintTop_toTopOf = "parent" />
+
 		<ListView
 			android:id = "@+id/inventory_listview"
 			android:layout_width = "match_parent"
 			android:layout_height = "0dp"
+			android:visibility = "invisible"
 			app:layout_constraintBottom_toBottomOf = "parent"
 			app:layout_constraintTop_toBottomOf = "@id/inventory_toolbar" />
 
