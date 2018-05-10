@@ -23,6 +23,14 @@ public class InventoryActivity extends AppCompatActivity {
 
 	private InventoryActivityBinding binding;
 	private Cursor cursor;
+	private final LoaderCallbacks loaderCallbacks = new CursorLoaderCallbacks(this) {
+		@Override
+		public void onLoadFinished(@NonNull Loader loader, Object data) {
+			cursor = (Cursor) data;
+			setListViewAdapter();
+			showListView();
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -89,14 +97,5 @@ public class InventoryActivity extends AppCompatActivity {
 		super.onDestroy();
 		cursor.close();
 	}
-
-	private final LoaderCallbacks loaderCallbacks = new CursorLoaderCallbacks(this) {
-		@Override
-		public void onLoadFinished(@NonNull Loader loader, Object data) {
-			cursor = (Cursor) data;
-			setListViewAdapter();
-			showListView();
-		}
-	};
 
 }
