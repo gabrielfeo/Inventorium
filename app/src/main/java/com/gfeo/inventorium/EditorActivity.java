@@ -1,7 +1,6 @@
 package com.gfeo.inventorium;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,8 +17,6 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.annimon.stream.Stream;
@@ -30,14 +27,21 @@ import com.gfeo.inventorium.databinding.EditorActivityBinding;
 
 public class EditorActivity extends AppCompatActivity {
 
-	private EditorActivityBinding binding;
-	private ItemDetails itemDetails;
-	private static int quantityCount;
-	private boolean changesMade;
-	private boolean shouldSuppressChangesDialog;
 	private static final int DECREASE_QUANTITY = 0;
 	private static final int INCREASE_QUANTITY = 1;
 	private static final int SET_TO_INPUTTED_QUANTITY = 2;
+	private static int quantityCount;
+	private EditorActivityBinding binding;
+	private ItemDetails itemDetails;
+	private boolean changesMade;
+	private boolean shouldSuppressChangesDialog;
+	private final LoaderManager.LoaderCallbacks cursorLoaderCallbacks =
+			new CursorLoaderCallbacks(this) {
+				@Override
+				public void onLoadFinished(@NonNull Loader loader, Object data) {
+					loadDetails((Cursor) data);
+				}
+			};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,18 @@ public class EditorActivity extends AppCompatActivity {
 		}
 		setupToolbar();
 		setupQuantityCounterViews();
-		addTextChangedListeners();
+		addChangesMadeListeners();
+	}
+
+	private void showEditorViews() {
+		binding.editorProgressbar.setVisibility(View.GONE);
+		binding.editorScrollview.setVisibility(View.VISIBLE);
+	}
+
+	private void loadCursor() {
+		Bundle args = new Bundle();
+		args.putString("uri", itemDetails.getUri().toString());
+		getSupportLoaderManager().restartLoader(4, args, cursorLoaderCallbacks);
 	}
 
 	private void setupToolbar() {
@@ -63,54 +78,40 @@ public class EditorActivity extends AppCompatActivity {
 		getSupportActionBar().setTitle(titleResourceId);
 	}
 
-	private void fillViewsWithPreviousDetails() {
-		binding.editorEdittextName.setText(itemDetails.getName());
-		binding.editorEdittextDescription.setText(itemDetails.getDescription());
-		binding.editorEdittextQuantity.setText(itemDetails.getQuantity());
-		binding.editorEdittextCost.setText(itemDetails.getUnitCostPrice());
-		binding.editorEdittextSelling.setText(itemDetails.getUnitSellingPrice());
-		binding.editorEdittextSupplierEmail.setText(itemDetails.getSupplierEmail());
-		binding.editorEdittextSupplierPhone.setText(itemDetails.getSupplierPhone());
-		binding.editorEdittextNotes.setText(itemDetails.getNotes());
-	}
-
-	private void loadCursor() {
-		Bundle args = new Bundle();
-		args.putString("uri", itemDetails.getUri().toString());
-		getSupportLoaderManager().restartLoader(4, args, cursorLoaderCallbacks);
-	}
-
-	private final LoaderManager.LoaderCallbacks cursorLoaderCallbacks =
-			new CursorLoaderCallbacks(this) {
-				@Override
-				public void onLoadFinished(@NonNull Loader loader, Object data) {
-					loadDetails((Cursor) data);
-				}
-			};
-
-	private void loadDetails(Cursor cursor) {
-		LoaderManager.LoaderCallbacks detailsLoaderCallbacks = new DetailsLoaderCallbacks(this,
-		                                                                                  cursor,
-		                                                                                  itemDetails) {
+	private void setupQuantityCounterViews() {
+		if (itemDetails == null) { quantityCount = 0; }
+		binding.editorEdittextQuantity.setText(String.valueOf(quantityCount));
+		binding.editorButtonMinus.setOnClickListener(
+				view -> updateQuantityCount(DECREASE_QUANTITY));
+		binding.editorButtonPlus.setOnClickListener(
+				view -> updateQuantityCount(INCREASE_QUANTITY));
+		/*binding.editorEdittextQuantity.setOnEditorActionListener(
+				(view, actionId, keyEvent) -> {
+					if (actionId == EditorInfo.IME_ACTION_DONE
+							|| actionId == EditorInfo.IME_ACTION_NEXT) {
+						updateQuantityCount(SET_TO_INPUTTED_QUANTITY);
+						view.clearFocus();
+						hideSoftKeyboard(view);
+						return true;
+					} else { return false; }
+				});*/
+		binding.editorEdittextQuantity.addTextChangedListener(new TextWatcher() {
 			@Override
-			public void onLoadFinished(@NonNull Loader loader, Object data) {
-				itemDetails = (ItemDetails) data;
-				fillViewsWithPreviousDetails();
-				updateQuantityCount(SET_TO_INPUTTED_QUANTITY);
-				changesMade = false;
-				showEditorViews();
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+			@Override
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+			@Override
+			public void afterTextChanged(Editable editable) {
+				if (!editable.toString().equals(String.valueOf(quantityCount))) {
+					updateQuantityCount(SET_TO_INPUTTED_QUANTITY);
+				}
 			}
-		};
-		getSupportLoaderManager().restartLoader(3, null, detailsLoaderCallbacks)
-		                         .forceLoad();
+		});
 	}
 
-	private void showEditorViews() {
-		binding.editorProgressbar.setVisibility(View.GONE);
-		binding.editorScrollview.setVisibility(View.VISIBLE);
-	}
-
-	private void addTextChangedListeners() {
+	private void addChangesMadeListeners() {
 		TextWatcher textWatcher = new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
@@ -129,6 +130,48 @@ public class EditorActivity extends AppCompatActivity {
 		binding.editorEdittextSupplierEmail.addTextChangedListener(textWatcher);
 		binding.editorEdittextSupplierPhone.addTextChangedListener(textWatcher);
 		binding.editorEdittextNotes.addTextChangedListener(textWatcher);
+	}
+
+	private void updateQuantityCount(int operation) {
+		if (operation == DECREASE_QUANTITY && quantityCount > 0) {
+			quantityCount--;
+		} else if (operation == INCREASE_QUANTITY) {
+			quantityCount++;
+		} else if (operation == SET_TO_INPUTTED_QUANTITY) {
+			quantityCount = Integer.valueOf(binding.editorEdittextQuantity.getText().toString());
+		} else { return; }
+		String quantityCountString = String.valueOf(quantityCount);
+		if (!binding.editorEdittextQuantity.getText().toString().equals(quantityCountString)) {
+			binding.editorEdittextQuantity.setText(quantityCountString);
+		}
+	}
+
+	private void loadDetails(Cursor cursor) {
+		LoaderManager.LoaderCallbacks detailsLoaderCallbacks = new DetailsLoaderCallbacks(this,
+		                                                                                  cursor,
+		                                                                                  itemDetails) {
+			@Override
+			public void onLoadFinished(@NonNull Loader loader, Object data) {
+				itemDetails = (ItemDetails) data;
+				fillViewsWithPreviousDetails();
+				updateQuantityCount(SET_TO_INPUTTED_QUANTITY);
+				changesMade = false;
+				showEditorViews();
+			}
+		};
+		getSupportLoaderManager().restartLoader(3, null, detailsLoaderCallbacks)
+		                         .forceLoad();
+	}
+
+	private void fillViewsWithPreviousDetails() {
+		binding.editorEdittextName.setText(itemDetails.getName());
+		binding.editorEdittextDescription.setText(itemDetails.getDescription());
+		binding.editorEdittextQuantity.setText(itemDetails.getQuantity());
+		binding.editorEdittextCost.setText(itemDetails.getUnitCostPrice());
+		binding.editorEdittextSelling.setText(itemDetails.getUnitSellingPrice());
+		binding.editorEdittextSupplierEmail.setText(itemDetails.getSupplierEmail());
+		binding.editorEdittextSupplierPhone.setText(itemDetails.getSupplierPhone());
+		binding.editorEdittextNotes.setText(itemDetails.getNotes());
 	}
 
 	private void showUnsavedChangesDialog() {
@@ -153,44 +196,6 @@ public class EditorActivity extends AppCompatActivity {
 		if (changesMade && !shouldSuppressChangesDialog) {
 			showUnsavedChangesDialog();
 		} else { super.onBackPressed(); }
-	}
-
-	private void setupQuantityCounterViews() {
-		if (itemDetails == null) { quantityCount = 0; }
-		binding.editorEdittextQuantity.setText(String.valueOf(quantityCount));
-		binding.editorButtonMinus.setOnClickListener(
-				view -> updateQuantityCount(DECREASE_QUANTITY));
-		binding.editorButtonPlus.setOnClickListener(
-				view -> updateQuantityCount(INCREASE_QUANTITY));
-		binding.editorEdittextQuantity.setOnEditorActionListener(
-				(view, actionId, keyEvent) -> {
-					if (actionId == EditorInfo.IME_ACTION_DONE
-							|| actionId == EditorInfo.IME_ACTION_NEXT) {
-						updateQuantityCount(SET_TO_INPUTTED_QUANTITY);
-						view.clearFocus();
-						hideSoftKeyboard(view);
-						return true;
-					} else { return false; }
-				});
-	}
-
-	private void updateQuantityCount(int operation) {
-		if (operation == DECREASE_QUANTITY && quantityCount > 0) {
-			quantityCount--;
-		} else if (operation == INCREASE_QUANTITY) {
-			quantityCount++;
-		} else if (operation == SET_TO_INPUTTED_QUANTITY) {
-			quantityCount = Integer.valueOf(binding.editorEdittextQuantity.getText().toString());
-		} else { return; }
-		binding.editorEdittextQuantity.setText(String.valueOf(quantityCount));
-	}
-
-	private void hideSoftKeyboard(View requestingView) {
-		InputMethodManager imm =
-				(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		if (imm != null) {
-			imm.hideSoftInputFromWindow(requestingView.getWindowToken(), 0);
-		}
 	}
 
 	@Override
