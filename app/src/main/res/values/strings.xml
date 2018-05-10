@@ -40,5 +40,16 @@
 	<string name = "item_button_sell">Sell</string>
 
 	<string name = "intent_email_subject">Order for %1$s</string>
+	<string name = "editor_hint_name">Name</string>
+	<string name = "editor_hint_description">Description</string>
+	<string name = "editor_hint_cost">Cost price</string>
+	<string name = "editor_hint_selling">Selling price</string>
+	<string name = "editor_header_in_stock">In stock:</string>
+	<string name = "editor_button_plus">+</string>
+	<string name = "editor_button_minus">-</string>
+	<string name = "editor_header_supplier_info">Supplier information</string>
+	<string name = "editor_hint_supplier_email">E-mail</string>
+	<string name = "editor_hint_supplier_phone">Phone</string>
+	<string name = "editor_header_notes">Notes</string>
 
 </resources>

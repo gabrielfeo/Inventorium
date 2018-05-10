@@ -49,7 +49,7 @@
 						android:layout_width = "match_parent"
 						android:layout_height = "wrap_content"
 						android:ellipsize = "end"
-						android:hint = "Name"
+						android:hint = "@string/editor_hint_name"
 						android:inputType = "textCapWords|textAutoComplete"
 						android:maxLines = "1" />
 
@@ -70,7 +70,7 @@
 						android:layout_width = "match_parent"
 						android:layout_height = "wrap_content"
 						android:ellipsize = "end"
-						android:hint = "Description"
+						android:hint = "@string/editor_hint_description"
 						android:inputType = "textMultiLine|textCapSentences|textAutoComplete"
 						android:lines = "1"
 						android:maxLines = "1" />
@@ -93,7 +93,7 @@
 						android:layout_width = "match_parent"
 						android:layout_height = "wrap_content"
 						android:ellipsize = "end"
-						android:hint = "Cost price"
+						android:hint = "@string/editor_hint_cost"
 						android:inputType = "numberDecimal"
 						android:maxLines = "1" />
 
@@ -114,7 +114,7 @@
 						android:layout_width = "match_parent"
 						android:layout_height = "wrap_content"
 						android:ellipsize = "end"
-						android:hint = "Selling price"
+						android:hint = "@string/editor_hint_selling"
 						android:inputType = "numberDecimal"
 						android:maxLines = "1" />
 
@@ -126,7 +126,8 @@
 					android:layout_height = "wrap_content"
 					android:layout_marginEnd = "24dp"
 					android:layout_marginStart = "24dp"
-					android:text = "In stock: "
+					android:labelFor = "@id/editor_edittext_quantity"
+					android:text = "@string/editor_header_in_stock"
 					app:layout_constraintBottom_toBottomOf = "@id/editor_button_minus"
 					app:layout_constraintEnd_toStartOf = "@id/editor_button_minus"
 					app:layout_constraintStart_toStartOf = "parent"
@@ -138,7 +139,7 @@
 					android:layout_height = "@dimen/editor_button_height"
 					android:elevation = "@dimen/editor_button_elevation"
 					android:gravity = "center"
-					android:text = "-"
+					android:text = "@string/editor_button_minus"
 					app:backgroundTint = "@color/colorPrimary"
 					app:layout_constraintBottom_toBottomOf = "@id/editor_edittext_quantity"
 					app:layout_constraintEnd_toStartOf = "@id/editor_edittext_quantity"
@@ -170,7 +171,7 @@
 					android:layout_height = "@dimen/editor_button_height"
 					android:elevation = "@dimen/editor_button_elevation"
 					android:gravity = "center"
-					android:text = "+"
+					android:text = "@string/editor_button_plus"
 					app:backgroundTint = "@color/colorPrimary"
 					app:layout_constraintBottom_toBottomOf = "@id/editor_edittext_quantity"
 					app:layout_constraintStart_toEndOf = "@id/editor_edittext_quantity"
@@ -183,7 +184,7 @@
 					android:layout_marginStart = "@dimen/activity_margin"
 					android:layout_marginTop = "@dimen/editor_quantity_margin_vertical"
 					android:paddingBottom = "4dp"
-					android:text = "Supplier information"
+					android:text = "@string/editor_header_supplier_info"
 					android:textStyle = "bold"
 					app:layout_constraintStart_toStartOf = "parent"
 					app:layout_constraintTop_toBottomOf = "@id/editor_edittext_quantity" />
@@ -202,7 +203,7 @@
 						android:layout_width = "match_parent"
 						android:layout_height = "wrap_content"
 						android:ellipsize = "end"
-						android:hint = "Email"
+						android:hint = "@string/editor_hint_supplier_email"
 						android:inputType = "textEmailAddress"
 						android:maxLines = "1" />
 
@@ -223,7 +224,7 @@
 						android:layout_width = "match_parent"
 						android:layout_height = "wrap_content"
 						android:ellipsize = "end"
-						android:hint = "Phone"
+						android:hint = "@string/editor_hint_supplier_phone"
 						android:inputType = "phone"
 						android:maxLines = "1" />
 
@@ -234,7 +235,7 @@
 					android:layout_width = "match_parent"
 					android:layout_height = "wrap_content"
 					android:layout_marginStart = "@dimen/activity_margin"
-					android:text = "Notes"
+					android:text = "@string/editor_header_notes"
 					android:textStyle = "bold"
 					app:layout_constraintBottom_toTopOf = "@id/editor_edittext_notes"
 					app:layout_constraintTop_toBottomOf = "@id/editor_inputlayout_supplier_phone" />
