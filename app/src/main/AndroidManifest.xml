@@ -19,10 +19,7 @@
 		<activity
 			android:name = ".DetailActivity"
 			android:parentActivityName = ".InventoryActivity" />
-		<!--TODO Change parent to DetailActivity-->
-		<activity
-			android:name = ".EditorActivity"
-			android:parentActivityName = ".InventoryActivity" />
+		<activity android:name = ".EditorActivity" />
 
 		<provider
 			android:name = ".data.InventoryProvider"

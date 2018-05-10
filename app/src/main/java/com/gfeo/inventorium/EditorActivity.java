@@ -2,6 +2,7 @@ package com.gfeo.inventorium;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
@@ -9,9 +10,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.app.NavUtils;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +33,8 @@ public class EditorActivity extends AppCompatActivity {
 	private EditorActivityBinding binding;
 	private ItemDetails itemDetails;
 	private static int quantityCount;
+	private boolean changesMade;
+	private boolean shouldSuppressChangesDialog;
 	private static final int DECREASE_QUANTITY = 0;
 	private static final int INCREASE_QUANTITY = 1;
 	private static final int SET_TO_INPUTTED_QUANTITY = 2;
@@ -37,8 +42,7 @@ public class EditorActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		binding = DataBindingUtil.setContentView(this,
-		                                         R.layout.activity_editor);
+		binding = DataBindingUtil.setContentView(this, R.layout.activity_editor);
 		Uri itemUri = getIntent().getData();
 		if (itemUri == null) {
 			showEditorViews();
@@ -48,6 +52,7 @@ public class EditorActivity extends AppCompatActivity {
 		}
 		setupToolbar();
 		setupQuantityCounterViews();
+		addTextChangedListeners();
 	}
 
 	private void setupToolbar() {
@@ -92,6 +97,7 @@ public class EditorActivity extends AppCompatActivity {
 				itemDetails = (ItemDetails) data;
 				fillViewsWithPreviousDetails();
 				updateQuantityCount(SET_TO_INPUTTED_QUANTITY);
+				changesMade = false;
 				showEditorViews();
 			}
 		};
@@ -102,6 +108,51 @@ public class EditorActivity extends AppCompatActivity {
 	private void showEditorViews() {
 		binding.editorProgressbar.setVisibility(View.GONE);
 		binding.editorScrollview.setVisibility(View.VISIBLE);
+	}
+
+	private void addTextChangedListeners() {
+		TextWatcher textWatcher = new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+			@Override
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+
+			@Override
+			public void afterTextChanged(Editable editable) { changesMade = true; }
+		};
+		binding.editorEdittextName.addTextChangedListener(textWatcher);
+		binding.editorEdittextDescription.addTextChangedListener(textWatcher);
+		binding.editorEdittextCost.addTextChangedListener(textWatcher);
+		binding.editorEdittextSelling.addTextChangedListener(textWatcher);
+		binding.editorEdittextQuantity.addTextChangedListener(textWatcher);
+		binding.editorEdittextSupplierEmail.addTextChangedListener(textWatcher);
+		binding.editorEdittextSupplierPhone.addTextChangedListener(textWatcher);
+		binding.editorEdittextNotes.addTextChangedListener(textWatcher);
+	}
+
+	private void showUnsavedChangesDialog() {
+		DialogInterface.OnClickListener dialogClickListener = (dialog, buttonClicked) -> {
+			if (buttonClicked == DialogInterface.BUTTON_POSITIVE) {
+				shouldSuppressChangesDialog = true;
+				finish();
+			} else if (buttonClicked == DialogInterface.BUTTON_NEGATIVE) {
+				shouldSuppressChangesDialog = false;
+				dialog.dismiss();
+			}
+		};
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(R.string.editor_dialog_changes_message);
+		builder.setNegativeButton(R.string.editor_dialog_changes_negative, dialogClickListener);
+		builder.setPositiveButton(R.string.editor_dialog_changes_positive, dialogClickListener);
+		builder.create().show();
+	}
+
+	@Override
+	public void onBackPressed() {
+		if (changesMade && !shouldSuppressChangesDialog) {
+			showUnsavedChangesDialog();
+		} else { super.onBackPressed(); }
 	}
 
 	private void setupQuantityCounterViews() {
@@ -158,6 +209,11 @@ public class EditorActivity extends AppCompatActivity {
 			case R.id.menu_editor_delete:
 				deleteInDb();
 				break;
+			case android.R.id.home:
+				if (changesMade && !shouldSuppressChangesDialog) {
+					showUnsavedChangesDialog();
+				} else { finish(); }
+				break;
 			default:
 				return false;
 		}
@@ -210,12 +266,13 @@ public class EditorActivity extends AppCompatActivity {
 		if (newRowUri == null) {
 			Toast.makeText(this, getString(R.string.toast_error_insert), Toast.LENGTH_SHORT)
 			     .show();
-		} else { NavUtils.navigateUpFromSameTask(this); }
+		} else { finish(); }
 	}
 
 	private void updateInDb(ContentValues values) {
 		int rowsUpdated = getContentResolver().update(itemDetails.getUri(), values, null, null);
 		if (rowsUpdated > 0) {
+			shouldSuppressChangesDialog = true;
 			onBackPressed();
 		} else {
 			Toast.makeText(this, getString(R.string.toast_error_insert), Toast.LENGTH_SHORT)

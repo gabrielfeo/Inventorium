@@ -40,6 +40,7 @@
 	<string name = "item_button_sell">Sell</string>
 
 	<string name = "intent_email_subject">Order for %1$s</string>
+
 	<string name = "editor_hint_name">Name</string>
 	<string name = "editor_hint_description">Description</string>
 	<string name = "editor_hint_cost">Cost price</string>
@@ -51,5 +52,8 @@
 	<string name = "editor_hint_supplier_email">E-mail</string>
 	<string name = "editor_hint_supplier_phone">Phone</string>
 	<string name = "editor_header_notes">Notes</string>
+	<string name = "editor_dialog_changes_message">Discard your changes and quit editing?</string>
+	<string name = "editor_dialog_changes_positive">Discard</string>
+	<string name = "editor_dialog_changes_negative">Keep editing</string>
 
 </resources>
