@@ -65,6 +65,7 @@ public class InventoryActivity extends AppCompatActivity {
 		if (adapter == null) {
 			binding.inventoryListview.setAdapter(new InventoryCursorAdapter(this, cursor));
 		} else { adapter.swapCursor(cursor); }
+		binding.inventoryListview.setEmptyView(binding.inventoryTextviewEmptyInventoryView);
 	}
 
 	private void showListView() {

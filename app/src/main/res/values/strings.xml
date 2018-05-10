@@ -26,6 +26,8 @@
 	<string name = "toast_error_intent_email">No e-mail app available</string>
 	<string name = "toast_error_intent_phone">No phone app available</string>
 
+	<string name = "inventory_empty_view">Your inventory is empty.</string>
+
 	<string name = "detail_header_quantity">In stock:</string>
 	<string name = "detail_quantity">%1d un</string>
 	<string name = "detail_header_total_values_disclaimer">(Gross values)</string>
