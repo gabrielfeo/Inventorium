@@ -18,14 +18,16 @@
 
 		<ProgressBar
 			android:id = "@+id/editor_progressbar"
-			style = "@style/ProgressBarTheme.LinearLayout" />
+			style = "@style/ProgressBarTheme.LinearLayout"
+			tools:visibility = "gone" />
 
 		<ScrollView
 			android:id = "@+id/editor_scrollview"
 			android:layout_width = "match_parent"
 			android:layout_height = "wrap_content"
 			android:orientation = "vertical"
-			android:visibility = "gone">
+			android:visibility = "gone"
+			tools:visibility = "visible">
 
 			<android.support.constraint.ConstraintLayout
 				android:layout_width = "match_parent"
@@ -147,7 +149,7 @@
 					android:id = "@+id/editor_textview_header_supplier"
 					style = "@style/EditorHeaderText"
 					android:layout_marginTop = "@dimen/editor_quantity_margin_vertical"
-					android:paddingBottom = "4dp"
+					android:paddingBottom = "8dp"
 					android:text = "@string/editor_header_supplier_info"
 					app:layout_constraintStart_toStartOf = "parent"
 					app:layout_constraintTop_toBottomOf = "@id/editor_edittext_quantity" />
@@ -190,8 +192,11 @@
 
 				<android.support.design.widget.TextInputEditText
 					android:id = "@+id/editor_edittext_notes"
-					style = "@style/EditorTextInputLayout"
+					android:layout_width = "match_parent"
+					android:layout_height = "wrap_content"
 					android:layout_marginBottom = "@dimen/activity_margin"
+					android:layout_marginEnd = "@dimen/activity_margin"
+					android:layout_marginStart = "@dimen/activity_margin"
 					android:inputType = "textMultiLine|textCapSentences|textAutoComplete"
 					app:layout_constraintBottom_toBottomOf = "parent"
 					app:layout_constraintTop_toBottomOf = "@id/editor_textview_header_notes" />

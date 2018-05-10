@@ -33,6 +33,7 @@
 
 	<style name = "EditorHeaderText">
 		<item name = "android:layout_width">match_parent</item>
+		<item name = "android:paddingBottom">4dp</item>
 		<item name = "android:layout_height">wrap_content</item>
 		<item name = "android:layout_marginStart">@dimen/activity_margin</item>
 		<item name = "android:textStyle">bold</item>
@@ -41,6 +42,7 @@
 	<style name = "EditorTextInputLayout">
 		<item name = "android:layout_width">match_parent</item>
 		<item name = "android:layout_height">wrap_content</item>
+		<item name = "android:paddingBottom">4dp</item>
 		<item name = "android:layout_marginStart">@dimen/activity_margin</item>
 		<item name = "android:layout_marginEnd">@dimen/activity_margin</item>
 	</style>
