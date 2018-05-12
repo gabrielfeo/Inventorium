@@ -31,6 +31,7 @@ class DetailsLoader extends AsyncTaskLoader<ItemDetails> {
 			setSupplierEmail();
 			setSupplierPhone();
 			setNotes();
+			setPictureByteArray();
 		} finally {
 			cursor.close();
 		}
@@ -84,6 +85,11 @@ class DetailsLoader extends AsyncTaskLoader<ItemDetails> {
 	private void setNotes() {
 		String notes = cursor.getString(ItemTable.COLUMN_INDEX_NOTES);
 		itemDetails.setNotes(notes);
+	}
+
+	private void setPictureByteArray() {
+		byte[] pictureByteArray = cursor.getBlob(ItemTable.COLUMN_INDEX_PICTURE);
+		itemDetails.setPictureByteArray(pictureByteArray);
 	}
 
 }

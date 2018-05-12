@@ -140,6 +140,7 @@ public class DetailActivity extends AppCompatActivity {
 			public void onLoadFinished(@NonNull Loader loader, Object data) {
 				itemDetails = (FormattedItemDetails) data;
 				fillTextViewsWithDetails();
+				fillImageView();
 				hideNotesViewIfEmpty();
 				showDetailsViews();
 			}
@@ -161,6 +162,10 @@ public class DetailActivity extends AppCompatActivity {
 		binding.detailTextviewUnitCost.setText(itemDetails.getUnitCostPrice());
 		binding.detailTextviewUnitSellingPrice.setText(itemDetails.getUnitSellingPrice());
 		binding.detailTextviewUnitProfit.setText(itemDetails.getUnitProfit());
+	}
+
+	private void fillImageView() {
+		binding.detailImageviewPicture.setImageBitmap(itemDetails.getPicture());
 	}
 
 	private void hideNotesViewIfEmpty() {

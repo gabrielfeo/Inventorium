@@ -12,7 +12,7 @@ import android.provider.BaseColumns;
 public class InventoryDbContract {
 
 	public static final String DATABASE_NAME = "inventory.db";
-	public static final int DATABASE_VERSION = 5;
+	public static final int DATABASE_VERSION = 6;
 	public static final String CONTENT_AUTHORITY = "com.gfeo.inventorium";
 	public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 	public static final String PATH_INVENTORY = "inventory";
@@ -40,6 +40,7 @@ public class InventoryDbContract {
 		public static final String COLUMN_NAME_SUPPLIER_PHONE = "supplierPhone";
 		public static final String COLUMN_NAME_SUPPLIER_EMAIL = "supplierEmail";
 		public static final String COLUMN_NAME_NOTES = "notes";
+		public static final String COLUMN_NAME_PICTURE = "picture";
 
 		static final String COMMAND_CREATE_TABLE =
 				"CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " ("
@@ -51,7 +52,8 @@ public class InventoryDbContract {
 						+ COLUMN_NAME_QUANTITY + " INTEGER DEFAULT 0, "
 						+ COLUMN_NAME_SUPPLIER_PHONE + " TEXT, "
 						+ COLUMN_NAME_SUPPLIER_EMAIL + " TEXT, "
-						+ COLUMN_NAME_NOTES + " TEXT" + ");";
+						+ COLUMN_NAME_NOTES + " TEXT, "
+						+ COLUMN_NAME_PICTURE + " BLOB" + ");";
 		static final String COMMAND_DELETE_TABLE =
 				"DROP TABLE IF EXISTS " + TABLE_NAME;
 
@@ -64,6 +66,7 @@ public class InventoryDbContract {
 		public static final int COLUMN_INDEX_SUPPLIER_PHONE = 6;
 		public static final int COLUMN_INDEX_SUPPLIER_EMAIL = 7;
 		public static final int COLUMN_INDEX_NOTES = 8;
+		public static final int COLUMN_INDEX_PICTURE = 9;
 	}
 
 

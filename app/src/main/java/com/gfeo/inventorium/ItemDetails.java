@@ -1,5 +1,7 @@
 package com.gfeo.inventorium;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 
 @SuppressWarnings("WeakerAccess")
@@ -19,6 +21,7 @@ class ItemDetails {
 	protected String unitCostPrice;
 	protected String unitSellingPrice;
 	protected String unitProfit;
+	protected byte[] pictureByteArray;
 
 	ItemDetails(Uri uri) {
 		this.uri = uri;
@@ -122,6 +125,14 @@ class ItemDetails {
 
 	public void setUnitProfit(double unitProfit) {
 		this.unitProfit = String.valueOf(unitProfit);
+	}
+
+	public Bitmap getPicture() {
+		return BitmapFactory.decodeByteArray(pictureByteArray, 0, pictureByteArray.length);
+	}
+
+	public void setPictureByteArray(byte[] pictureByteArray) {
+		this.pictureByteArray = pictureByteArray;
 	}
 
 }

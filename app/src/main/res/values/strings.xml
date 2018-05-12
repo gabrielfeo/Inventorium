@@ -10,10 +10,12 @@
 	<string name = "menu_detail_delete">Delete entry</string>
 	<string name = "menu_detail_order_email">Order by email</string>
 	<string name = "menu_detail_order_phone">Order by phone</string>
+	<string name = "menu_editor_picture">Add a photo</string>
 	<string name = "menu_editor_save">Save entry</string>
 	<string name = "menu_editor_delete">@string/menu_editor_delete</string>
 
 	<string name = "toast_empty_fields">Please fill out all fields</string>
+	<string name = "toast_no_picture">Please add a picture of the item</string>
 	<string name = "toast_error_insert">Error creating new entry in database, please try
 		again</string>
 	<string name = "toast_error_update">Error updating entry in database, please try again</string>

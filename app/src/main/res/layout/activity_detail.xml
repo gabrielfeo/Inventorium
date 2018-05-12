@@ -81,6 +81,18 @@
 					app:layout_constraintTop_toBottomOf = "@id/detail_textview_description"
 					tools:text = "140un" />
 
+				<ImageView
+					android:id = "@+id/detail_imageview_picture"
+					android:layout_width = "0dp"
+					android:layout_height = "0dp"
+					android:layout_margin = "16dp"
+					android:scaleType = "centerCrop"
+					app:layout_constraintBottom_toBottomOf = "@id/detail_textview_quantity"
+					app:layout_constraintDimensionRatio = "1:1"
+					app:layout_constraintEnd_toEndOf = "@id/detail_textview_name"
+					app:layout_constraintTop_toTopOf = "@id/detail_textview_name"
+					tools:src = "@drawable/ic_camera_alt_black_24dp" />
+
 				<TextView
 					android:id = "@+id/detail_textview_header_total_values_disclaimer"
 					android:layout_width = "match_parent"

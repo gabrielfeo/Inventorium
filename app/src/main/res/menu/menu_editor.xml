@@ -3,6 +3,12 @@
 	xmlns:app = "http://schemas.android.com/apk/res-auto">
 
 	<item
+		android:id = "@+id/menu_editor_picture"
+		android:icon = "@drawable/ic_camera_alt_black_24dp"
+		android:title = "@string/menu_editor_picture"
+		app:showAsAction = "always" />
+
+	<item
 		android:id = "@+id/menu_editor_save"
 		android:icon = "@drawable/ic_done_black_24dp"
 		android:title = "@string/menu_editor_save"

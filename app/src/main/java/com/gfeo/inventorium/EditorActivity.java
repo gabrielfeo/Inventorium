@@ -5,8 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -25,14 +27,18 @@ import com.gfeo.inventorium.InventoryLoaderCallbacks.DetailsLoaderCallbacks;
 import com.gfeo.inventorium.data.InventoryDbContract.ItemTable;
 import com.gfeo.inventorium.databinding.EditorActivityBinding;
 
+import java.io.ByteArrayOutputStream;
+
 public class EditorActivity extends AppCompatActivity {
 
 	private static final int DECREASE_QUANTITY = 0;
 	private static final int INCREASE_QUANTITY = 1;
 	private static final int SET_TO_INPUTTED_QUANTITY = 2;
+	public static final int REQUEST_CODE_PICTURE = 1;
 	private static int quantityCount;
 	private EditorActivityBinding binding;
 	private ItemDetails itemDetails;
+	private byte[] pictureByteArray;
 	private boolean changesMade;
 	private final LoaderManager.LoaderCallbacks cursorLoaderCallbacks =
 			new CursorLoaderCallbacks(this) {
@@ -193,6 +199,20 @@ public class EditorActivity extends AppCompatActivity {
 	}
 
 	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == REQUEST_CODE_PICTURE && resultCode == RESULT_OK) {
+			Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+			if (bitmap != null) { storeBitmapAsByteArray(bitmap); }
+		} else { super.onActivityResult(requestCode, resultCode, data); }
+	}
+
+	private void storeBitmapAsByteArray(Bitmap bitmap) {
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+		pictureByteArray = outputStream.toByteArray();
+	}
+
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_editor, menu);
 		if (itemDetails == null) { menu.findItem(R.id.menu_editor_delete).setVisible(false); }
@@ -202,6 +222,9 @@ public class EditorActivity extends AppCompatActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+			case R.id.menu_editor_picture:
+				sendCameraIntent();
+				break;
 			case R.id.menu_editor_save:
 				onSavePressed();
 				break;
@@ -219,9 +242,16 @@ public class EditorActivity extends AppCompatActivity {
 		return true;
 	}
 
+	private void sendCameraIntent() {
+		Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+			startActivityForResult(cameraIntent, REQUEST_CODE_PICTURE);
+		}
+	}
+
 	private void onSavePressed() {
 		ContentValues values = getInputtedValues();
-		if (hasNoEmptyStrings(values)) {
+		if (hasNoEmptyStrings(values) && hasPicture(values)) {
 			if (itemDetails == null) { insertInDb(values); } else { updateInDb(values); }
 		}
 	}
@@ -251,12 +281,16 @@ public class EditorActivity extends AppCompatActivity {
 		           binding.editorEdittextSupplierPhone.getText().toString().trim());
 		values.put(ItemTable.COLUMN_NAME_NOTES,
 		           binding.editorEdittextNotes.getText().toString());
+		values.put(ItemTable.COLUMN_NAME_PICTURE,
+		           pictureByteArray);
 		return values;
 	}
 
 	private boolean hasNoEmptyStrings(ContentValues values) {
 		boolean hasEmptyStrings =
 				Stream.of(values.valueSet().iterator())
+				      .filterNot(mapEntry -> mapEntry.getKey().equals(ItemTable
+						                                                      .COLUMN_NAME_PICTURE))
 				      .filterNot(mapEntry -> mapEntry.getKey().equals(ItemTable.COLUMN_NAME_NOTES))
 				      .anyMatch(mapEntry -> ((String) mapEntry.getValue()).isEmpty());
 		if (hasEmptyStrings) {
@@ -264,6 +298,17 @@ public class EditorActivity extends AppCompatActivity {
 			     .show();
 			return false;
 		} else { return true; }
+	}
+
+	private boolean hasPicture(ContentValues values) {
+		boolean hasPicture = values.get(ItemTable.COLUMN_NAME_PICTURE) != null;
+		if (hasPicture) {
+			return true;
+		} else {
+			Toast.makeText(this, getString(R.string.toast_no_picture), Toast.LENGTH_SHORT)
+			     .show();
+			return false;
+		}
 	}
 
 	private void insertInDb(ContentValues values) {
