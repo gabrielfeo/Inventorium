@@ -27,7 +27,8 @@
 	<string name = "common_dialog_delete_entry_positive">Delete</string>
 	<string name = "common_dialog_delete_entry_negative">Cancel</string>
 
-	<string name = "inventory_empty_view">Your inventory is empty.</string>
+	<string name = "inventory_empty_view">Your inventory is empty.\nUse the + button to add
+		a new item.</string>
 
 	<string name = "detail_header_quantity">In stock:</string>
 	<string name = "detail_quantity">%1d un</string>
