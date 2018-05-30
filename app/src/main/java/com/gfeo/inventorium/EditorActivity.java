@@ -103,7 +103,8 @@ public class EditorActivity extends AppCompatActivity {
 
 			@Override
 			public void afterTextChanged(Editable editable) {
-				if (!editable.toString().equals(String.valueOf(quantityCount))) {
+				String newText = editable.toString();
+				if (!newText.equals(String.valueOf(quantityCount)) && !newText.isEmpty()) {
 					updateQuantityCount(SET_TO_INPUTTED_QUANTITY);
 				}
 			}
