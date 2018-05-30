@@ -1,4 +1,5 @@
 # Inventorium
+An inventory management app for Android.  
 Project #10 for the Udacity Android Basics nanodegree.
 
 ### Features:
